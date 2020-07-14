@@ -1,0 +1,111 @@
+{
+  "alias": "",
+  "description": "The user role element for a team lead",
+  "domainUId": "f8946341-01c5-4865-aa68-f41899aa63e5",
+  "isActive": true,
+  "isAutoCollect": false,
+  "isBuiltIn": false,
+  "modifiedBy": "alex@teambond.io",
+  "name": "TeamLead",
+  "parentUId": "",
+  "typeItemUId": "e9aacca5-c395-4919-9665-8ff713cd41d6",
+  "typeUIdRecordStatus": "a3fa3141-209b-4396-bb49-426033a0973e",
+  "uId": "0120e2b8-3794-42b5-97d1-569b4b66bbcf",
+  "elementEdges": [
+    {
+      "edgeProperties": [
+        {
+          "attribute": "",
+          "edgeTypeUId": "",
+          "edgeUId": "",
+          "modifiedBy": "",
+          "Name": "",
+          "typeItemUId": "",
+          "uId": ""
+        }
+      ],
+      "labelUId": "",
+      "modifiedBy": "alex@teambond.io",
+      "sourceElementUId": "0120e2b8-3794-42b5-97d1-569b4b66bbcf",
+      "targetElementUId": "afeb2995-5c3b-4894-b3c0-80e4d7b91acf",
+      "typeItemUId": "c0d211d4-df5f-437b-8787-5c50d73a790a",
+      "UId": "092ab158-d3cd-4cf3-b0a1-e7f75a460c76"
+    }
+  ],
+  "globalPropertyEdges": [
+    {
+      "elementUId": "",
+      "globalPropertyEdgeProperties": [
+        {
+          "attribute": "",
+          "edgeUId": "",
+          "modifiedBy": "",
+          "typeItemUId": "",
+          "uId": ""
+        }
+      ],
+      "globalPropertyUId": "",
+      "isElementDriver": false,
+      "modifiedBy": "",
+      "typeItemUId": "",
+      "uId": ""
+    }
+  ],
+  "globalPropertyList": [
+    {
+      "attribute": "",
+      "elementUId": "",
+      "isAutoCollect": false,
+      "modifiedBy": "",
+      "moduleUIdAutoCollect": "",
+      "name": "",
+      "sortOrder": 0,
+      "typeItemUId": "",
+      "uId": ""
+    }
+  ],
+  "privatePropertyEdges": [
+    {
+      "elementUId": "",
+      "isElementDriver": false,
+      "modifiedBy": "",
+      "privatePropertyEdgeProperties": [
+        {
+          "attribute": "",
+          "edgeUId": "",
+          "modifiedBy": "",
+          "typeItemUId": "",
+          "uId": ""
+        }
+      ],
+      "privatePropertyUId": "",
+      "typeItemUId": "",
+      "New item - 2": ""
+    }
+  ],
+  "privatePropertyKeys": [
+    {
+      "elementUId": "",
+      "isAutoCollect": false,
+      "modifiedBy": "",
+      "moduleUIdAutoCollect": "",
+      "parentUId": "",
+      "sortOrder": 0,
+      "typeKeyUId": "",
+      "typeUnitUId": "",
+      "typeValueUId": "",
+      "uId": ""
+    }
+  ],
+  "privateProperties": [
+    {
+      "attribute": "",
+      "isActive": false,
+      "modfiedBy": "",
+      "parentUId": "",
+      "privatePropertyKeyUId": "",
+      "sortOrder": 0,
+      "uId": ""
+    }
+  ]
+}

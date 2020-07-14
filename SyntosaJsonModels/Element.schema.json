@@ -1,0 +1,1433 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "alias": "",
+            "description": "The user role element for a team lead",
+            "domainUId": "f8946341-01c5-4865-aa68-f41899aa63e5",
+            "isActive": true,
+            "isAutoCollect": false,
+            "isBuiltIn": false,
+            "modifiedBy": "alex@teambond.io",
+            "name": "TeamLead",
+            "parentUId": "",
+            "typeItemUId": "e9aacca5-c395-4919-9665-8ff713cd41d6",
+            "typeUIdRecordStatus": "a3fa3141-209b-4396-bb49-426033a0973e",
+            "uId": "0120e2b8-3794-42b5-97d1-569b4b66bbcf",
+            "elementEdges": [
+                {
+                    "edgeProperties": [
+                        {
+                            "attribute": "",
+                            "edgeTypeUId": "",
+                            "edgeUId": "",
+                            "modifiedBy": "",
+                            "Name": "",
+                            "typeItemUId": "",
+                            "uId": ""
+                        }
+                    ],
+                    "labelUId": "",
+                    "modifiedBy": "alex@teambond.io",
+                    "sourceElementUId": "0120e2b8-3794-42b5-97d1-569b4b66bbcf",
+                    "targetElementUId": "afeb2995-5c3b-4894-b3c0-80e4d7b91acf",
+                    "typeItemUId": "c0d211d4-df5f-437b-8787-5c50d73a790a",
+                    "UId": "092ab158-d3cd-4cf3-b0a1-e7f75a460c76"
+                }
+            ],
+            "globalPropertyEdges": [
+                {
+                    "elementUId": "",
+                    "globalPropertyEdgeProperties": [
+                        {
+                            "attribute": "",
+                            "edgeUId": "",
+                            "modifiedBy": "",
+                            "typeItemUId": "",
+                            "uId": ""
+                        }
+                    ],
+                    "globalPropertyUId": "",
+                    "isElementDriver": false,
+                    "modifiedBy": "",
+                    "typeItemUId": "",
+                    "uId": ""
+                }
+            ],
+            "globalPropertyList": [
+                {
+                    "attribute": "",
+                    "elementUId": "",
+                    "isAutoCollect": false,
+                    "modifiedBy": "",
+                    "moduleUIdAutoCollect": "",
+                    "name": "",
+                    "sortOrder": 0,
+                    "typeItemUId": "",
+                    "uId": ""
+                }
+            ],
+            "privatePropertyEdges": [
+                {
+                    "elementUId": "",
+                    "isElementDriver": false,
+                    "modifiedBy": "",
+                    "privatePropertyEdgeProperties": [
+                        {
+                            "attribute": "",
+                            "edgeUId": "",
+                            "modifiedBy": "",
+                            "typeItemUId": "",
+                            "uId": ""
+                        }
+                    ],
+                    "privatePropertyUId": "",
+                    "typeItemUId": "",
+                    "New item - 2": ""
+                }
+            ],
+            "privatePropertyKeys": [
+                {
+                    "elementUId": "",
+                    "isAutoCollect": false,
+                    "modifiedBy": "",
+                    "moduleUIdAutoCollect": "",
+                    "parentUId": "",
+                    "sortOrder": 0,
+                    "typeKeyUId": "",
+                    "typeUnitUId": "",
+                    "typeValueUId": "",
+                    "uId": ""
+                }
+            ],
+            "privateProperties": [
+                {
+                    "attribute": "",
+                    "isActive": false,
+                    "modfiedBy": "",
+                    "parentUId": "",
+                    "privatePropertyKeyUId": "",
+                    "sortOrder": 0,
+                    "uId": ""
+                }
+            ]
+        }
+    ],
+    "required": [
+        "alias",
+        "description",
+        "domainUId",
+        "isActive",
+        "isAutoCollect",
+        "isBuiltIn",
+        "modifiedBy",
+        "name",
+        "parentUId",
+        "typeItemUId",
+        "typeUIdRecordStatus",
+        "uId",
+        "elementEdges",
+        "globalPropertyEdges",
+        "globalPropertyList",
+        "privatePropertyEdges",
+        "privatePropertyKeys",
+        "privateProperties"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "alias": {
+            "$id": "#/properties/alias",
+            "type": "string",
+            "title": "The alias schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                ""
+            ]
+        },
+        "description": {
+            "$id": "#/properties/description",
+            "type": "string",
+            "title": "The description schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "The user role element for a team lead"
+            ]
+        },
+        "domainUId": {
+            "$id": "#/properties/domainUId",
+            "type": "string",
+            "title": "The domainUId schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "f8946341-01c5-4865-aa68-f41899aa63e5"
+            ]
+        },
+        "isActive": {
+            "$id": "#/properties/isActive",
+            "type": "boolean",
+            "title": "The isActive schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+                true
+            ]
+        },
+        "isAutoCollect": {
+            "$id": "#/properties/isAutoCollect",
+            "type": "boolean",
+            "title": "The isAutoCollect schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+                false
+            ]
+        },
+        "isBuiltIn": {
+            "$id": "#/properties/isBuiltIn",
+            "type": "boolean",
+            "title": "The isBuiltIn schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+                false
+            ]
+        },
+        "modifiedBy": {
+            "$id": "#/properties/modifiedBy",
+            "type": "string",
+            "title": "The modifiedBy schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "alex@teambond.io"
+            ]
+        },
+        "name": {
+            "$id": "#/properties/name",
+            "type": "string",
+            "title": "The name schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "TeamLead"
+            ]
+        },
+        "parentUId": {
+            "$id": "#/properties/parentUId",
+            "type": "string",
+            "title": "The parentUId schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                ""
+            ]
+        },
+        "typeItemUId": {
+            "$id": "#/properties/typeItemUId",
+            "type": "string",
+            "title": "The typeItemUId schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "e9aacca5-c395-4919-9665-8ff713cd41d6"
+            ]
+        },
+        "typeUIdRecordStatus": {
+            "$id": "#/properties/typeUIdRecordStatus",
+            "type": "string",
+            "title": "The typeUIdRecordStatus schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "a3fa3141-209b-4396-bb49-426033a0973e"
+            ]
+        },
+        "uId": {
+            "$id": "#/properties/uId",
+            "type": "string",
+            "title": "The uId schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "0120e2b8-3794-42b5-97d1-569b4b66bbcf"
+            ]
+        },
+        "elementEdges": {
+            "$id": "#/properties/elementEdges",
+            "type": "array",
+            "title": "The elementEdges schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "edgeProperties": [
+                            {
+                                "attribute": "",
+                                "edgeTypeUId": "",
+                                "edgeUId": "",
+                                "modifiedBy": "",
+                                "Name": "",
+                                "typeItemUId": "",
+                                "uId": ""
+                            }
+                        ],
+                        "labelUId": "",
+                        "modifiedBy": "alex@teambond.io",
+                        "sourceElementUId": "0120e2b8-3794-42b5-97d1-569b4b66bbcf",
+                        "targetElementUId": "afeb2995-5c3b-4894-b3c0-80e4d7b91acf",
+                        "typeItemUId": "c0d211d4-df5f-437b-8787-5c50d73a790a",
+                        "UId": "092ab158-d3cd-4cf3-b0a1-e7f75a460c76"
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "$id": "#/properties/elementEdges/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "edgeProperties": [
+                                    {
+                                        "attribute": "",
+                                        "edgeTypeUId": "",
+                                        "edgeUId": "",
+                                        "modifiedBy": "",
+                                        "Name": "",
+                                        "typeItemUId": "",
+                                        "uId": ""
+                                    }
+                                ],
+                                "labelUId": "",
+                                "modifiedBy": "alex@teambond.io",
+                                "sourceElementUId": "0120e2b8-3794-42b5-97d1-569b4b66bbcf",
+                                "targetElementUId": "afeb2995-5c3b-4894-b3c0-80e4d7b91acf",
+                                "typeItemUId": "c0d211d4-df5f-437b-8787-5c50d73a790a",
+                                "UId": "092ab158-d3cd-4cf3-b0a1-e7f75a460c76"
+                            }
+                        ],
+                        "required": [
+                            "edgeProperties",
+                            "labelUId",
+                            "modifiedBy",
+                            "sourceElementUId",
+                            "targetElementUId",
+                            "typeItemUId",
+                            "UId"
+                        ],
+                        "additionalProperties": true,
+                        "properties": {
+                            "edgeProperties": {
+                                "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties",
+                                "type": "array",
+                                "title": "The edgeProperties schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        {
+                                            "attribute": "",
+                                            "edgeTypeUId": "",
+                                            "edgeUId": "",
+                                            "modifiedBy": "",
+                                            "Name": "",
+                                            "typeItemUId": "",
+                                            "uId": ""
+                                        }
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties/items/anyOf/0",
+                                            "type": "object",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [
+                                                {
+                                                    "attribute": "",
+                                                    "edgeTypeUId": "",
+                                                    "edgeUId": "",
+                                                    "modifiedBy": "",
+                                                    "Name": "",
+                                                    "typeItemUId": "",
+                                                    "uId": ""
+                                                }
+                                            ],
+                                            "required": [
+                                                "attribute",
+                                                "edgeTypeUId",
+                                                "edgeUId",
+                                                "modifiedBy",
+                                                "Name",
+                                                "typeItemUId",
+                                                "uId"
+                                            ],
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "attribute": {
+                                                    "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties/items/anyOf/0/properties/attribute",
+                                                    "type": "string",
+                                                    "title": "The attribute schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "edgeTypeUId": {
+                                                    "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties/items/anyOf/0/properties/edgeTypeUId",
+                                                    "type": "string",
+                                                    "title": "The edgeTypeUId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "edgeUId": {
+                                                    "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties/items/anyOf/0/properties/edgeUId",
+                                                    "type": "string",
+                                                    "title": "The edgeUId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "modifiedBy": {
+                                                    "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties/items/anyOf/0/properties/modifiedBy",
+                                                    "type": "string",
+                                                    "title": "The modifiedBy schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "Name": {
+                                                    "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties/items/anyOf/0/properties/Name",
+                                                    "type": "string",
+                                                    "title": "The Name schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "typeItemUId": {
+                                                    "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties/items/anyOf/0/properties/typeItemUId",
+                                                    "type": "string",
+                                                    "title": "The typeItemUId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "uId": {
+                                                    "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties/items/anyOf/0/properties/uId",
+                                                    "type": "string",
+                                                    "title": "The uId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "$id": "#/properties/elementEdges/items/anyOf/0/properties/edgeProperties/items"
+                                }
+                            },
+                            "labelUId": {
+                                "$id": "#/properties/elementEdges/items/anyOf/0/properties/labelUId",
+                                "type": "string",
+                                "title": "The labelUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "modifiedBy": {
+                                "$id": "#/properties/elementEdges/items/anyOf/0/properties/modifiedBy",
+                                "type": "string",
+                                "title": "The modifiedBy schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "alex@teambond.io"
+                                ]
+                            },
+                            "sourceElementUId": {
+                                "$id": "#/properties/elementEdges/items/anyOf/0/properties/sourceElementUId",
+                                "type": "string",
+                                "title": "The sourceElementUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "0120e2b8-3794-42b5-97d1-569b4b66bbcf"
+                                ]
+                            },
+                            "targetElementUId": {
+                                "$id": "#/properties/elementEdges/items/anyOf/0/properties/targetElementUId",
+                                "type": "string",
+                                "title": "The targetElementUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "afeb2995-5c3b-4894-b3c0-80e4d7b91acf"
+                                ]
+                            },
+                            "typeItemUId": {
+                                "$id": "#/properties/elementEdges/items/anyOf/0/properties/typeItemUId",
+                                "type": "string",
+                                "title": "The typeItemUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "c0d211d4-df5f-437b-8787-5c50d73a790a"
+                                ]
+                            },
+                            "UId": {
+                                "$id": "#/properties/elementEdges/items/anyOf/0/properties/UId",
+                                "type": "string",
+                                "title": "The UId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "092ab158-d3cd-4cf3-b0a1-e7f75a460c76"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "$id": "#/properties/elementEdges/items"
+            }
+        },
+        "globalPropertyEdges": {
+            "$id": "#/properties/globalPropertyEdges",
+            "type": "array",
+            "title": "The globalPropertyEdges schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "elementUId": "",
+                        "globalPropertyEdgeProperties": [
+                            {
+                                "attribute": "",
+                                "edgeUId": "",
+                                "modifiedBy": "",
+                                "typeItemUId": "",
+                                "uId": ""
+                            }
+                        ],
+                        "globalPropertyUId": "",
+                        "isElementDriver": false,
+                        "modifiedBy": "",
+                        "typeItemUId": "",
+                        "uId": ""
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "$id": "#/properties/globalPropertyEdges/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "elementUId": "",
+                                "globalPropertyEdgeProperties": [
+                                    {
+                                        "attribute": "",
+                                        "edgeUId": "",
+                                        "modifiedBy": "",
+                                        "typeItemUId": "",
+                                        "uId": ""
+                                    }
+                                ],
+                                "globalPropertyUId": "",
+                                "isElementDriver": false,
+                                "modifiedBy": "",
+                                "typeItemUId": "",
+                                "uId": ""
+                            }
+                        ],
+                        "required": [
+                            "elementUId",
+                            "globalPropertyEdgeProperties",
+                            "globalPropertyUId",
+                            "isElementDriver",
+                            "modifiedBy",
+                            "typeItemUId",
+                            "uId"
+                        ],
+                        "additionalProperties": true,
+                        "properties": {
+                            "elementUId": {
+                                "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/elementUId",
+                                "type": "string",
+                                "title": "The elementUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "globalPropertyEdgeProperties": {
+                                "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/globalPropertyEdgeProperties",
+                                "type": "array",
+                                "title": "The globalPropertyEdgeProperties schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        {
+                                            "attribute": "",
+                                            "edgeUId": "",
+                                            "modifiedBy": "",
+                                            "typeItemUId": "",
+                                            "uId": ""
+                                        }
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/globalPropertyEdgeProperties/items/anyOf/0",
+                                            "type": "object",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [
+                                                {
+                                                    "attribute": "",
+                                                    "edgeUId": "",
+                                                    "modifiedBy": "",
+                                                    "typeItemUId": "",
+                                                    "uId": ""
+                                                }
+                                            ],
+                                            "required": [
+                                                "attribute",
+                                                "edgeUId",
+                                                "modifiedBy",
+                                                "typeItemUId",
+                                                "uId"
+                                            ],
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "attribute": {
+                                                    "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/globalPropertyEdgeProperties/items/anyOf/0/properties/attribute",
+                                                    "type": "string",
+                                                    "title": "The attribute schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "edgeUId": {
+                                                    "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/globalPropertyEdgeProperties/items/anyOf/0/properties/edgeUId",
+                                                    "type": "string",
+                                                    "title": "The edgeUId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "modifiedBy": {
+                                                    "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/globalPropertyEdgeProperties/items/anyOf/0/properties/modifiedBy",
+                                                    "type": "string",
+                                                    "title": "The modifiedBy schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "typeItemUId": {
+                                                    "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/globalPropertyEdgeProperties/items/anyOf/0/properties/typeItemUId",
+                                                    "type": "string",
+                                                    "title": "The typeItemUId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "uId": {
+                                                    "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/globalPropertyEdgeProperties/items/anyOf/0/properties/uId",
+                                                    "type": "string",
+                                                    "title": "The uId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/globalPropertyEdgeProperties/items"
+                                }
+                            },
+                            "globalPropertyUId": {
+                                "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/globalPropertyUId",
+                                "type": "string",
+                                "title": "The globalPropertyUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "isElementDriver": {
+                                "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/isElementDriver",
+                                "type": "boolean",
+                                "title": "The isElementDriver schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "modifiedBy": {
+                                "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/modifiedBy",
+                                "type": "string",
+                                "title": "The modifiedBy schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "typeItemUId": {
+                                "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/typeItemUId",
+                                "type": "string",
+                                "title": "The typeItemUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "uId": {
+                                "$id": "#/properties/globalPropertyEdges/items/anyOf/0/properties/uId",
+                                "type": "string",
+                                "title": "The uId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "$id": "#/properties/globalPropertyEdges/items"
+            }
+        },
+        "globalPropertyList": {
+            "$id": "#/properties/globalPropertyList",
+            "type": "array",
+            "title": "The globalPropertyList schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "attribute": "",
+                        "elementUId": "",
+                        "isAutoCollect": false,
+                        "modifiedBy": "",
+                        "moduleUIdAutoCollect": "",
+                        "name": "",
+                        "sortOrder": 0,
+                        "typeItemUId": "",
+                        "uId": ""
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "$id": "#/properties/globalPropertyList/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "attribute": "",
+                                "elementUId": "",
+                                "isAutoCollect": false,
+                                "modifiedBy": "",
+                                "moduleUIdAutoCollect": "",
+                                "name": "",
+                                "sortOrder": 0,
+                                "typeItemUId": "",
+                                "uId": ""
+                            }
+                        ],
+                        "required": [
+                            "attribute",
+                            "elementUId",
+                            "isAutoCollect",
+                            "modifiedBy",
+                            "moduleUIdAutoCollect",
+                            "name",
+                            "sortOrder",
+                            "typeItemUId",
+                            "uId"
+                        ],
+                        "additionalProperties": true,
+                        "properties": {
+                            "attribute": {
+                                "$id": "#/properties/globalPropertyList/items/anyOf/0/properties/attribute",
+                                "type": "string",
+                                "title": "The attribute schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "elementUId": {
+                                "$id": "#/properties/globalPropertyList/items/anyOf/0/properties/elementUId",
+                                "type": "string",
+                                "title": "The elementUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "isAutoCollect": {
+                                "$id": "#/properties/globalPropertyList/items/anyOf/0/properties/isAutoCollect",
+                                "type": "boolean",
+                                "title": "The isAutoCollect schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "modifiedBy": {
+                                "$id": "#/properties/globalPropertyList/items/anyOf/0/properties/modifiedBy",
+                                "type": "string",
+                                "title": "The modifiedBy schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "moduleUIdAutoCollect": {
+                                "$id": "#/properties/globalPropertyList/items/anyOf/0/properties/moduleUIdAutoCollect",
+                                "type": "string",
+                                "title": "The moduleUIdAutoCollect schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "name": {
+                                "$id": "#/properties/globalPropertyList/items/anyOf/0/properties/name",
+                                "type": "string",
+                                "title": "The name schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "sortOrder": {
+                                "$id": "#/properties/globalPropertyList/items/anyOf/0/properties/sortOrder",
+                                "type": "integer",
+                                "title": "The sortOrder schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    0
+                                ]
+                            },
+                            "typeItemUId": {
+                                "$id": "#/properties/globalPropertyList/items/anyOf/0/properties/typeItemUId",
+                                "type": "string",
+                                "title": "The typeItemUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "uId": {
+                                "$id": "#/properties/globalPropertyList/items/anyOf/0/properties/uId",
+                                "type": "string",
+                                "title": "The uId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "$id": "#/properties/globalPropertyList/items"
+            }
+        },
+        "privatePropertyEdges": {
+            "$id": "#/properties/privatePropertyEdges",
+            "type": "array",
+            "title": "The privatePropertyEdges schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "elementUId": "",
+                        "isElementDriver": false,
+                        "modifiedBy": "",
+                        "privatePropertyEdgeProperties": [
+                            {
+                                "attribute": "",
+                                "edgeUId": "",
+                                "modifiedBy": "",
+                                "typeItemUId": "",
+                                "uId": ""
+                            }
+                        ],
+                        "privatePropertyUId": "",
+                        "typeItemUId": "",
+                        "New item - 2": ""
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "$id": "#/properties/privatePropertyEdges/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "elementUId": "",
+                                "isElementDriver": false,
+                                "modifiedBy": "",
+                                "privatePropertyEdgeProperties": [
+                                    {
+                                        "attribute": "",
+                                        "edgeUId": "",
+                                        "modifiedBy": "",
+                                        "typeItemUId": "",
+                                        "uId": ""
+                                    }
+                                ],
+                                "privatePropertyUId": "",
+                                "typeItemUId": "",
+                                "New item - 2": ""
+                            }
+                        ],
+                        "required": [
+                            "elementUId",
+                            "isElementDriver",
+                            "modifiedBy",
+                            "privatePropertyEdgeProperties",
+                            "privatePropertyUId",
+                            "typeItemUId",
+                            "New item - 2"
+                        ],
+                        "additionalProperties": true,
+                        "properties": {
+                            "elementUId": {
+                                "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/elementUId",
+                                "type": "string",
+                                "title": "The elementUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "isElementDriver": {
+                                "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/isElementDriver",
+                                "type": "boolean",
+                                "title": "The isElementDriver schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "modifiedBy": {
+                                "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/modifiedBy",
+                                "type": "string",
+                                "title": "The modifiedBy schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "privatePropertyEdgeProperties": {
+                                "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/privatePropertyEdgeProperties",
+                                "type": "array",
+                                "title": "The privatePropertyEdgeProperties schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        {
+                                            "attribute": "",
+                                            "edgeUId": "",
+                                            "modifiedBy": "",
+                                            "typeItemUId": "",
+                                            "uId": ""
+                                        }
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/privatePropertyEdgeProperties/items/anyOf/0",
+                                            "type": "object",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [
+                                                {
+                                                    "attribute": "",
+                                                    "edgeUId": "",
+                                                    "modifiedBy": "",
+                                                    "typeItemUId": "",
+                                                    "uId": ""
+                                                }
+                                            ],
+                                            "required": [
+                                                "attribute",
+                                                "edgeUId",
+                                                "modifiedBy",
+                                                "typeItemUId",
+                                                "uId"
+                                            ],
+                                            "additionalProperties": true,
+                                            "properties": {
+                                                "attribute": {
+                                                    "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/privatePropertyEdgeProperties/items/anyOf/0/properties/attribute",
+                                                    "type": "string",
+                                                    "title": "The attribute schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "edgeUId": {
+                                                    "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/privatePropertyEdgeProperties/items/anyOf/0/properties/edgeUId",
+                                                    "type": "string",
+                                                    "title": "The edgeUId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "modifiedBy": {
+                                                    "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/privatePropertyEdgeProperties/items/anyOf/0/properties/modifiedBy",
+                                                    "type": "string",
+                                                    "title": "The modifiedBy schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "typeItemUId": {
+                                                    "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/privatePropertyEdgeProperties/items/anyOf/0/properties/typeItemUId",
+                                                    "type": "string",
+                                                    "title": "The typeItemUId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "uId": {
+                                                    "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/privatePropertyEdgeProperties/items/anyOf/0/properties/uId",
+                                                    "type": "string",
+                                                    "title": "The uId schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        ""
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/privatePropertyEdgeProperties/items"
+                                }
+                            },
+                            "privatePropertyUId": {
+                                "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/privatePropertyUId",
+                                "type": "string",
+                                "title": "The privatePropertyUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "typeItemUId": {
+                                "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/typeItemUId",
+                                "type": "string",
+                                "title": "The typeItemUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "New item - 2": {
+                                "$id": "#/properties/privatePropertyEdges/items/anyOf/0/properties/New item - 2",
+                                "type": "string",
+                                "title": "The New item - 2 schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "$id": "#/properties/privatePropertyEdges/items"
+            }
+        },
+        "privatePropertyKeys": {
+            "$id": "#/properties/privatePropertyKeys",
+            "type": "array",
+            "title": "The privatePropertyKeys schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "elementUId": "",
+                        "isAutoCollect": false,
+                        "modifiedBy": "",
+                        "moduleUIdAutoCollect": "",
+                        "parentUId": "",
+                        "sortOrder": 0,
+                        "typeKeyUId": "",
+                        "typeUnitUId": "",
+                        "typeValueUId": "",
+                        "uId": ""
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "$id": "#/properties/privatePropertyKeys/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "elementUId": "",
+                                "isAutoCollect": false,
+                                "modifiedBy": "",
+                                "moduleUIdAutoCollect": "",
+                                "parentUId": "",
+                                "sortOrder": 0,
+                                "typeKeyUId": "",
+                                "typeUnitUId": "",
+                                "typeValueUId": "",
+                                "uId": ""
+                            }
+                        ],
+                        "required": [
+                            "elementUId",
+                            "isAutoCollect",
+                            "modifiedBy",
+                            "moduleUIdAutoCollect",
+                            "parentUId",
+                            "sortOrder",
+                            "typeKeyUId",
+                            "typeUnitUId",
+                            "typeValueUId",
+                            "uId"
+                        ],
+                        "additionalProperties": true,
+                        "properties": {
+                            "elementUId": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/elementUId",
+                                "type": "string",
+                                "title": "The elementUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "isAutoCollect": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/isAutoCollect",
+                                "type": "boolean",
+                                "title": "The isAutoCollect schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "modifiedBy": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/modifiedBy",
+                                "type": "string",
+                                "title": "The modifiedBy schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "moduleUIdAutoCollect": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/moduleUIdAutoCollect",
+                                "type": "string",
+                                "title": "The moduleUIdAutoCollect schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "parentUId": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/parentUId",
+                                "type": "string",
+                                "title": "The parentUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "sortOrder": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/sortOrder",
+                                "type": "integer",
+                                "title": "The sortOrder schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    0
+                                ]
+                            },
+                            "typeKeyUId": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/typeKeyUId",
+                                "type": "string",
+                                "title": "The typeKeyUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "typeUnitUId": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/typeUnitUId",
+                                "type": "string",
+                                "title": "The typeUnitUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "typeValueUId": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/typeValueUId",
+                                "type": "string",
+                                "title": "The typeValueUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "uId": {
+                                "$id": "#/properties/privatePropertyKeys/items/anyOf/0/properties/uId",
+                                "type": "string",
+                                "title": "The uId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "$id": "#/properties/privatePropertyKeys/items"
+            }
+        },
+        "privateProperties": {
+            "$id": "#/properties/privateProperties",
+            "type": "array",
+            "title": "The privateProperties schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "attribute": "",
+                        "isActive": false,
+                        "modfiedBy": "",
+                        "parentUId": "",
+                        "privatePropertyKeyUId": "",
+                        "sortOrder": 0,
+                        "uId": ""
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "$id": "#/properties/privateProperties/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "attribute": "",
+                                "isActive": false,
+                                "modfiedBy": "",
+                                "parentUId": "",
+                                "privatePropertyKeyUId": "",
+                                "sortOrder": 0,
+                                "uId": ""
+                            }
+                        ],
+                        "required": [
+                            "attribute",
+                            "isActive",
+                            "modfiedBy",
+                            "parentUId",
+                            "privatePropertyKeyUId",
+                            "sortOrder",
+                            "uId"
+                        ],
+                        "additionalProperties": true,
+                        "properties": {
+                            "attribute": {
+                                "$id": "#/properties/privateProperties/items/anyOf/0/properties/attribute",
+                                "type": "string",
+                                "title": "The attribute schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "isActive": {
+                                "$id": "#/properties/privateProperties/items/anyOf/0/properties/isActive",
+                                "type": "boolean",
+                                "title": "The isActive schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "modfiedBy": {
+                                "$id": "#/properties/privateProperties/items/anyOf/0/properties/modfiedBy",
+                                "type": "string",
+                                "title": "The modfiedBy schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "parentUId": {
+                                "$id": "#/properties/privateProperties/items/anyOf/0/properties/parentUId",
+                                "type": "string",
+                                "title": "The parentUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "privatePropertyKeyUId": {
+                                "$id": "#/properties/privateProperties/items/anyOf/0/properties/privatePropertyKeyUId",
+                                "type": "string",
+                                "title": "The privatePropertyKeyUId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            },
+                            "sortOrder": {
+                                "$id": "#/properties/privateProperties/items/anyOf/0/properties/sortOrder",
+                                "type": "integer",
+                                "title": "The sortOrder schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    0
+                                ]
+                            },
+                            "uId": {
+                                "$id": "#/properties/privateProperties/items/anyOf/0/properties/uId",
+                                "type": "string",
+                                "title": "The uId schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "$id": "#/properties/privateProperties/items"
+            }
+        }
+    }
+}

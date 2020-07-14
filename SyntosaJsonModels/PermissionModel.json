@@ -1,0 +1,111 @@
+{
+  "alias": "",
+  "description": "The permission elment for roles that can manage teams.",
+  "domainUId": "f8946341-01c5-4865-aa68-f41899aa63e5",
+  "isActive": true,
+  "isAutoCollect": false,
+  "isBuiltIn": false,
+  "modifiedBy": "alex@teambond.io",
+  "name": "ManageTeam",
+  "parentUId": "",
+  "typeItemUId": "3e3ef2b0-e15f-42c8-8876-2058fbe8755d",
+  "typeUIdRecordStatus": "a3fa3141-209b-4396-bb49-426033a0973e",
+  "uId": "afeb2995-5c3b-4894-b3c0-80e4d7b91acf",
+  "elementEdges": [
+    {
+      "edgeProperties": [
+        {
+          "attribute": "",
+          "edgeTypeUId": "",
+          "edgeUId": "",
+          "modifiedBy": "",
+          "Name": "",
+          "typeItemUId": "",
+          "uId": ""
+        }
+      ],
+      "labelUId": "",
+      "modifiedBy": "",
+      "sourceElementUId": "",
+      "targetElementUId": "",
+      "typeItemUId": "",
+      "UId": ""
+    }
+  ],
+  "globalPropertyEdges": [
+    {
+      "elementUId": "",
+      "globalPropertyEdgeProperties": [
+        {
+          "attribute": "",
+          "edgeUId": "",
+          "modifiedBy": "",
+          "typeItemUId": "",
+          "uId": ""
+        }
+      ],
+      "globalPropertyUId": "",
+      "isElementDriver": false,
+      "modifiedBy": "",
+      "typeItemUId": "",
+      "uId": ""
+    }
+  ],
+  "globalPropertyList": [
+    {
+      "attribute": "",
+      "elementUId": "",
+      "isAutoCollect": false,
+      "modifiedBy": "",
+      "moduleUIdAutoCollect": "",
+      "name": "",
+      "sortOrder": 0,
+      "typeItemUId": "",
+      "uId": ""
+    }
+  ],
+  "privatePropertyEdges": [
+    {
+      "elementUId": "",
+      "isElementDriver": false,
+      "modifiedBy": "",
+      "privatePropertyEdgeProperties": [
+        {
+          "attribute": "",
+          "edgeUId": "",
+          "modifiedBy": "",
+          "typeItemUId": "",
+          "uId": ""
+        }
+      ],
+      "privatePropertyUId": "",
+      "typeItemUId": "",
+      "New item - 2": ""
+    }
+  ],
+  "privatePropertyKeys": [
+    {
+      "elementUId": "",
+      "isAutoCollect": false,
+      "modifiedBy": "",
+      "moduleUIdAutoCollect": "",
+      "parentUId": "",
+      "sortOrder": 0,
+      "typeKeyUId": "",
+      "typeUnitUId": "",
+      "typeValueUId": "",
+      "uId": ""
+    }
+  ],
+  "privateProperties": [
+    {
+      "attribute": "",
+      "isActive": false,
+      "modfiedBy": "",
+      "parentUId": "",
+      "privatePropertyKeyUId": "",
+      "sortOrder": 0,
+      "uId": ""
+    }
+  ]
+}
