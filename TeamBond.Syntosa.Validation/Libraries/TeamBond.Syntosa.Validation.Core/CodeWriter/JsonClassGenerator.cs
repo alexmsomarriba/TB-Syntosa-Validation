@@ -26,6 +26,9 @@
         /// </summary>
         private bool used = false;
 
+        /// <summary>
+        /// The names.
+        /// </summary>
         private HashSet<string> names = new HashSet<string>();
 
         /// <summary>
@@ -33,6 +36,9 @@
         /// </summary>
         public string TargetFolder { get; set; }
 
+        /// <summary>
+        /// Gets or sets the example.
+        /// </summary>
         public string Example { get; set; }
 
         /// <inheritdoc />
@@ -54,7 +60,7 @@
         public bool HasHelperClass { get; set; }
 
         /// <inheritdoc />
-        public bool HasSecondaryClasses => Types.Count > 1;
+        public bool HasSecondaryClasses => this.Types.Count > 1;
 
         /// <inheritdoc />
         public bool InternalVisibility { get; set; }
@@ -147,6 +153,17 @@
                                };
             rootType.AssignName(this.MainClass);
             this.GenerateClass(examples, rootType);
+
+            if (writeToDisk)
+            {
+                var parentFolder =
+                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+                if (this.HasHelperClass && this.ExplicitDeserialization)
+                {
+                    //File.WriteAllBytes(Path.Combine(TargetFolder, "JsonClassHelper.cs"));
+                }
+            }
         }
 
         /// <summary>
@@ -284,6 +301,15 @@
             this.Types.Add(type);
         }
 
+        /// <summary>
+        /// The create unique class name.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         private string CreateUniqueClassName(string name)
         {
             name = ToTitleCase(name);
@@ -300,12 +326,30 @@
             return finalName;
         }
 
+        /// <summary>
+        /// The create unique class name from plural.
+        /// </summary>
+        /// <param name="plural">
+        /// The plural.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         private string CreateUniqueClassNameFromPlural(string plural)
         {
             plural = ToTitleCase(plural);
-            return CreateUniqueClassName(this.pluralizationService.Singularize(plural));
+            return this.CreateUniqueClassName(this.pluralizationService.Singularize(plural));
         }
 
+        /// <summary>
+        /// The to title case.
+        /// </summary>
+        /// <param name="str">
+        /// The str.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         internal static string ToTitleCase(string str)
         {
             var stringBuilder = new StringBuilder(str.Length);

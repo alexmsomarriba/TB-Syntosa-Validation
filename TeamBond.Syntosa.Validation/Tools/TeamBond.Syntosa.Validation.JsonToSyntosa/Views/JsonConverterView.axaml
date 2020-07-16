@@ -1,0 +1,26 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamBond.Syntosa.Validation.JsonToSyntosa.Views.JsonConverterView">
+  <DockPanel Height="450" Width="800">
+    <Button DockPanel.Dock="Bottom"
+        Margin="10"
+        Command="{Binding Ok}">
+      Convert
+    </Button>
+    <TextBox AcceptsReturn="True"
+             Name="input"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Stretch"
+             Text="{Binding JsonDoc}"
+             Watermark="Enter the Json document to convert"
+             Width="375"/>
+    <TextBlock HorizontalAlignment="Right"
+               VerticalAlignment="Stretch"
+               Background="Blue"
+               Width="375"
+               Text="{Binding CovertedJson}"/>
+  </DockPanel>
+</UserControl>

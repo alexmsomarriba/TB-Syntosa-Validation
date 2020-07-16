@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamBond.Syntosa.Validation
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{802AC196-5441-41C4-892F-CD8A34E50772}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBond.Syntosa.Validation.Core.Tests", "Tests\TeamBond.Syntosa.Validation.Core.Tests\TeamBond.Syntosa.Validation.Core.Tests.csproj", "{6DC76341-E686-4804-B201-1134E9C2F91C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamBond.Syntosa.Validation.Core.Tests", "Tests\TeamBond.Syntosa.Validation.Core.Tests\TeamBond.Syntosa.Validation.Core.Tests.csproj", "{6DC76341-E686-4804-B201-1134E9C2F91C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B3C4BD82-D0FC-4F6C-BF9B-08017D67733F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBond.Syntosa.Validation.JsonToSyntosa", "Tools\TeamBond.Syntosa.Validation.JsonToSyntosa\TeamBond.Syntosa.Validation.JsonToSyntosa.csproj", "{A015CF56-CB8B-41F3-A2C0-807200ECC57A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{6DC76341-E686-4804-B201-1134E9C2F91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DC76341-E686-4804-B201-1134E9C2F91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DC76341-E686-4804-B201-1134E9C2F91C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A015CF56-CB8B-41F3-A2C0-807200ECC57A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A015CF56-CB8B-41F3-A2C0-807200ECC57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A015CF56-CB8B-41F3-A2C0-807200ECC57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A015CF56-CB8B-41F3-A2C0-807200ECC57A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B6693C07-82D3-4345-871E-9E4D52E6C12C} = {99A3998E-E1B5-464A-B560-4754287EC245}
 		{6DC76341-E686-4804-B201-1134E9C2F91C} = {802AC196-5441-41C4-892F-CD8A34E50772}
+		{A015CF56-CB8B-41F3-A2C0-807200ECC57A} = {B3C4BD82-D0FC-4F6C-BF9B-08017D67733F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {143ABA90-D34F-4F63-8218-4E8D6D64AECA}

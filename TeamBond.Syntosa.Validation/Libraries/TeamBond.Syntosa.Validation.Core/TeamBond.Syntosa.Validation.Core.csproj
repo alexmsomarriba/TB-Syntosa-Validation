@@ -10,4 +10,8 @@
     <PackageReference Include="Syntosa.Core" Version="0.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CodeWriter\Properties\" />
+  </ItemGroup>
+
 </Project>
