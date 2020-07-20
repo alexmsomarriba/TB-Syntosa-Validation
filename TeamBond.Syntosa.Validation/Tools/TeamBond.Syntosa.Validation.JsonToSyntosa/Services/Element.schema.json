@@ -1,0 +1,361 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Element",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "alias": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "domainUId": {
+      "type": "string"
+    },
+    "isActive": {
+      "type": "boolean"
+    },
+    "isAutoCollect": {
+      "type": "boolean"
+    },
+    "isBuiltIn": {
+      "type": "boolean"
+    },
+    "modifiedBy": {
+      "type": "string"
+    },
+    "moduleUId": {
+      "type": "string"
+    },
+    "moduleRecordUId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parentUId": {
+      "type": "string"
+    },
+    "typeItemUId": {
+      "type": "string"
+    },
+    "typeUIdRecordStatus": {
+      "type": "string"
+    },
+    "uId": {
+      "type": "string"
+    },
+    "elementEdges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ElementEdge"
+      }
+    },
+    "globalPropertyEdges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GlobalPropertyEdge"
+      }
+    },
+    "globalPropertyList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GlobalPropertyList"
+      }
+    },
+    "privatePropertyEdges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PrivatePropertyEdge"
+      }
+    },
+    "privatePropertyKeys": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PrivatePropertyKey"
+      }
+    },
+    "privateProperties": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PrivateProperty"
+      }
+    }
+  },
+  "required": [ "description", "domainUId", "isActive", "alias", "isAutoCollect", "moduleUId", "moduleRecordUId", "typeUIdRecordStatus", "typeItemUId", "modifiedBy" ],
+  "definitions": {
+    "EdgeProperty": {
+      "type": "object",
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "edgeTypeUId": {
+          "type": "string"
+        },
+        "edgeUId": {
+          "type": "string"
+        },
+        "modifiedBy": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "typeItemUId": {
+          "type": "string"
+        },
+        "uId": {
+          "type": "string"
+        }
+      },
+      "required": [ "edgeTypeUId", "modifiedBy", "typeItemUId", "attribute" ]
+    },
+    "ElementEdge": {
+      "type": "object",
+      "properties": {
+        "edgeProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EdgeProperty"
+          }
+        },
+        "labelUId": {
+          "type": "string"
+        },
+        "modifiedBy": {
+          "type": "string"
+        },
+        "sourceElementUId": {
+          "type": "string"
+        },
+        "targetElementUId": {
+          "type": "string"
+        },
+        "typeItemUId": {
+          "type": "string"
+        },
+        "UId": {
+          "type": "string"
+        }
+      },
+      "required": [ "sourceElementUId", "targetElementUId", "modifiedBy", "typeItemUId" ]
+    },
+    "GlobalPropertyEdgeProperty": {
+      "type": "object",
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "edgeUId": {
+          "type": "string"
+        },
+        "modifiedBy": {
+          "type": "string"
+        },
+        "typeItemUId": {
+          "type": "string"
+        },
+        "uId": {
+          "type": "string"
+        }
+      },
+      "required": [ "edgeUId", "modifiedBy", "typeItemUId", "attribute" ]
+    },
+    "GlobalPropertyEdge": {
+      "type": "object",
+      "properties": {
+        "elementUId": {
+          "type": "string"
+        },
+        "globalPropertyEdgeProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GlobalPropertyEdgeProperty"
+          }
+        },
+        "globalPropertyUId": {
+          "type": "string"
+        },
+        "isElementDriver": {
+          "type": "boolean"
+        },
+        "modifiedBy": {
+          "type": "string"
+        },
+        "typeItemUId": {
+          "type": "string"
+        },
+        "uId": {
+          "type": "string"
+        }
+      },
+      "required": [ "elementUId", "globalPropertyUId", "isElementDriver", "modifiedBy", "typeItemUId" ]
+    },
+    "GlobalPropertyList": {
+      "type": "object",
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "elementUId": {
+          "type": "string"
+        },
+        "isAutoCollect": {
+          "type": "boolean"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "modifiedBy": {
+          "type": "string"
+        },
+        "moduleUIdAutoCollect": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sortOrder": {
+          "type": "integer"
+        },
+        "typeItemUId": {
+          "type": "string"
+        },
+        "uId": {
+          "type": "string"
+        }
+      },
+      "required": [ "elementUId", "typeItemUId", "isAutoCollect", "isActive", "moduleUIdAutoCollect", "sortOrder", "attribute", "modifiedBy" ]
+    },
+    "PrivatePropertyEdgeProperty": {
+      "type": "object",
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "edgeUId": {
+          "type": "string"
+        },
+        "modifiedBy": {
+          "type": "string"
+        },
+        "typeItemUId": {
+          "type": "string"
+        },
+        "uId": {
+          "type": "string"
+        }
+      },
+      "required": [ "edgeUId", "modifiedBy", "typeItemUId", "attribute" ]
+    },
+    "PrivatePropertyEdge": {
+      "type": "object",
+      "properties": {
+        "elementUId": {
+          "type": "string"
+        },
+        "isElementDriver": {
+          "type": "boolean"
+        },
+        "modifiedBy": {
+          "type": "string"
+        },
+        "privatePropertyEdgeProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivatePropertyEdgeProperty"
+          }
+        },
+        "privatePropertyUId": {
+          "type": "string"
+        },
+        "typeItemUId": {
+          "type": "string"
+        }
+      },
+      "required": [ "elementUId", "privatePropertyUId", "isElementDriver", "modifiedBy", "typeItemUId" ]
+    },
+    "PrivatePropertyKey": {
+      "type": "object",
+      "properties": {
+        "elementUId": {
+          "type": "string"
+        },
+        "isAutoCollect": {
+          "type": "boolean"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "modifiedBy": {
+          "type": "string"
+        },
+        "moduleUIdAutoCollect": {
+          "type": "string"
+        },
+        "parentUId": {
+          "type": "string"
+        },
+        "sortOrder": {
+          "type": "integer"
+        },
+        "typeKeyUId": {
+          "type": "string"
+        },
+        "typeUnitUId": {
+          "type": "string"
+        },
+        "typeValueUId": {
+          "type": "string"
+        },
+        "uId": {
+          "type": "string"
+        }
+      },
+      "required": [ "isAutoCollect", "isActive", "moduleUIdAutoCollect", "sortOrder", "elementUId", "typeKeyUId", "typeValueUId", "typeUnitUId", "modifiedBy" ]
+    },
+    "PrivateProperty": {
+      "type": "object",
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "modifiedBy": {
+          "type": "string"
+        },
+        "parentUId": {
+          "type": "string"
+        },
+        "privatePropertyKeyUId": {
+          "type": "string"
+        },
+        "sortOrder": {
+          "type": "integer"
+        },
+        "uId": {
+          "type": "string"
+        }
+      },
+      "required": [ "privatePropertyKeyUId", "sortOrder", "attribute", "isActive", "modifiedBy" ]
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

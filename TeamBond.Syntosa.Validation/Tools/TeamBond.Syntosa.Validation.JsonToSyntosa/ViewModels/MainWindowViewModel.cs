@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels
+﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels
 {
+    using System;
+    using System.Reactive;
     using System.Reactive.Linq;
 
     using ReactiveUI;
-
-    using TeamBond.Syntosa.Validation.JsonToSyntosa.Models;
-    using TeamBond.Syntosa.Validation.JsonToSyntosa.Services;
 
     /// <summary>
     /// The main window view model.
@@ -35,11 +30,9 @@ namespace TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels
             private set => this.RaiseAndSetIfChanged(ref this.content, value);
         }
 
+        /// <summary>
+        /// Gets the json to convert.
+        /// </summary>
         public JsonConverterViewModel JsonToConvert { get; }
-
-        public void UpdateContent()
-        {
-            this.Content = new JsonConverterViewModel();
-        }
     }
 }

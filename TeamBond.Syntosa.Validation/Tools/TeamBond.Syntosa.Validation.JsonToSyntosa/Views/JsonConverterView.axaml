@@ -5,11 +5,37 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TeamBond.Syntosa.Validation.JsonToSyntosa.Views.JsonConverterView">
   <DockPanel Height="450" Width="800">
+    <ComboBox DockPanel.Dock="Top"
+              Items="{Binding ClassStyles, Mode=OneWay}"
+              SelectedItem="{Binding SelectedStyle, Mode=TwoWay}">
+    </ComboBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding SerializeMethod}">
+      Serialize methods
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding GenerateDataAnnotations}">
+      Generate data annotations
+    </CheckBox>
     <Button DockPanel.Dock="Bottom"
         Margin="10"
         Command="{Binding Ok}">
       Convert
     </Button>
+    <TextBox AcceptsReturn="False"
+             DockPanel.Dock="Top"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Stretch"
+             Watermark="Enter the namespace of the class"
+             Text="{Binding ClassNamespace}"/>
+    <TextBox AcceptsReturn="False"
+             DockPanel.Dock="Top"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Stretch"
+             Watermark="Enter the name of the class"
+             Text="{Binding ClassName}"/>
     <TextBox AcceptsReturn="True"
              Name="input"
              HorizontalAlignment="Left"
@@ -17,10 +43,10 @@
              Text="{Binding JsonDoc}"
              Watermark="Enter the Json document to convert"
              Width="375"/>
-    <TextBlock HorizontalAlignment="Right"
-               VerticalAlignment="Stretch"
-               Background="Blue"
-               Width="375"
-               Text="{Binding CovertedJson}"/>
+    <TextBox HorizontalAlignment="Right"
+             VerticalAlignment="Stretch"
+             Width="375"
+             IsReadOnly="True"
+             Text="{Binding ConvertedJson}"/>
   </DockPanel>
 </UserControl>

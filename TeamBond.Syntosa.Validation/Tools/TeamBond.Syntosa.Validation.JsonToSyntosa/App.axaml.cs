@@ -1,12 +1,11 @@
-﻿using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
-using TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels;
-using TeamBond.Syntosa.Validation.JsonToSyntosa.Views;
-
-namespace TeamBond.Syntosa.Validation.JsonToSyntosa
+﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa
 {
-    using TeamBond.Syntosa.Validation.JsonToSyntosa.Services;
+    using Avalonia;
+    using Avalonia.Controls.ApplicationLifetimes;
+    using Avalonia.Markup.Xaml;
+
+    using TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels;
+    using TeamBond.Syntosa.Validation.JsonToSyntosa.Views;
 
     public class App : Application
     {
@@ -21,12 +20,11 @@ namespace TeamBond.Syntosa.Validation.JsonToSyntosa
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var db = new Database();
 
                 desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(),
-                };
+                                         {
+                                             DataContext = new MainWindowViewModel(),
+                                         };
             }
         }
     }
