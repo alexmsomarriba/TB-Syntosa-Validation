@@ -39,7 +39,7 @@
         /// </summary>
         private bool isReadOnlyPoco;
 
-        private string selectedStyle = "Poco";
+        private CSharpClassStyle selectedStyle = CSharpClassStyle.Poco;
 
         /// <summary>
         /// A value indicating whether to serialize methods from the converted json.
@@ -156,17 +156,13 @@
             HandleReferences = true,
         };
 
-        public string SelectedStyle
+        public CSharpClassStyle SelectedStyle
         {
             get => this.selectedStyle;
             set => this.RaiseAndSetIfChanged(ref this.selectedStyle, value);
         }
 
-        public List<string> ClassStyles = new List<string>
-                                              {
-                                                  "Poco",
-                                                  "Record"
-                                              };
+        public IEnumerable<CSharpClassStyle> ClassStyles;
 
         /// <summary>
         /// Gets the if the correct contents of the button are there.

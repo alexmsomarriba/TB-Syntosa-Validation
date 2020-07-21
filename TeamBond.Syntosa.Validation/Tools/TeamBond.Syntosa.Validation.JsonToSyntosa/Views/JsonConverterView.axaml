@@ -6,8 +6,13 @@
              x:Class="TeamBond.Syntosa.Validation.JsonToSyntosa.Views.JsonConverterView">
   <DockPanel Height="450" Width="800">
     <ComboBox DockPanel.Dock="Top"
-              Items="{Binding ClassStyles, Mode=OneWay}"
+              Items="{Binding ClassStyles}"
               SelectedItem="{Binding SelectedStyle, Mode=TwoWay}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding}"/>
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
     </ComboBox>
     <CheckBox DockPanel.Dock="Top"
               IsThreeState="False"

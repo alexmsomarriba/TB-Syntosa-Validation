@@ -4,4 +4,89 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TeamBond.Syntosa.Validation.JsonToSyntosa.Views.TypePrototypeBuilderView">
+  <DockPanel>
+    <TextBox DockPanel.Dock="Top"
+             Watermark="Type name"
+             Text="{Binding TypeName}"/>
+    <TextBox DockPanel.Dock="Top"
+             Watermark="Type description"
+             Text="{Binding Description}"/>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsActive}">
+      Is the type active
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsBuiltIn}">
+      Is the type built in
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsAssignable}">
+      Is the type assignable
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsNotifiable}">
+      Is the type notifiable
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsAutoCollect}">
+      Is the type auto collecting from somewhere
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsRelational}">
+      Is the data associated with this type stored in a relational database
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsKeyValue}">
+      Is the data associated with this type stored in a key value datastore
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsInMemory}">
+      Is the data associated with this type stored in a in memory datastore
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsGraph}">
+      Is the data assoicated with this type stored in a graph datastore
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsDocument}">
+      Is the data associated with this type stored in a document datastore
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsLedger}">
+      Is the data associated with this type stored in a ledger datastore
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsTimeSeries}">
+      Is the data associated with this type stored in a TimeSerises
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsSearch}">
+      Is the data assoicated with this type stored in an elastic search enabled data store
+    </CheckBox>
+    <TextBox DockPanel.Dock="Top"
+             Watermark="Module auto-collect UId"
+             Text="{Binding ModuleAutoCollectUId}"/>
+    <TextBox DockPanel.Dock="Top"
+             Watermark="Sort order"
+             Text="{Binding SortOrder}"/>
+    <TextBox DockPanel.Dock="Top"
+             Watermark="Type function UId"
+             Text="{Binding TypeFunctionUId}"/>
+    <TextBox DockPanel.Dock="Top"
+             Watermark="Type unit UId"
+             Text="{Binding TypeUnitUId}"/>
+  </DockPanel>
 </UserControl>

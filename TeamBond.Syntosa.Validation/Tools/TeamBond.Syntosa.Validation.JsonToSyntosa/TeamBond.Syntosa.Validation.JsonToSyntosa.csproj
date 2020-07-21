@@ -12,6 +12,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.11" />
     <PackageReference Include="NJsonSchema" Version="10.1.23" />
     <PackageReference Include="NJsonSchema.CodeGeneration.CSharp" Version="10.1.23" />
+    <PackageReference Include="Syntosa.Core" Version="0.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
