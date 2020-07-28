@@ -5,6 +5,8 @@
   "isActive": true,
   "isAutoCollect": false,
   "isBuiltIn": false,
+  "moduleUId": "b89d4d91-35e9-4dbf-92b1-39b7dce008dc",
+  "moduleRecordUId": "f7a11c6d-4b0c-43e4-aa8e-198c046d740c",
   "modifiedBy": "alex@teambond.io",
   "name": "ManageTeam",
   "parentUId": "",
@@ -54,13 +56,14 @@
   "globalPropertyList": [
     {
       "attribute": "",
-      "elementUId": "",
+      "elementUId": "afeb2995-5c3b-4894-b3c0-80e4d7b91acf",
       "isAutoCollect": false,
-      "modifiedBy": "",
+      "isActive": true,
+      "modifiedBy": "alex@teambond.io",
       "moduleUIdAutoCollect": "",
       "name": "",
       "sortOrder": 0,
-      "typeItemUId": "",
+      "typeItemUId": "9fe98512-148b-451a-bb18-f01208ad196e",
       "uId": ""
     }
   ],
@@ -83,29 +86,6 @@
       "New item - 2": ""
     }
   ],
-  "privatePropertyKeys": [
-    {
-      "elementUId": "",
-      "isAutoCollect": false,
-      "modifiedBy": "",
-      "moduleUIdAutoCollect": "",
-      "parentUId": "",
-      "sortOrder": 0,
-      "typeKeyUId": "",
-      "typeUnitUId": "",
-      "typeValueUId": "",
-      "uId": ""
-    }
-  ],
-  "privateProperties": [
-    {
-      "attribute": "",
-      "isActive": false,
-      "modfiedBy": "",
-      "parentUId": "",
-      "privatePropertyKeyUId": "",
-      "sortOrder": 0,
-      "uId": ""
-    }
-  ]
+  "privatePropertyKeys": [],
+  "privateProperties": []
 }

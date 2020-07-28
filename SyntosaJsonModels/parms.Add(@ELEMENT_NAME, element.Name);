@@ -1,0 +1,21 @@
+parms.Add("@ELEMENT_NAME", element.Name);
+            parms.Add("@ELEMENT_DESC", element.Description);
+            parms.Add("@ISACTIVE", element.IsActive);
+            parms.Add("@ISBUILTIN", element.IsBuiltIn);
+            parms.Add("@ELEMENT_ALIAS", element.Alias);
+            parms.Add("@ISAUTOCOLLECT", element.IsAutoCollect);
+            parms.Add("@MODULE_UID", element.ModuleUId);
+            parms.Add("@MODULE_RECORD_UID", element.ModuleRecordKey);
+            parms.Add("@TYPE_UID_RECORD_STATUS", element.TypeUIdRecordStatus);
+            parms.Add("@DOMAIN_UID", element.DomainUId);
+            parms.Add("@TYPE_UID", element.TypeItemUId);
+            if (element.ParentUId == Guid.Empty)
+            {
+                parms.Add("@ELEMENT_UID_PARENT", Convert.DBNull);
+            }
+            else
+            {
+                parms.Add("@ELEMENT_UID_PARENT", element.ParentUId);
+            }
+
+            parms.Add("@MODIFIED_BY", element.ModifiedBy);

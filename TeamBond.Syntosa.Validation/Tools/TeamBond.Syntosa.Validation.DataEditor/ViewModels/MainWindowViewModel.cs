@@ -18,7 +18,7 @@
 
         public MainWindowViewModel()
         {
-            this.Content = this.JsonToConvert = new JsonConverterViewModel();
+            this.Content = this.TypeBuilder = new TypePrototypeBuilderViewModel();
         }
 
         /// <summary>
@@ -34,5 +34,10 @@
         /// Gets the json to convert.
         /// </summary>
         public JsonConverterViewModel JsonToConvert { get; }
+
+        /// <summary>
+        /// Gets the type builder.
+        /// </summary>
+        public TypePrototypeBuilderViewModel TypeBuilder { get; }
     }
 }

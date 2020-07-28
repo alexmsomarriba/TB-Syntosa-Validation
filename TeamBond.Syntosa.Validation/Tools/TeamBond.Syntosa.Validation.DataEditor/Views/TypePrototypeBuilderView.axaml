@@ -36,46 +36,21 @@
               IsChecked="{Binding IsAutoCollect}">
       Is the type auto collecting from somewhere
     </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsRelational}">
-      Is the data associated with this type stored in a relational database
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsKeyValue}">
-      Is the data associated with this type stored in a key value datastore
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsInMemory}">
-      Is the data associated with this type stored in a in memory datastore
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsGraph}">
-      Is the data assoicated with this type stored in a graph datastore
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsDocument}">
-      Is the data associated with this type stored in a document datastore
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsLedger}">
-      Is the data associated with this type stored in a ledger datastore
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsTimeSeries}">
-      Is the data associated with this type stored in a TimeSerises
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsSearch}">
-      Is the data assoicated with this type stored in an elastic search enabled data store
-    </CheckBox>
+    <ListBox Items="{Binding DatabaseTypes}"
+             Name="TypeList"
+             SelectionMode="Single"
+             DockPanel.Dock="Top"
+             SelectedItem="{Binding SelectedType}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Background="White" CornerRadius="4" Padding="4">
+            <TextBlock Text="{Binding}"/>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock Text="{Binding SelectedType}"
+               DockPanel.Dock="Top"/>
     <TextBox DockPanel.Dock="Top"
              Watermark="Module auto-collect UId"
              Text="{Binding ModuleAutoCollectUId}"/>

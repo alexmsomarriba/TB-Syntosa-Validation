@@ -1,11 +1,14 @@
 ﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+
     using ReactiveUI;
 
     /// <summary>
     /// The type proto type builder view model.
     /// </summary>
-    public class TypeProtoTypeBuilderViewModel : ViewModelBase
+    public class TypePrototypeBuilderViewModel : ViewModelBase
     {
         /// <summary>
         /// The type name.
@@ -43,46 +46,6 @@
         private bool isAutoCollect;
 
         /// <summary>
-        /// The is relational.
-        /// </summary>
-        private bool isRelational;
-
-        /// <summary>
-        /// The is key value.
-        /// </summary>
-        private bool isKeyValue;
-
-        /// <summary>
-        /// The is in memory.
-        /// </summary>
-        private bool isInMemory;
-
-        /// <summary>
-        /// The is graph.
-        /// </summary>
-        private bool isGraph;
-
-        /// <summary>
-        /// The is document.
-        /// </summary>
-        private bool isDocument;
-
-        /// <summary>
-        /// The is ledger.
-        /// </summary>
-        private bool isLedger;
-
-        /// <summary>
-        /// The is time series.
-        /// </summary>
-        private bool isTimeSeries;
-
-        /// <summary>
-        /// The is search.
-        /// </summary>
-        private bool isSearch;
-
-        /// <summary>
         /// The module auto collect u id.
         /// </summary>
         private string moduleAutoCollectUId;
@@ -101,6 +64,11 @@
         /// The type unit u id.
         /// </summary>
         private string typeUnitUId;
+
+        /// <summary>
+        /// The selected type.
+        /// </summary>
+        private string selectedType;
 
         /// <summary>
         /// Gets or sets the type name.
@@ -166,78 +134,6 @@
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether is relational.
-        /// </summary>
-        public bool IsRelational
-        {
-            get => this.isRelational;
-            set => this.RaiseAndSetIfChanged(ref this.isRelational, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is key value.
-        /// </summary>
-        public bool IsKeyValue
-        {
-            get => this.isKeyValue;
-            set => this.RaiseAndSetIfChanged(ref this.isKeyValue, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is in memory.
-        /// </summary>
-        public bool IsInMemory
-        {
-            get => this.isInMemory;
-            set => this.RaiseAndSetIfChanged(ref this.isInMemory, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is graph.
-        /// </summary>
-        public bool IsGraph
-        {
-            get => this.isGraph;
-            set => this.RaiseAndSetIfChanged(ref this.isGraph, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is document.
-        /// </summary>
-        public bool IsDocument
-        {
-            get => this.isDocument;
-            set => this.RaiseAndSetIfChanged(ref this.isDocument, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is ledger.
-        /// </summary>
-        public bool IsLedger
-        {
-            get => this.isLedger;
-            set => this.RaiseAndSetIfChanged(ref this.isLedger, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is time series.
-        /// </summary>
-        public bool IsTimeSeries
-        {
-            get => this.isTimeSeries;
-            set => this.RaiseAndSetIfChanged(ref this.isTimeSeries, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is search.
-        /// </summary>
-        public bool IsSearch
-        {
-            get => this.isSearch;
-            set => this.RaiseAndSetIfChanged(ref this.isSearch, value);
-        }
-
-        /// <summary>
         /// Gets or sets the module auto collect u id.
         /// </summary>
         public string ModuleAutoCollectUId
@@ -271,6 +167,37 @@
         {
             get => this.typeUnitUId;
             set => this.RaiseAndSetIfChanged(ref this.typeUnitUId, value);
+        }
+
+        /// <summary>
+        /// The database types.
+        /// </summary>
+        public List<string> DatabaseTypes => new List<string>
+                                                {
+                                                    "Relational",
+                                                    "Key value",
+                                                    "In memory",
+                                                    "Graph",
+                                                    "Document",
+                                                    "Ledger",
+                                                    "TimeSeries",
+                                                    "Search"
+                                                };
+
+        public List<string>
+
+        /// <summary>
+        /// Gets or sets the selected type.
+        /// </summary>
+        public string SelectedType
+        {
+            get => this.selectedType;
+            set => this.RaiseAndSetIfChanged(ref this.selectedType, value);
+        }
+
+        private List<string> GetTypeFunctionNames()
+        {
+            var syntoDal =
         }
     }
 }
