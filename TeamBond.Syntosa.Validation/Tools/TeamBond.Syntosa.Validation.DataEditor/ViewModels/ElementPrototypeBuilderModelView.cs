@@ -1,4 +1,4 @@
-﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels
+﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
     using System.Reactive;
@@ -7,7 +7,7 @@
 
     using ReactiveUI;
 
-    using TeamBond.Syntosa.Validation.JsonToSyntosa.GeneratedClasses;
+    using TeamBond.Syntosa.Validation.DataEditor.GeneratedClasses;
 
     using Element = global::Syntosa.Core.ObjectModel.CoreClasses.Element.Element;
 

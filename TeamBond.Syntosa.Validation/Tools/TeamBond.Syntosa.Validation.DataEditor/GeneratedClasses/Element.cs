@@ -4,7 +4,7 @@
 // </auto-generated>
 //----------------------
 
-namespace TeamBond.Syntosa.Validation.JsonToSyntosa.GeneratedClasses
+namespace TeamBond.Syntosa.Validation.DataEditor.GeneratedClasses
 {
     #pragma warning disable // Disable all warnings
 

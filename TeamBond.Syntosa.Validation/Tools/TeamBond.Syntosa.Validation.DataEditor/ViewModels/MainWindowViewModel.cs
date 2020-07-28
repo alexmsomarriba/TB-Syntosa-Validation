@@ -1,9 +1,5 @@
-﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels
+﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
-    using System;
-    using System.Reactive;
-    using System.Reactive.Linq;
-
     using ReactiveUI;
 
     /// <summary>
@@ -16,6 +12,9 @@
         /// </summary>
         private ViewModelBase content;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
+        /// </summary>
         public MainWindowViewModel()
         {
             this.Content = this.TypeBuilder = new TypePrototypeBuilderViewModel();

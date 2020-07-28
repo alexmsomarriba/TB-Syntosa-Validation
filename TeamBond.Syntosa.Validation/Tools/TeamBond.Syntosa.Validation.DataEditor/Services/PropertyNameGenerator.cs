@@ -1,6 +1,5 @@
-﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa.Services
+﻿namespace TeamBond.Syntosa.Validation.DataEditor.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Text;

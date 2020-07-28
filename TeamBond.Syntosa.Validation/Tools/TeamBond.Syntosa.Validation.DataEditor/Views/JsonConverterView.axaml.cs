@@ -2,7 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace TeamBond.Syntosa.Validation.JsonToSyntosa.Views
+namespace TeamBond.Syntosa.Validation.DataEditor.Views
 {
     public class JsonConverterView : UserControl
     {

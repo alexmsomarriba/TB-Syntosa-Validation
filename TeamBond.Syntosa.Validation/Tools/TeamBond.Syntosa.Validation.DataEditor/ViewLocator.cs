@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels;
+using TeamBond.Syntosa.Validation.DataEditor.ViewModels;
 
-namespace TeamBond.Syntosa.Validation.JsonToSyntosa
+namespace TeamBond.Syntosa.Validation.DataEditor
 {
     public class ViewLocator : IDataTemplate
     {

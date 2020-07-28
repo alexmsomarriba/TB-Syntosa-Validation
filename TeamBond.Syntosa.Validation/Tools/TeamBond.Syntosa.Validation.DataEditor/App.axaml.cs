@@ -1,11 +1,12 @@
-﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa
+﻿namespace TeamBond.Syntosa.Validation.DataEditor
 {
     using Avalonia;
     using Avalonia.Controls.ApplicationLifetimes;
     using Avalonia.Markup.Xaml;
 
-    using TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels;
-    using TeamBond.Syntosa.Validation.JsonToSyntosa.Views;
+    using TeamBond.Syntosa.Validation.DataEditor.ViewModels;
+    using TeamBond.Syntosa.Validation.DataEditor.ViewModels;
+    using TeamBond.Syntosa.Validation.DataEditor.Views;
 
     public class App : Application
     {

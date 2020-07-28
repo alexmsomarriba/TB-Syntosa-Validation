@@ -1,4 +1,4 @@
-﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa.Services
+﻿namespace TeamBond.Syntosa.Validation.DataEditor.Services
 {
     using System;
     using System.Collections.Generic;
@@ -35,11 +35,11 @@
         public static string Generate(string json, CSharpGeneratorSettings settings, string name)
         {
             var elementSchema = JsonSchema.FromFileAsync(
-                    "Y:\\Work\\TeamBond\\teambond-syntosa-validation\\TeamBond.Syntosa.Validation\\Tools\\TeamBond.Syntosa.Validation.JsonToSyntosa\\Services\\Element.schema.json")
+                    "Y:\\Work\\TeamBond\\teambond-syntosa-validation\\TeamBond.Syntosa.Validation\\Tools\\TeamBond.Syntosa.Validation.DataEditor\\Services\\Element.schema.json")
                 .Result;
 
             var path =
-                $"Y:\\Work\\TeamBond\\teambond-syntosa-validation\\TeamBond.Syntosa.Validation\\Tools\\TeamBond.Syntosa.Validation.JsonToSyntosa\\GeneratedClasses\\{name}.cs";
+                $"Y:\\Work\\TeamBond\\teambond-syntosa-validation\\TeamBond.Syntosa.Validation\\Tools\\TeamBond.Syntosa.Validation.DataEditor\\GeneratedClasses\\{name}.cs";
 
             var errors = elementSchema.Validate(json);
 
@@ -125,7 +125,7 @@
 
             if (string.IsNullOrWhiteSpace(classNamespace))
             {
-                classNamespace = "TeamBond.Syntosa.Validation.JsonToSyntosa.GeneratedClasses";
+                classNamespace = "TeamBond.Syntosa.Validation.DataEditor.GeneratedClasses";
             }
 
             string collection = "System.Collection.Generic.List";

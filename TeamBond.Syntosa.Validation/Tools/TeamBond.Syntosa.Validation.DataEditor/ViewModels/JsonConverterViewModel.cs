@@ -1,4 +1,4 @@
-﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels
+﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System.Collections.Generic;
     using System.Reactive;
@@ -7,7 +7,7 @@
 
     using ReactiveUI;
 
-    using TeamBond.Syntosa.Validation.JsonToSyntosa.Services;
+    using TeamBond.Syntosa.Validation.DataEditor.Services;
 
     /// <summary>
     /// The json converter view model.

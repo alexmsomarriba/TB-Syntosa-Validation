@@ -13,7 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamBond.Syntosa.Validation
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B3C4BD82-D0FC-4F6C-BF9B-08017D67733F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBond.Syntosa.Validation.DataEditor", "Tools\TeamBond.Syntosa.Validation.DataEditor\TeamBond.Syntosa.Validation.DataEditor.csproj", "{A015CF56-CB8B-41F3-A2C0-807200ECC57A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamBond.Syntosa.Validation.DataEditor", "Tools\TeamBond.Syntosa.Validation.DataEditor\TeamBond.Syntosa.Validation.DataEditor.csproj", "{A015CF56-CB8B-41F3-A2C0-807200ECC57A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamBond.Application.Framework", "..\..\teambond-engine\TeamBond.Engine\Libraries\TeamBond.Application.Framework\TeamBond.Application.Framework.csproj", "{00F66F42-D716-4AB9-BB7A-2D1927C64979}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamBond.Core", "..\..\teambond-engine\TeamBond.Engine\Libraries\TeamBond.Core\TeamBond.Core.csproj", "{F458019C-36A9-4C4C-8ADC-0D96D8F7C082}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamBond.Data", "..\..\teambond-engine\TeamBond.Engine\Libraries\TeamBond.Data\TeamBond.Data.csproj", "{6A6B1864-77D6-400F-A2E6-45DD7750FAE2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamBond.Domain", "..\..\teambond-engine\TeamBond.Engine\Libraries\TeamBond.Domain\TeamBond.Domain.csproj", "{AB3F765C-D6AC-46CE-8A41-947850521975}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamBond.Services", "..\..\teambond-engine\TeamBond.Engine\Libraries\TeamBond.Services\TeamBond.Services.csproj", "{7CADE1A0-55EA-4C36-A107-8081F9C09D98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +43,26 @@ Global
 		{A015CF56-CB8B-41F3-A2C0-807200ECC57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A015CF56-CB8B-41F3-A2C0-807200ECC57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A015CF56-CB8B-41F3-A2C0-807200ECC57A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00F66F42-D716-4AB9-BB7A-2D1927C64979}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00F66F42-D716-4AB9-BB7A-2D1927C64979}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00F66F42-D716-4AB9-BB7A-2D1927C64979}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00F66F42-D716-4AB9-BB7A-2D1927C64979}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F458019C-36A9-4C4C-8ADC-0D96D8F7C082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F458019C-36A9-4C4C-8ADC-0D96D8F7C082}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F458019C-36A9-4C4C-8ADC-0D96D8F7C082}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F458019C-36A9-4C4C-8ADC-0D96D8F7C082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A6B1864-77D6-400F-A2E6-45DD7750FAE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A6B1864-77D6-400F-A2E6-45DD7750FAE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A6B1864-77D6-400F-A2E6-45DD7750FAE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A6B1864-77D6-400F-A2E6-45DD7750FAE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB3F765C-D6AC-46CE-8A41-947850521975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB3F765C-D6AC-46CE-8A41-947850521975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB3F765C-D6AC-46CE-8A41-947850521975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB3F765C-D6AC-46CE-8A41-947850521975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CADE1A0-55EA-4C36-A107-8081F9C09D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CADE1A0-55EA-4C36-A107-8081F9C09D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CADE1A0-55EA-4C36-A107-8081F9C09D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CADE1A0-55EA-4C36-A107-8081F9C09D98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

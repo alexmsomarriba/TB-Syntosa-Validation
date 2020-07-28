@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="300"
-             x:Class="TeamBond.Syntosa.Validation.JsonToSyntosa.Views.AddItemView">
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.AddItemView">
   <DockPanel>
     <Button DockPanel.Dock="Bottom" Command="{Binding Ok}">OK</Button>
     <TextBox AcceptsReturn="False"

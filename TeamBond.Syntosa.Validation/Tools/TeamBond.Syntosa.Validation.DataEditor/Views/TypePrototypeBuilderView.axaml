@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TeamBond.Syntosa.Validation.JsonToSyntosa.Views.TypePrototypeBuilderView">
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.TypePrototypeBuilderView">
   <DockPanel>
     <TextBox DockPanel.Dock="Top"
              Watermark="Type name"
@@ -36,14 +36,19 @@
               IsChecked="{Binding IsAutoCollect}">
       Is the type auto collecting from somewhere
     </CheckBox>
+    <TextBlock DockPanel.Dock="Top">
+      Select the data store type.
+    </TextBlock>
     <ListBox Items="{Binding DatabaseTypes}"
              Name="TypeList"
              SelectionMode="Single"
              DockPanel.Dock="Top"
+             ScrollViewer.VerticalScrollBarVisibility="Visible"
+             Height="100"
              SelectedItem="{Binding SelectedType}">
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <Border Background="White" CornerRadius="4" Padding="4">
+          <Border Background="White" CornerRadius="4" Padding="2">
             <TextBlock Text="{Binding}"/>
           </Border>
         </DataTemplate>
@@ -63,5 +68,10 @@
     <TextBox DockPanel.Dock="Top"
              Watermark="Type unit UId"
              Text="{Binding TypeUnitUId}"/>
+    <Button Command="{Binding GenerateOperationalDb}"
+            DockPanel.Dock="Top"
+            IsVisible="{Binding IsCurrentUserAdmin}"
+            Content="Build operational database"
+            Height="30"/>
   </DockPanel>
 </UserControl>

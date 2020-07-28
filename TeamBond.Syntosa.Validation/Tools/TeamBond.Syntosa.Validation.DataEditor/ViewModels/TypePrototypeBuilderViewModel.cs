@@ -1,20 +1,18 @@
-﻿namespace TeamBond.Syntosa.Validation.JsonToSyntosa.ViewModels
+﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
-    using System;
     using System.Collections.Generic;
+    using System.Reactive;
 
     using ReactiveUI;
+
+    using TeamBond.Core.Engine;
+    using TeamBond.Data.DataProvider;
 
     /// <summary>
     /// The type proto type builder view model.
     /// </summary>
     public class TypePrototypeBuilderViewModel : ViewModelBase
     {
-        /// <summary>
-        /// The type name.
-        /// </summary>
-        private string typeName;
-
         /// <summary>
         /// The description.
         /// </summary>
@@ -26,19 +24,9 @@
         private bool isActive;
 
         /// <summary>
-        /// The is built in.
-        /// </summary>
-        private bool isBuiltIn;
-
-        /// <summary>
         /// The is assignable.
         /// </summary>
         private bool isAssignable;
-
-        /// <summary>
-        /// The is notifiable.
-        /// </summary>
-        private bool isNotifiable;
 
         /// <summary>
         /// The is auto collect.
@@ -46,9 +34,24 @@
         private bool isAutoCollect;
 
         /// <summary>
+        /// The is built in.
+        /// </summary>
+        private bool isBuiltIn;
+
+        /// <summary>
+        /// The is notifiable.
+        /// </summary>
+        private bool isNotifiable;
+
+        /// <summary>
         /// The module auto collect u id.
         /// </summary>
         private string moduleAutoCollectUId;
+
+        /// <summary>
+        /// The selected type.
+        /// </summary>
+        private string selectedType;
 
         /// <summary>
         /// The sort order.
@@ -61,23 +64,38 @@
         private string typeFunctionUId;
 
         /// <summary>
+        /// The type name.
+        /// </summary>
+        private string typeName;
+
+        /// <summary>
         /// The type unit u id.
         /// </summary>
         private string typeUnitUId;
 
         /// <summary>
-        /// The selected type.
+        /// Initializes a new instance of the <see cref="TypePrototypeBuilderViewModel"/> class.
         /// </summary>
-        private string selectedType;
+        public TypePrototypeBuilderViewModel()
+        {
+            this.GenerateOperationalDb = ReactiveCommand.Create(this.InitializeDatabase);
+        }
 
         /// <summary>
-        /// Gets or sets the type name.
+        /// The database types.
         /// </summary>
-        public string TypeName
-        {
-            get => this.typeName;
-            set => this.RaiseAndSetIfChanged(ref this.typeName, value);
-        }
+        public List<string> DatabaseTypes =>
+            new List<string>
+                {
+                    "Relational",
+                    "Key value",
+                    "In memory",
+                    "Graph",
+                    "Document",
+                    "Ledger",
+                    "TimeSeries",
+                    "Search"
+                };
 
         /// <summary>
         /// Gets or sets the description.
@@ -89,21 +107,17 @@
         }
 
         /// <summary>
+        /// Gets the generate operational db.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> GenerateOperationalDb { get; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether is active.
         /// </summary>
         public bool IsActive
         {
             get => this.isActive;
             set => this.RaiseAndSetIfChanged(ref this.isActive, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is built in.
-        /// </summary>
-        public bool IsBuiltIn
-        {
-            get => this.isBuiltIn;
-            set => this.RaiseAndSetIfChanged(ref this.isBuiltIn, value);
         }
 
         /// <summary>
@@ -116,15 +130,6 @@
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether is notifiable.
-        /// </summary>
-        public bool IsNotifiable
-        {
-            get => this.isNotifiable;
-            set => this.RaiseAndSetIfChanged(ref this.isNotifiable, value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether is auto collect.
         /// </summary>
         public bool IsAutoCollect
@@ -134,12 +139,44 @@
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether is built in.
+        /// </summary>
+        public bool IsBuiltIn
+        {
+            get => this.isBuiltIn;
+            set => this.RaiseAndSetIfChanged(ref this.isBuiltIn, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether is notifiable.
+        /// </summary>
+        public bool IsNotifiable
+        {
+            get => this.isNotifiable;
+            set => this.RaiseAndSetIfChanged(ref this.isNotifiable, value);
+        }
+
+        /// <summary>
+        /// The is user admin.
+        /// </summary>
+        public bool IsUserAdmin => true;
+
+        /// <summary>
         /// Gets or sets the module auto collect u id.
         /// </summary>
         public string ModuleAutoCollectUId
         {
             get => this.moduleAutoCollectUId;
             set => this.RaiseAndSetIfChanged(ref this.moduleAutoCollectUId, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the selected type.
+        /// </summary>
+        public string SelectedType
+        {
+            get => this.selectedType;
+            set => this.RaiseAndSetIfChanged(ref this.selectedType, value);
         }
 
         /// <summary>
@@ -161,6 +198,15 @@
         }
 
         /// <summary>
+        /// Gets or sets the type name.
+        /// </summary>
+        public string TypeName
+        {
+            get => this.typeName;
+            set => this.RaiseAndSetIfChanged(ref this.typeName, value);
+        }
+
+        /// <summary>
         /// Gets or sets the type unit u id.
         /// </summary>
         public string TypeUnitUId
@@ -170,34 +216,16 @@
         }
 
         /// <summary>
-        /// The database types.
+        /// Initialize the operational database.
         /// </summary>
-        public List<string> DatabaseTypes => new List<string>
-                                                {
-                                                    "Relational",
-                                                    "Key value",
-                                                    "In memory",
-                                                    "Graph",
-                                                    "Document",
-                                                    "Ledger",
-                                                    "TimeSeries",
-                                                    "Search"
-                                                };
-
-        public List<string>
-
-        /// <summary>
-        /// Gets or sets the selected type.
-        /// </summary>
-        public string SelectedType
+        private void InitializeDatabase()
         {
-            get => this.selectedType;
-            set => this.RaiseAndSetIfChanged(ref this.selectedType, value);
+            var dataProvider = TeamBondEngineContext.Current.Resolve<ITeamBondDataProvider>();
+            dataProvider.InitializeDatabase();
         }
 
-        private List<string> GetTypeFunctionNames()
+        private void GetTypeFunctionNames()
         {
-            var syntoDal =
         }
     }
 }
