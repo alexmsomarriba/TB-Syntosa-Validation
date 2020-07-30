@@ -1,5 +1,8 @@
 ﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
+    using System.Reactive.Linq;
+    using System.Runtime.InteropServices.ComTypes;
+
     using ReactiveUI;
 
     /// <summary>

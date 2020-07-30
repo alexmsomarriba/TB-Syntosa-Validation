@@ -4,74 +4,153 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.TypePrototypeBuilderView">
-  <DockPanel>
-    <TextBox DockPanel.Dock="Top"
-             Watermark="Type name"
-             Text="{Binding TypeName}"/>
-    <TextBox DockPanel.Dock="Top"
-             Watermark="Type description"
-             Text="{Binding Description}"/>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsActive}">
-      Is the type active
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsBuiltIn}">
-      Is the type built in
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsAssignable}">
-      Is the type assignable
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsNotifiable}">
-      Is the type notifiable
-    </CheckBox>
-    <CheckBox DockPanel.Dock="Top"
-              IsThreeState="False"
-              IsChecked="{Binding IsAutoCollect}">
-      Is the type auto collecting from somewhere
-    </CheckBox>
-    <TextBlock DockPanel.Dock="Top">
-      Select the data store type.
-    </TextBlock>
-    <ListBox Items="{Binding DatabaseTypes}"
-             Name="TypeList"
-             SelectionMode="Single"
-             DockPanel.Dock="Top"
-             ScrollViewer.VerticalScrollBarVisibility="Visible"
-             Height="100"
-             SelectedItem="{Binding SelectedType}">
-      <ListBox.ItemTemplate>
-        <DataTemplate>
-          <Border Background="White" CornerRadius="4" Padding="2">
-            <TextBlock Text="{Binding}"/>
-          </Border>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
-    <TextBlock Text="{Binding SelectedType}"
-               DockPanel.Dock="Top"/>
-    <TextBox DockPanel.Dock="Top"
-             Watermark="Module auto-collect UId"
-             Text="{Binding ModuleAutoCollectUId}"/>
-    <TextBox DockPanel.Dock="Top"
-             Watermark="Sort order"
-             Text="{Binding SortOrder}"/>
-    <TextBox DockPanel.Dock="Top"
-             Watermark="Type function UId"
-             Text="{Binding TypeFunctionUId}"/>
-    <TextBox DockPanel.Dock="Top"
-             Watermark="Type unit UId"
-             Text="{Binding TypeUnitUId}"/>
-    <Button Command="{Binding GenerateOperationalDb}"
-            DockPanel.Dock="Top"
-            IsVisible="{Binding IsCurrentUserAdmin}"
-            Content="Build operational database"
-            Height="30"/>
-  </DockPanel>
+  <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible">
+    <DockPanel>
+      <TextBox DockPanel.Dock="Top"
+               Watermark="Type name"
+               Text="{Binding TypeName}"/>
+      <TextBox DockPanel.Dock="Top"
+               Watermark="Type description"
+               Text="{Binding Description}"/>
+      <CheckBox DockPanel.Dock="Top"
+                IsThreeState="False"
+                IsChecked="{Binding HasParent}">
+        Does the type have a parent
+      </CheckBox>
+      <CheckBox DockPanel.Dock="Top"
+                IsThreeState="False"
+                IsChecked="{Binding IsActive}">
+        Is the type active
+      </CheckBox>
+      <CheckBox DockPanel.Dock="Top"
+                IsThreeState="False"
+                IsChecked="{Binding IsBuiltIn}">
+        Is the type built in
+      </CheckBox>
+      <CheckBox DockPanel.Dock="Top"
+                IsThreeState="False"
+                IsChecked="{Binding IsAssignable}">
+        Is the type assignable
+      </CheckBox>
+      <CheckBox DockPanel.Dock="Top"
+                IsThreeState="False"
+                IsChecked="{Binding IsNotifiable}">
+        Is the type notifiable
+      </CheckBox>
+      <CheckBox DockPanel.Dock="Top"
+                IsThreeState="False"
+                IsChecked="{Binding IsAutoCollect}">
+        Is the type auto collecting from somewhere
+      </CheckBox>
+      <TextBlock DockPanel.Dock="Top">
+        Select the data store type.
+      </TextBlock>
+      <ListBox Items="{Binding DatabaseTypes}"
+               Name="TypeList"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedDataStoreType}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top">
+        Select the type function.
+      </TextBlock>
+      <ListBox Items="{Binding AllTypeFunctionNames}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedTypeFunctionName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top">
+        Select the type unit.
+      </TextBlock>
+      <ListBox Items="{Binding AllTypeUnitNames}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="50"
+               SelectedItem="{Binding SelectedTypeUnitName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding IsAutoCollect}">
+        Select the auto collecting module.
+      </TextBlock>
+      <ListBox Items="{Binding AllModuleNames}"
+               IsVisible="{Binding IsAutoCollect}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedModuleAutoCollectName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding HasParent}">
+        Select the parent type.
+      </TextBlock>
+      <ListBox Items="{Binding AllTypeItemNames}"
+               IsVisible="{Binding HasParent}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedTypeItemName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBox DockPanel.Dock="Top"
+               Watermark="Sort order"
+               Text="{Binding SortOrder}"/>
+      <Button Command="{Binding GenerateOperationalDb}"
+              DockPanel.Dock="Top"
+              IsVisible="{Binding IsUserAdmin}"
+              Content="Build operational database"
+              Height="30"/>
+      <Button Command="{Binding InsertType}"
+              DockPanel.Dock="Top"
+              Content="Insert the type"
+              Height="30"/>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding HasErrors}"
+                 Text="Please fix these errors"/>
+      <TextBox DockPanel.Dock="Top"
+               IsVisible="{Binding HasErrors}"
+               Text="{Binding Errors}"
+               IsReadOnly="True"/>
+    </DockPanel>
+  </ScrollViewer>
 </UserControl>

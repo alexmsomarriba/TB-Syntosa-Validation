@@ -10,6 +10,9 @@
 
     using TeamBond.Application.Framework;
 
+    /// <summary>
+    /// Kick starts the Data Editor application.
+    /// </summary>
     public class DataEditor : TeamBondEngineApplicationBase
     {
         /// <summary>
@@ -19,15 +22,23 @@
         {
         }
 
-        // Initialization code. Don't use any Avalonia, third-party APIs or any
-        // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-        // yet and stuff might break.
+        /// <summary>
+        /// The main method.
+        /// </summary>
+        /// <param name="args">
+        /// The args.
+        /// </param>
         public static void Main(string[] args)
         {
             new DataEditor().BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
 
-        // Avalonia configuration, don't remove; also used by visual designer.
+        /// <summary>
+        /// The Avalonia app builder.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="AppBuilder"/>.
+        /// </returns>
         public AppBuilder BuildAvaloniaApp()
         {
             return AppBuilder.Configure<App>().UsePlatformDetect().LogToDebug().UseReactiveUI();
