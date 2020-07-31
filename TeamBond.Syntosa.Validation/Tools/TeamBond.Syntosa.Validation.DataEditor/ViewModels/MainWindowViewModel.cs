@@ -1,8 +1,5 @@
 ﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
-    using System.Reactive.Linq;
-    using System.Runtime.InteropServices.ComTypes;
-
     using ReactiveUI;
 
     /// <summary>
@@ -13,23 +10,38 @@
         /// <summary>
         /// The content.
         /// </summary>
-        private ViewModelBase content;
+        private ViewModelBase typeCreatorContent;
+
+        /// <summary>
+        /// The type function creator content.
+        /// </summary>
+        private ViewModelBase typeFunctionCreatorContent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
         public MainWindowViewModel()
         {
-            this.Content = this.TypeBuilder = new TypePrototypeBuilderViewModel();
+            this.TypeCreatorContent = this.TypeBuilder = new TypePrototypeBuilderViewModel();
+            this.TypeFunctionCreatorContent = this.JsonToConvert = new JsonConverterViewModel();
         }
 
         /// <summary>
         /// Gets the content.
         /// </summary>
-        public ViewModelBase Content
+        public ViewModelBase TypeCreatorContent
         {
-            get => this.content;
-            private set => this.RaiseAndSetIfChanged(ref this.content, value);
+            get => this.typeCreatorContent;
+            private set => this.RaiseAndSetIfChanged(ref this.typeCreatorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the content.
+        /// </summary>
+        public ViewModelBase TypeFunctionCreatorContent
+        {
+            get => this.typeFunctionCreatorContent;
+            private set => this.RaiseAndSetIfChanged(ref this.typeFunctionCreatorContent, value);
         }
 
         /// <summary>

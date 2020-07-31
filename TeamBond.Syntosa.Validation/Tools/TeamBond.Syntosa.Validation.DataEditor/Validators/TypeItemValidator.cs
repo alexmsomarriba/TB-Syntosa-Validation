@@ -24,6 +24,13 @@
             this.RuleFor(typeItem => typeItem.IsAutoCollect).NotEmpty();
             this.RuleFor(typeItem => typeItem.IsBuiltIn).NotEmpty();
             this.RuleFor(typeItem => typeItem.IsNotifiable).NotEmpty();
+            this.RuleFor(typeItem => typeItem.IsRelational).NotEmpty();
+            this.RuleFor(typeItem => typeItem.IsGraph).NotEmpty();
+            this.RuleFor(typeItem => typeItem.IsInMemory).NotEmpty();
+            this.RuleFor(typeItem => typeItem.IsKeyValue).NotEmpty();
+            this.RuleFor(typeItem => typeItem.IsLedger).NotEmpty();
+            this.RuleFor(typeItem => typeItem.IsSearch).NotEmpty();
+            this.RuleFor(typeItem => typeItem.IsTimeSeries).NotEmpty();
             this.RuleFor(typeItem => typeItem.ModifiedBy).NotEmpty();
         }
     }

@@ -84,7 +84,7 @@
                SelectionMode="Single"
                DockPanel.Dock="Top"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
-               Height="50"
+               Height="100"
                SelectedItem="{Binding SelectedTypeUnitName}">
         <ListBox.ItemTemplate>
           <DataTemplate>

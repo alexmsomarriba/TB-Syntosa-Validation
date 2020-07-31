@@ -2,11 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.MainWindow"
         Icon="/Assets/TeamBondLogo.ico"
-        Title="TeamBond Data Editor"
-        Content="{Binding Content}">
-  <Window.Styles>
-    <Style Selector="Button.blue">
-      <Setter Property="Button.Foreground" Value="Blue"/>
-    </Style>
-  </Window.Styles>
+        Title="TeamBond Data Editor">
+  <TabControl>
+    <TabItem Header="Type Creator" 
+             Content="{Binding TypeCreatorContent}"/>
+    <TabItem Header="Type Function Creator"
+             Content="{Binding TypeFunctionCreatorContent}"/>
+  </TabControl>
 </Window>

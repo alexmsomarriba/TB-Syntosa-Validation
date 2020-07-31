@@ -421,7 +421,15 @@
                                           ParentUId = this.HasParent
                                                           ? this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName]
                                                           : Guid.Empty,
-                                          ModifiedBy = "alex@teambond.io"
+                                          ModifiedBy = "alex@teambond.io",
+                                          IsRelational = false,
+                                          IsKeyValue = false,
+                                          IsInMemory = false,
+                                          IsGraph = false,
+                                          IsDocument = false,
+                                          IsLedger = false,
+                                          IsTimeSeries = false,
+                                          IsSearch = false
                                       };
 
             switch (this.SelectedDataStoreType)
