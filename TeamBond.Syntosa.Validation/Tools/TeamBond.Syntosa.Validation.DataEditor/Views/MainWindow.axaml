@@ -4,9 +4,11 @@
         Icon="/Assets/TeamBondLogo.ico"
         Title="TeamBond Data Editor">
   <TabControl>
-    <TabItem Header="Type Creator" 
+    <TabItem Header="Type Function Creator" 
              Content="{Binding TypeFunctionCreatorContent}"/>
-    <TabItem Header="Type Function Creator"
+    <TabItem Header="Type Creator"
              Content="{Binding TypeCreatorContent}"/>
+    <TabItem Header="Data Editor"
+             Content="{Binding PrototypeEditorContent}"/>
   </TabControl>
 </Window>

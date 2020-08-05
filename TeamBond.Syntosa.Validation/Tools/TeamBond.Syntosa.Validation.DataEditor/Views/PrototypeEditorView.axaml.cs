@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace TeamBond.Syntosa.Validation.DataEditor.Views
 {
-    public class ElementPrototypeBuilderView : UserControl
+    public class PrototypeEditorView : UserControl
     {
-        public ElementPrototypeBuilderView()
+        public PrototypeEditorView()
         {
             this.InitializeComponent();
         }

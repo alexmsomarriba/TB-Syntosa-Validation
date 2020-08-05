@@ -18,12 +18,18 @@
         private ViewModelBase typeFunctionCreatorContent;
 
         /// <summary>
+        /// The prototype editor content.
+        /// </summary>
+        private ViewModelBase prototypeEditorContent;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
         public MainWindowViewModel()
         {
             this.TypeCreatorContent = this.TypeBuilder = new TypePrototypeBuilderViewModel();
             this.TypeFunctionCreatorContent = this.TypeFunctionBuilder = new TypeFunctionPrototypeBuilderViewModel();
+            this.PrototypeEditorContent = this.PrototypeEditor = new PrototypeEditorViewModel();
         }
 
         /// <summary>
@@ -45,6 +51,15 @@
         }
 
         /// <summary>
+        /// Gets the prototype editor content.
+        /// </summary>
+        public ViewModelBase PrototypeEditorContent
+        {
+            get => this.prototypeEditorContent;
+            private set => this.RaiseAndSetIfChanged(ref this.prototypeEditorContent, value);
+        }
+
+        /// <summary>
         /// Gets the type function builder.
         /// </summary>
         public TypeFunctionPrototypeBuilderViewModel TypeFunctionBuilder { get; }
@@ -53,5 +68,7 @@
         /// Gets the type builder.
         /// </summary>
         public TypePrototypeBuilderViewModel TypeBuilder { get; }
+
+        public PrototypeEditorViewModel PrototypeEditor { get; }
     }
 }

@@ -6,7 +6,6 @@
     using System.Reactive;
 
     using global::Syntosa.Core.DataAccessLayer;
-    using global::Syntosa.Core.ObjectModel.CoreClasses;
 
     using ReactiveUI;
 
@@ -53,6 +52,11 @@
         private bool canBeNotified;
 
         /// <summary>
+        /// The can have parent.
+        /// </summary>
+        private bool canHaveParent;
+
+        /// <summary>
         /// The current description.
         /// </summary>
         private string currentDescription;
@@ -66,6 +70,11 @@
         /// The errors.
         /// </summary>
         private string errors;
+
+        /// <summary>
+        /// The has data store type.
+        /// </summary>
+        private bool hasDataStoreType;
 
         /// <summary>
         /// The has description.
@@ -88,14 +97,14 @@
         private bool hasName;
 
         /// <summary>
+        /// The has parent.
+        /// </summary>
+        private bool hasParent;
+
+        /// <summary>
         /// The has type function.
         /// </summary>
         private bool hasTypeFunction;
-
-        /// <summary>
-        /// A value indicating whether this type has a parent.
-        /// </summary>
-        private bool hasTypeItem;
 
         /// <summary>
         /// The has type unit.
@@ -111,6 +120,11 @@
         /// A value indicating whether the type is assignable.
         /// </summary>
         private bool isAssignable;
+
+        /// <summary>
+        /// The is auto collect.
+        /// </summary>
+        private bool isAutoCollect;
 
         /// <summary>
         /// A value indicating whether the type is built in.
@@ -153,14 +167,14 @@
         private string selectedModuleName;
 
         /// <summary>
+        /// The selected parent name.
+        /// </summary>
+        private string selectedParentName;
+
+        /// <summary>
         /// The type function name.
         /// </summary>
         private string selectedTypeFunctionName;
-
-        /// <summary>
-        /// The parent type item name.
-        /// </summary>
-        private string selectedTypeItemName;
 
         /// <summary>
         /// The type unit name.
@@ -339,6 +353,15 @@
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether can have parent.
+        /// </summary>
+        public bool CanHaveParent
+        {
+            get => this.canHaveParent;
+            set => this.RaiseAndSetIfChanged(ref this.canHaveParent, value);
+        }
+
+        /// <summary>
         /// Gets or sets the current description.
         /// </summary>
         public string CurrentDescription
@@ -387,6 +410,15 @@
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether has data store type.
+        /// </summary>
+        public bool HasDataStoreType
+        {
+            get => this.hasDataStoreType;
+            set => this.RaiseAndSetIfChanged(ref this.hasDataStoreType, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether has description.
         /// </summary>
         public bool HasDescription
@@ -423,21 +455,21 @@
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether has parent.
+        /// </summary>
+        public bool HasParent
+        {
+            get => this.hasParent;
+            set => this.RaiseAndSetIfChanged(ref this.hasParent, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether has type function.
         /// </summary>
         public bool HasTypeFunction
         {
             get => this.hasTypeFunction;
             set => this.RaiseAndSetIfChanged(ref this.hasTypeFunction, value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether has type item.
-        /// </summary>
-        public bool HasTypeItem
-        {
-            get => this.hasTypeItem;
-            set => this.RaiseAndSetIfChanged(ref this.hasTypeItem, value);
         }
 
         /// <summary>
@@ -465,6 +497,15 @@
         {
             get => this.isAssignable;
             set => this.RaiseAndSetIfChanged(ref this.isAssignable, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether is auto collect.
+        /// </summary>
+        public bool IsAutoCollect
+        {
+            get => this.isAutoCollect;
+            set => this.RaiseAndSetIfChanged(ref this.isAutoCollect, value);
         }
 
         /// <summary>
@@ -545,21 +586,21 @@
         }
 
         /// <summary>
+        /// Gets or sets the type unit u id.
+        /// </summary>
+        public string SelectedParentName
+        {
+            get => this.selectedParentName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedParentName, value);
+        }
+
+        /// <summary>
         /// Gets or sets the type function u id.
         /// </summary>
         public string SelectedTypeFunctionName
         {
             get => this.selectedTypeFunctionName;
             set => this.RaiseAndSetIfChanged(ref this.selectedTypeFunctionName, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the type unit u id.
-        /// </summary>
-        public string SelectedTypeItemName
-        {
-            get => this.selectedTypeItemName;
-            set => this.RaiseAndSetIfChanged(ref this.selectedTypeItemName, value);
         }
 
         /// <summary>
@@ -687,10 +728,10 @@
                 switch (this.SelectedDataObjectType)
                 {
                     case "Module":
-                        Module moduleToEdit = this.syntosaDal.GetModuleByAny(
+                        var moduleToEdit = this.syntosaDal.GetModuleByAny(
                             moduleName: this.SelectedDataObjectName,
                             moduleUId: this.AllModuleNamesAndUIds[this.SelectedDataObjectName]).FirstOrDefault();
-                        
+
                         this.HasName = true;
                         this.HasDescription = true;
                         this.CanBeBuiltIn = true;
@@ -702,7 +743,7 @@
                         this.IsBuiltIn = moduleToEdit.IsBuiltIn;
                         break;
                     case "Type unit":
-                        TypeUnit typeUnitToEdit = this.syntosaDal.GetTypeUnitByAny(
+                        var typeUnitToEdit = this.syntosaDal.GetTypeUnitByAny(
                             typeUnitName: this.SelectedDataObjectName,
                             typeUnitUId: this.AllTypeItemNamesAndUIds[this.SelectedDataObjectName]).FirstOrDefault();
 
@@ -719,7 +760,7 @@
                         this.IsActive = typeUnitToEdit.IsActive;
                         break;
                     case "Type function":
-                        TypeFunction typeFunctionToEdit = this.syntosaDal.GetTypeFunctionByAny(
+                        var typeFunctionToEdit = this.syntosaDal.GetTypeFunctionByAny(
                                 typeFunctionName: this.SelectedDataObjectName,
                                 typeFunctionUId: this.AllTypeFunctionNamesAndUIds[this.SelectedDataObjectName])
                             .FirstOrDefault();
@@ -738,7 +779,7 @@
                         this.IsActive = typeFunctionToEdit.IsActive;
                         break;
                     case "Type item":
-                        TypeItem typeItemToEdit = this.syntosaDal.GetTypeItemByAny(
+                        var typeItemToEdit = this.syntosaDal.GetTypeItemByAny(
                                 typeItemName: this.SelectedDataObjectName,
                                 typeItemUId: this.AllTypeFunctionNamesAndUIds[this.SelectedDataObjectName])
                             .FirstOrDefault();
@@ -752,6 +793,8 @@
                         this.CanBeAssigned = true;
                         this.CanBeNotified = true;
                         this.CanBeAutoCollect = true;
+                        this.CanHaveParent = true;
+                        this.HasDataStoreType = true;
 
                         this.CurrentName = typeItemToEdit.Name;
                         this.CurrentDescription = typeItemToEdit.Description;
@@ -759,6 +802,51 @@
                         this.SelectedTypeFunctionName = typeItemToEdit.TypeFunctionName;
                         this.IsAssignable = typeItemToEdit.IsAssignable;
                         this.IsBuiltIn = typeItemToEdit.IsBuiltIn;
+                        this.IsNotifiable = typeItemToEdit.IsNotifiable;
+                        this.IsActive = typeItemToEdit.IsActive;
+                        this.IsAutoCollect = typeItemToEdit.IsAutoCollect;
+
+                        if (typeItemToEdit.ParentUId != Guid.Empty)
+                        {
+                            this.HasParent = true;
+                            this.SelectedParentName = typeItemToEdit.ParentName;
+                        }
+
+                        if (typeItemToEdit.IsRelational)
+                        {
+                            this.SelectedDataStoreType = "Relational";
+                        }
+
+                        if (typeItemToEdit.IsKeyValue)
+                        {
+                            this.SelectedDataStoreType = "Key value";
+                        }
+
+                        if (typeItemToEdit.IsInMemory)
+                        {
+                            this.SelectedDataStoreType = "In memory";
+                        }
+
+                        if (typeItemToEdit.IsGraph)
+                        {
+                            this.SelectedDataStoreType = "Graph";
+                        }
+
+                        if (typeItemToEdit.IsDocument)
+                        {
+                            this.SelectedDataStoreType = "Document";
+                        }
+
+                        if (typeItemToEdit.IsLedger)
+                        {
+                            this.SelectedDataStoreType = "Ledger";
+                        }
+
+                        if (typeItemToEdit.IsTimeSeries)
+                        {
+                            this.SelectedDataStoreType = "Time series";
+                        }
+
                         break;
                 }
             }
