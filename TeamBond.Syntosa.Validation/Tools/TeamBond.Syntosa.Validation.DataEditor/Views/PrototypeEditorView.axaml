@@ -1,0 +1,142 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.PrototypeEditorView">
+  <ScrollViewer VerticalScrollBarVisibility="Visible">
+    <DockPanel>
+      <TextBlock DockPanel.Dock="Top">
+        Select the type of data object you wish to edit.
+      </TextBlock>
+      <ListBox Items="{Binding DataObjectTypes}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedDataObjectType}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top">
+        Select the data object you wish to edit.
+      </TextBlock>
+      <ListBox Items="{Binding AllDataObjectNames}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedDataObjectName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top"
+                 Text="{Binding CurrentName}"
+                 IsVisible="{Binding HasName}"/>
+      <TextBox DockPanel.Dock="Top"
+               Text="{Binding NewName}"
+               AcceptsReturn="False"
+               IsVisible="{Binding HasName}"
+               Watermark="Leave blank if there is no change to the name"/>
+      <TextBlock DockPanel.Dock="Top"
+                 Text="{Binding CurrentDescription}"
+                 IsVisible="{Binding HasDescription}"/>
+      <TextBox DockPanel.Dock="Top"
+               Text="{Binding NewDescription}"
+               IsVisible="{Binding HasDescription}"
+               Watermark="Leave blank if there is no change to the description"/>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding HasTypeFunction}">
+        Select the type function.
+      </TextBlock>
+      <ListBox Items="{Binding AllTypeFunctionNames}"
+               SelectionMode="Single"
+               IsVisible="{Binding HasTypeFunction}"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedTypeFunctionName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding HasTypeUnit}">
+        Select the type unit.
+      </TextBlock>
+      <ListBox Items="{Binding AllTypeUnitNames}"
+               SelectionMode="Single"
+               IsVisible="{Binding HasTypeUnits}"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedTypeUnitName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding HasModule}">
+        Select the module.
+      </TextBlock>
+      <ListBox Items="{Binding AllModuleNames}"
+               IsVisible="{Binding HasModule}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedModuleName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding HasTypeItem}">
+        Select the parent type.
+      </TextBlock>
+      <ListBox Items="{Binding AllTypeItemNames}"
+               IsVisible="{Binding HasTypeItem}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedTypeItemName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <Button DockPanel.Dock="Top"
+              Content="Next"
+              Command="{Binding Next}"/>
+      <Button DockPanel.Dock="Top"
+              Content="Update data object"
+              Command="{Binding UpdateDataObject}"/>
+    </DockPanel>
+  </ScrollViewer>
+</UserControl>

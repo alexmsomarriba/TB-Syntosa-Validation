@@ -22,6 +22,11 @@
     <ProjectReference Include="..\..\..\..\teambond-engine\TeamBond.Engine\Libraries\TeamBond.Application.Framework\TeamBond.Application.Framework.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\PrototypeEditorView.axaml.cs">
+      <DependentUpon>PrototypeEditorView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

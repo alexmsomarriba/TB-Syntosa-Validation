@@ -41,5 +41,15 @@
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
+    <Button DockPanel.Dock="Top"
+            Content="Insert Type function"
+            Command="{Binding InsertTypeFunction}"/>
+    <TextBlock DockPanel.Dock="Top"
+           IsVisible="{Binding HasErrors}"
+           Text="Please fix these errors"/>
+    <TextBox DockPanel.Dock="Top"
+             IsVisible="{Binding HasErrors}"
+             Text="{Binding Errors}"
+             IsReadOnly="True"/>
   </DockPanel>
 </UserControl>

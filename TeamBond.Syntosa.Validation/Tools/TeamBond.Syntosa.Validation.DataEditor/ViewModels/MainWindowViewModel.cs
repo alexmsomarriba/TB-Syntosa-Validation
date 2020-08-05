@@ -23,7 +23,7 @@
         public MainWindowViewModel()
         {
             this.TypeCreatorContent = this.TypeBuilder = new TypePrototypeBuilderViewModel();
-            this.TypeFunctionCreatorContent = this.JsonToConvert = new JsonConverterViewModel();
+            this.TypeFunctionCreatorContent = this.TypeFunctionBuilder = new TypeFunctionPrototypeBuilderViewModel();
         }
 
         /// <summary>
@@ -45,9 +45,9 @@
         }
 
         /// <summary>
-        /// Gets the json to convert.
+        /// Gets the type function builder.
         /// </summary>
-        public JsonConverterViewModel JsonToConvert { get; }
+        public TypeFunctionPrototypeBuilderViewModel TypeFunctionBuilder { get; }
 
         /// <summary>
         /// Gets the type builder.

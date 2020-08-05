@@ -5,8 +5,8 @@
         Title="TeamBond Data Editor">
   <TabControl>
     <TabItem Header="Type Creator" 
-             Content="{Binding TypeCreatorContent}"/>
-    <TabItem Header="Type Function Creator"
              Content="{Binding TypeFunctionCreatorContent}"/>
+    <TabItem Header="Type Function Creator"
+             Content="{Binding TypeCreatorContent}"/>
   </TabControl>
 </Window>

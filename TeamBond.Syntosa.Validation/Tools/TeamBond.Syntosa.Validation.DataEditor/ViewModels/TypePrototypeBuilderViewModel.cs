@@ -401,11 +401,9 @@
         /// </summary>
         private void BuildTypeItem()
         {
+            var failureMessages = new StringBuilder();
             var createdTypeItem = new TypeItem
                                       {
-                                          TypeFunctionUId =
-                                              this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName],
-                                          TypeUnitUId = this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName],
                                           IsActive = this.IsActive,
                                           IsBuiltIn = this.IsBuiltIn,
                                           IsAutoCollect = this.IsAutoCollect,
@@ -414,13 +412,8 @@
                                           SortOrder = Convert.ToInt32(this.SortOrder),
                                           Name = this.TypeName,
                                           Description = this.Description,
-                                          ModuleUIdAutoCollect =
-                                              this.IsAutoCollect
-                                                  ? this.AllModuleNamesAndUIds[this.SelectedModuleAutoCollectName]
-                                                  : this.AllModuleNamesAndUIds.Values.FirstOrDefault(),
-                                          ParentUId = this.HasParent
-                                                          ? this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName]
-                                                          : Guid.Empty,
+                                          ModuleUIdAutoCollect = this.AllModuleNamesAndUIds.Values.FirstOrDefault(),
+                                          ParentUId = Guid.Empty,
                                           ModifiedBy = "alex@teambond.io",
                                           IsRelational = false,
                                           IsKeyValue = false,
@@ -431,6 +424,49 @@
                                           IsTimeSeries = false,
                                           IsSearch = false
                                       };
+
+            if (string.IsNullOrWhiteSpace(this.SelectedTypeItemName))
+            {
+                failureMessages.AppendLine("Please select a type function");
+            }
+            else
+            { 
+                createdTypeItem.TypeFunctionUId = this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName];
+            }
+
+            if (string.IsNullOrWhiteSpace(this.SelectedTypeUnitName))
+            {
+                failureMessages.AppendLine("Please select a type unit");
+            }
+            else
+            {
+                createdTypeItem.TypeUnitUId = this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName];
+            }
+
+            if (this.IsAutoCollect)
+            {
+                if (string.IsNullOrWhiteSpace(this.SelectedModuleAutoCollectName))
+                {
+                    failureMessages.AppendLine("Please select a module to auto collect from");
+                }
+                else
+                {
+                    createdTypeItem.ModuleUIdAutoCollect =
+                        this.AllModuleNamesAndUIds[this.SelectedModuleAutoCollectName];
+                }
+            }
+
+            if (this.HasParent)
+            {
+                if (string.IsNullOrWhiteSpace(this.SelectedTypeItemName))
+                {
+                    failureMessages.AppendLine("Please select a parent type");
+                }
+                else
+                {
+                    createdTypeItem.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName];
+                }
+            }
 
             switch (this.SelectedDataStoreType)
             {
@@ -462,9 +498,8 @@
 
             var typeItemValidator = new TypeItemValidator();
             ValidationResult validationResult = typeItemValidator.Validate(createdTypeItem);
-            if (!validationResult.IsValid)
+            if (!validationResult.IsValid || failureMessages.Length != 0)
             {
-                var failureMessages = new StringBuilder();
                 foreach (ValidationFailure failure in validationResult.Errors)
                 {
                     failureMessages.AppendLine(
@@ -476,6 +511,7 @@
                 return;
             }
 
+            this.HasErrors = false;
             this.syntosaDal.CreateTypeItem(createdTypeItem);
         }
         
