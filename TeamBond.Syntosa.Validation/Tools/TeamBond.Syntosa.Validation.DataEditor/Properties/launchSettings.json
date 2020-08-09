@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "TeamBond.Syntosa.Validation.DataEditor": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "TEAMBOND_APP_NAME": "TeamBondDataEditor",
+        "AWS_REGION": "us-east-2",
+        "AWS_PROFILE": "default",
+        "TEAMBOND_APP_ENVIRONMENT": "BLUE"
+      }
+    }
+  }
+}
