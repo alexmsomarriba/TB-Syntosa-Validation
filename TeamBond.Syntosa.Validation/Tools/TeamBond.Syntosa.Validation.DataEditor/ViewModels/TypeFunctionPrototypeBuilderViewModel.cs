@@ -12,6 +12,7 @@
 
     using ReactiveUI;
 
+    using TeamBond.Application.Framework;
     using TeamBond.Core.Engine;
     using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
@@ -24,6 +25,11 @@
         /// The syntosa dal.
         /// </summary>
         private readonly SyntosaDal syntosaDal;
+
+        /// <summary>
+        /// The application context.
+        /// </summary>
+        private readonly IUserContext userContext;
 
         /// <summary>
         /// The type function name associated.
@@ -67,6 +73,7 @@
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.InsertTypeFunction = ReactiveCommand.Create(this.BuildTypeFunction);
+            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
         }
 
         /// <summary>
@@ -174,7 +181,8 @@
                                               Name = this.TypeFunctionName,
                                               Description = this.TypeFunctionDescription,
                                               IsActive = this.IsActive,
-                                              IsBuiltIn = this.IsBuiltIn
+                                              IsBuiltIn = this.IsBuiltIn,
+                                              ModifiedBy = this.userContext.CurrentUser.Email
                                           };
 
             if (string.IsNullOrWhiteSpace(this.SelectedModuleName))

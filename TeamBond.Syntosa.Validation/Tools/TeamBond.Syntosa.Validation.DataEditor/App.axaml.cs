@@ -5,7 +5,6 @@
     using Avalonia.Markup.Xaml;
 
     using TeamBond.Syntosa.Validation.DataEditor.ViewModels;
-    using TeamBond.Syntosa.Validation.DataEditor.ViewModels;
     using TeamBond.Syntosa.Validation.DataEditor.Views;
 
     public class App : Application

@@ -12,8 +12,9 @@
     using global::Syntosa.Core.ObjectModel.CoreClasses;
 
     using ReactiveUI;
+
+    using TeamBond.Application.Framework;
     using TeamBond.Core.Engine;
-    using TeamBond.Data.DataProvider;
     using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
@@ -25,6 +26,11 @@
         /// The syntosa dal.
         /// </summary>
         private readonly SyntosaDal syntosaDal;
+
+        /// <summary>
+        /// The application context.
+        /// </summary>
+        private readonly IUserContext userContext;
 
         /// <summary>
         /// The description of the type.
@@ -107,15 +113,19 @@
         private string typeName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypePrototypeBuilderViewModel" /> class.
+        /// Initializes a new instance of the <see cref="TypePrototypeBuilderViewModel"/> class.
         /// </summary>
         public TypePrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.GenerateOperationalDb = ReactiveCommand.Create(this.InitializeDatabase);
-
+            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
             this.InsertType = ReactiveCommand.Create(this.BuildTypeItem);
         }
+
+        /// <summary>
+        /// Gets or sets the current user identifier.
+        /// </summary>
+        public string CurrentUserIdentifier { get; set; }
 
         /// <summary>
         /// Gets the all type function names.
@@ -256,11 +266,6 @@
         }
 
         /// <summary>
-        /// Gets the generate operational database button.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> GenerateOperationalDb { get; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether has errors.
         /// </summary>
         public bool HasErrors
@@ -331,7 +336,7 @@
         /// <summary>
         /// The is user admin.
         /// </summary>
-        public bool IsUserAdmin => false;
+        public bool IsUserAdmin => true;
 
         /// <summary>
         /// Gets or sets the selected type.
@@ -414,7 +419,7 @@
                                           Description = this.Description,
                                           ModuleUIdAutoCollect = this.AllModuleNamesAndUIds.Values.FirstOrDefault(),
                                           ParentUId = Guid.Empty,
-                                          ModifiedBy = "alex@teambond.io",
+                                          ModifiedBy = this.userContext.CurrentUser.Email,
                                           IsRelational = false,
                                           IsKeyValue = false,
                                           IsInMemory = false,
@@ -585,15 +590,6 @@
             }
 
             return typeUnitNamesAndUIds;
-        }
-
-        /// <summary>
-        /// Initialize the operational database.
-        /// </summary>
-        private void InitializeDatabase()
-        {
-            var dataProvider = TeamBondEngineContext.Current.Resolve<ITeamBondDataProvider>();
-            dataProvider.InitializeDatabase();
         }
     }
 }

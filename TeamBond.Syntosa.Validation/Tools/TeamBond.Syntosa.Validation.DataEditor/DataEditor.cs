@@ -77,9 +77,6 @@
             // Add an optional appsettings.{environmentName}.json
             configBuilder.AddJsonFile($"appsettings.{environmentName}.json", true, true);
 
-            // Add the environment variables
-            configBuilder.AddEnvironmentVariables();
-
             // If a profile name is given, add the secrets manager configuration source
             // created with the credentials and region associated with the profile
             if (!string.IsNullOrWhiteSpace(profileName))

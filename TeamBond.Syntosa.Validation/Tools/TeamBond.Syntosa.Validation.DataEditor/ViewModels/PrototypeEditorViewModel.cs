@@ -187,12 +187,17 @@
         private string sortOrder;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PrototypeEditorViewModel" /> class.
+        /// Initializes a new instance of the <see cref="PrototypeEditorViewModel"/> class.
         /// </summary>
         public PrototypeEditorViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
         }
+
+        /// <summary>
+        /// Gets or sets the current user identifier.
+        /// </summary>
+        public string CurrentUserIdentifier { get; set; }
 
         /// <summary>
         /// Gets or sets the all data object names.

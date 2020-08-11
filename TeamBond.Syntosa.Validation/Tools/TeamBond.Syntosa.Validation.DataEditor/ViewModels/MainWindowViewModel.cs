@@ -1,13 +1,14 @@
 ﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Reactive;
 
     using ReactiveUI;
 
+    using TeamBond.Application.Framework;
     using TeamBond.Core;
     using TeamBond.Core.Engine;
-    using TeamBond.Data.Mapping.User;
     using TeamBond.Domain.ConfigurationManagement;
     using TeamBond.Domain.User;
     using TeamBond.Services.ConfigurationManagement;
@@ -29,6 +30,11 @@
         private readonly IUserService userService;
 
         /// <summary>
+        /// The application context.
+        /// </summary>
+        private readonly IUserContext userContext;
+
+        /// <summary>
         /// The user settings.
         /// </summary>
         private readonly UserSettings userSettings;
@@ -37,6 +43,16 @@
         /// The content.
         /// </summary>
         private ViewModelBase typeCreatorContent;
+
+        /// <summary>
+        /// A value indicating whether the logged in user is a super user.
+        /// </summary>
+        private bool isDeleterVisible;
+
+        /// <summary>
+        /// A value indicating whether the logged in user is an admin.
+        /// </summary>
+        private bool isEditorVisible;
 
         /// <summary>
         /// The username.
@@ -108,8 +124,11 @@
         /// </summary>
         public MainWindowViewModel()
         {
+            this.IsNotLoggingIn = false;
+
             this.userRegistrationService = TeamBondEngineContext.Current.Resolve<IUserRegistrationService>();
             this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
+            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
             var settingsService = TeamBondEngineContext.Current.Resolve<ISettingsService>();
             var applicationContext = TeamBondEngineContext.Current.Resolve<IApplicationContext>();
 
@@ -119,7 +138,7 @@
             }
 
             this.userSettings = settingsService.LoadSetting<UserSettings>(
-                applicationContext.CurrentApplication,
+               applicationContext.CurrentApplication,
                 applicationContext.CurrentApplicationGroup,
                 applicationContext.CurrentEnvironment,
                 applicationContext.CurrentAwsAccountId,
@@ -129,12 +148,17 @@
             this.LogIn = ReactiveCommand.Create(this.LogInResult);
             this.Register = ReactiveCommand.Create(this.UserRegistration);
             this.CreateUser = ReactiveCommand.Create(this.CreateNewUser);
-            this.ReturnToLogin = ReactiveCommand.Create(this.LoginReturn); 
+            this.ReturnToLogin = ReactiveCommand.Create(this.LoginReturn);
 
             this.TypeCreatorContent = this.TypeBuilder = new TypePrototypeBuilderViewModel();
             this.TypeFunctionCreatorContent = this.TypeFunctionBuilder = new TypeFunctionPrototypeBuilderViewModel();
             this.PrototypeEditorContent = this.PrototypeEditor = new PrototypeEditorViewModel();
         }
+
+        /// <summary>
+        /// Gets or sets the current user identifier.
+        /// </summary>
+        public string CurrentUserIdentifier { get; set; }
 
         /// <summary>
         /// Gets the content.
@@ -194,6 +218,24 @@
         {
             get => this.isNotLoggingIn;
             set => this.RaiseAndSetIfChanged(ref this.isNotLoggingIn, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the logged in user is a super user.
+        /// </summary>
+        public bool IsDeleterVisible
+        {
+            get => this.isDeleterVisible;
+            set => this.RaiseAndSetIfChanged(ref this.isDeleterVisible, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the logged in user is an admin.
+        /// </summary>
+        public bool IsEditorVisible
+        {
+            get => this.isEditorVisible;
+            set => this.RaiseAndSetIfChanged(ref this.isEditorVisible, value);
         }
 
         /// <summary>
@@ -318,6 +360,22 @@
                     this.SuccessfulLogin = true;
                     this.HasErrors = false;
                     this.errors = string.Empty;
+                    this.userContext.CurrentUser = this.userService.GetUserByEmail(this.Username);
+                    IList<UserRole> userRoles = this.userService.GetUserRoles(this.userContext.CurrentUser);
+                    if (userRoles.Contains(
+                        this.userService.GetUserRoleBySystemName(SystemUserRoleNames.TeamBondSuperUsers)))
+                    {
+                        this.IsDeleterVisible = true;
+                    }
+
+                    if (userRoles.Contains(
+                            this.userService.GetUserRoleBySystemName(SystemUserRoleNames.TeamBondAdministrators))
+                        || userRoles.Contains(
+                            this.userService.GetUserRoleBySystemName(SystemUserRoleNames.TeamBondSuperUsers)))
+                    {
+                        this.IsEditorVisible = true;
+                    }
+
                     return;
                 case UserLogInResults.UserDoesNotExist:
                     this.Errors = "There is no user associated with this account information";
@@ -353,13 +411,13 @@
             }
 
             User user = new User
-                            {
-                                Email = this.Email,
-                                FirstName = this.FirstName,
-                                LastName = this.LastName,
-                                Username = this.Username,
-                                IsActive = false
-                            };
+            {
+                Email = this.Email,
+                FirstName = this.FirstName,
+                LastName = this.LastName,
+                Username = this.Username,
+                IsActive = false
+            };
 
             UserRegistrationRequest request = new UserRegistrationRequest(
                 user,

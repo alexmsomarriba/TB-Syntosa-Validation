@@ -135,11 +135,6 @@
       <TextBox DockPanel.Dock="Top"
                Watermark="Sort order"
                Text="{Binding SortOrder}"/>
-      <Button Command="{Binding GenerateOperationalDb}"
-              DockPanel.Dock="Top"
-              IsVisible="{Binding IsUserAdmin}"
-              Content="Build operational database"
-              Height="30"/>
       <Button Command="{Binding InsertType}"
               DockPanel.Dock="Top"
               Content="Insert the type"

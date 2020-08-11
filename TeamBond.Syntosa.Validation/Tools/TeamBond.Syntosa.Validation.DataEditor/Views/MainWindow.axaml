@@ -64,13 +64,14 @@
     <TextBox DockPanel.Dock="Top"
              Text="{Binding Errors}"
              IsVisible="{Binding HasErrors}"/>
-    <TabControl IsVisible="{Binding SuccessfulLogin}"
-                DockPanel.Dock="Top">
+    <TabControl DockPanel.Dock="Top"
+                IsVisible="{Binding IsNotLoggingIn}">
       <TabItem Header="Type Function Creator"
                Content="{Binding TypeFunctionCreatorContent}"/>
       <TabItem Header="Type Creator"
                Content="{Binding TypeCreatorContent}"/>
       <TabItem Header="Data Editor"
+               IsVisible="{Binding IsEditorVisible}"
                Content="{Binding PrototypeEditorContent}"/>
     </TabControl>
   </DockPanel>
