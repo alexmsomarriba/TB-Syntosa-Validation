@@ -17,9 +17,9 @@
     using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
-    /// The type function prototype builder view model.
+    /// The type unit prototype view model.
     /// </summary>
-    public class TypeFunctionPrototypeBuilderViewModel : ViewModelBase
+    public class TypeUnitPrototypeBuilderViewModel : ViewModelBase
     {
         /// <summary>
         /// The syntosa dal.
@@ -32,17 +32,17 @@
         private readonly IUserContext userContext;
 
         /// <summary>
-        /// The type function name associated.
+        /// The type unit name associated.
         /// </summary>
-        private string typeFunctionName;
+        private string typeUnitName;
 
         /// <summary>
-        /// The type function description.
+        /// The type unit description.
         /// </summary>
-        private string typeFunctionDescription;
+        private string typeUnitDescription;
 
         /// <summary>
-        /// A value indicating whether the type function is active.
+        /// A value indicating whether the type unit is active.
         /// </summary>
         private bool isActive;
 
@@ -62,24 +62,34 @@
         private bool hasErrors;
 
         /// <summary>
+        /// The has parent.
+        /// </summary>
+        private bool hasParent;
+
+        /// <summary>
+        /// The selected type unit name.
+        /// </summary>
+        private string selectedTypeUnitName;
+
+        /// <summary>
         /// The errors.
         /// </summary>
         private string errors;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypeFunctionPrototypeBuilderViewModel"/> class.
+        /// Initializes a new instance of the <see cref="TypeUnitPrototypeBuilderViewModel"/> class.
         /// </summary>
-        public TypeFunctionPrototypeBuilderViewModel()
+        public TypeUnitPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.InsertTypeFunction = ReactiveCommand.Create(this.BuildTypeFunction);
+            this.InsertTypeUnit = ReactiveCommand.Create(this.BuildTypeUnit);
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
         }
 
         /// <summary>
         /// Gets the insert type.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> InsertTypeFunction { get; }
+        public ReactiveCommand<Unit, Unit> InsertTypeUnit { get; }
 
         /// <summary>
         /// Gets or sets the all module names and u ids.
@@ -91,7 +101,16 @@
         }
 
         /// <summary>
-        /// Gets the all type function names.
+        /// Gets or sets a value indicating whether has parent.
+        /// </summary>
+        public bool HasParent
+        {
+            get => this.hasParent;
+            set => this.RaiseAndSetIfChanged(ref this.hasParent, value);
+        }
+
+        /// <summary>
+        /// Gets the all type unit names.
         /// </summary>
         public List<string> AllModuleNames
         {
@@ -108,6 +127,32 @@
         }
 
         /// <summary>
+        /// Gets or sets the all type function name and u ids.
+        /// </summary>
+        public Dictionary<string, Guid> AllTypeUnitNamesAndUIds
+        {
+            get => this.GetAllTypeUnitNamesAndUIds();
+            set => value = this.GetAllTypeUnitNamesAndUIds();
+        }
+
+        /// <summary>
+        /// Gets the all type function names.
+        /// </summary>
+        public List<string> AllTypeUnitNames
+        {
+            get
+            {
+                var typeUnitNames = new List<string>();
+                foreach (var name in this.AllTypeUnitNamesAndUIds.Keys)
+                {
+                    typeUnitNames.Add(name);
+                }
+
+                return typeUnitNames;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the module auto collect u id.
         /// </summary>
         public string SelectedModuleName
@@ -117,21 +162,30 @@
         }
 
         /// <summary>
-        /// Gets or sets the type function name.
+        /// Gets or sets the type unit u id.
         /// </summary>
-        public string TypeFunctionName
+        public string SelectedTypeUnitName
         {
-            get => this.typeFunctionName;
-            set => this.RaiseAndSetIfChanged(ref this.typeFunctionName, value);
+            get => this.selectedTypeUnitName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedTypeUnitName, value);
         }
 
         /// <summary>
-        /// Gets or sets the type function description.
+        /// Gets or sets the type unit name.
         /// </summary>
-        public string TypeFunctionDescription
+        public string TypeUnitName
         {
-            get => this.typeFunctionDescription;
-            set => this.RaiseAndSetIfChanged(ref this.typeFunctionDescription, value);
+            get => this.typeUnitName;
+            set => this.RaiseAndSetIfChanged(ref this.typeUnitName, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the type unit description.
+        /// </summary>
+        public string TypeUnitDescription
+        {
+            get => this.typeUnitDescription;
+            set => this.RaiseAndSetIfChanged(ref this.typeUnitDescription, value);
         }
 
         /// <summary>
@@ -171,19 +225,20 @@
         }
 
         /// <summary>
-        /// The build type function.
+        /// The build type unit.
         /// </summary>
-        private void BuildTypeFunction()
+        private void BuildTypeUnit()
         {
             var failureMessage = new StringBuilder();
-            var createdTypeFunction = new TypeFunction
-                                          {
-                                              Name = this.TypeFunctionName,
-                                              Description = this.TypeFunctionDescription,
-                                              IsActive = this.IsActive,
-                                              IsBuiltIn = this.IsBuiltIn,
-                                              ModifiedBy = this.userContext.CurrentUser.Email
-                                          };
+            var createdTypeUnit = new TypeUnit
+            {
+                Name = this.TypeUnitName,
+                Description = this.TypeUnitDescription,
+                IsActive = this.IsActive,
+                IsBuiltIn = this.IsBuiltIn,
+                ModifiedBy = this.userContext.CurrentUser.Email,
+                ParentUId = Guid.Empty
+            };
 
             if (string.IsNullOrWhiteSpace(this.SelectedModuleName))
             {
@@ -191,11 +246,23 @@
             }
             else
             {
-                createdTypeFunction.ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName];
+                createdTypeUnit.ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName];
             }
 
-            var typeFunctionValidator = new TypeFunctionValidator();
-            ValidationResult validationResult = typeFunctionValidator.Validate(createdTypeFunction);
+            if (this.HasParent)
+            {
+                if (string.IsNullOrWhiteSpace(this.SelectedTypeUnitName))
+                {
+                    failureMessage.AppendLine("Please select a parent module or deselect the 'Has Parent' checkbox");
+                }
+                else
+                {
+                    createdTypeUnit.ParentUId = this.AllModuleNamesAndUIds[this.SelectedTypeUnitName];
+                }
+            }
+
+            var typeUnitValidator = new TypeUnitValidator();
+            ValidationResult validationResult = typeUnitValidator.Validate(createdTypeUnit);
             if (!validationResult.IsValid || failureMessage.Length != 0)
             {
                 foreach (var failure in validationResult.Errors)
@@ -210,7 +277,7 @@
             }
 
             this.HasErrors = false;
-            this.syntosaDal.CreateTypeFunction(createdTypeFunction);
+            this.syntosaDal.CreateTypeUnit(createdTypeUnit);
         }
 
         /// <summary>
@@ -229,6 +296,24 @@
             }
 
             return moduleNamesUIds;
+        }
+
+        /// <summary>
+        /// Gets all type unit names and UIds in the Syntosa database.
+        /// </summary>
+        /// <returns>
+        /// All type unit names and UIds in the Syntosa database.
+        /// </returns>
+        private Dictionary<string, Guid> GetAllTypeUnitNamesAndUIds()
+        {
+            var typeUnits = this.syntosaDal.GetTypeUnitByAny();
+            var typeUnitNamesAndUIds = new Dictionary<string, Guid>();
+            foreach (var typeUnit in typeUnits)
+            {
+                typeUnitNamesAndUIds.Add(typeUnit.Name, typeUnit.UId);
+            }
+
+            return typeUnitNamesAndUIds;
         }
     }
 }

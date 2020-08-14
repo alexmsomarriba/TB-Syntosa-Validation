@@ -1,0 +1,79 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.TypeUnitPrototypeBuilderView">
+  <DockPanel>
+    <TextBox AcceptsReturn="False"
+             DockPanel.Dock="Top"
+             Text="{Binding TypeUnitName}"
+             Watermark="Type unit name"/>
+    <TextBox AcceptsReturn="False"
+             DockPanel.Dock="Top"
+             Text="{Binding TypeUnitDescription}"
+             Watermark="Type unit Description"/>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsActive}">
+      Is the type unit active
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsBuiltIn}">
+      Is the type unit built in
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding HasParent}">
+      Does the type unit have a parent type unit?
+    </CheckBox>
+    <TextBlock DockPanel.Dock="Top">
+      Select the module associated with this type unit.
+    </TextBlock>
+    <ListBox Items="{Binding AllModuleNames}"
+             Name="TypeList"
+             SelectionMode="Single"
+             DockPanel.Dock="Top"
+             ScrollViewer.VerticalScrollBarVisibility="Visible"
+             Height="100"
+             SelectedItem="{Binding SelectedModuleName}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Background="White" CornerRadius="4" Padding="2">
+            <TextBlock Text="{Binding}"/>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock DockPanel.Dock="Top"
+               IsVisible="{Binding HasParent}">
+      Select the parent type unit associated with this type unit.
+    </TextBlock>
+    <ListBox Items="{Binding AllTypeUnitNames}"
+             IsVisible="{Binding HasParent}"
+             SelectionMode="Single"
+             DockPanel.Dock="Top"
+             ScrollViewer.VerticalScrollBarVisibility="Visible"
+             Height="100"
+             SelectedItem="{Binding SelectedTypeUnitName}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Background="White" CornerRadius="4" Padding="2">
+            <TextBlock Text="{Binding}"/>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <Button DockPanel.Dock="Top"
+            Content="Insert Type Unit"
+            Command="{Binding InsertTypeUnit}"/>
+    <TextBlock DockPanel.Dock="Top"
+           IsVisible="{Binding HasErrors}"
+           Text="Please fix these errors"/>
+    <TextBox DockPanel.Dock="Top"
+             IsVisible="{Binding HasErrors}"
+             Text="{Binding Errors}"
+             IsReadOnly="True"/>
+  </DockPanel>
+</UserControl>

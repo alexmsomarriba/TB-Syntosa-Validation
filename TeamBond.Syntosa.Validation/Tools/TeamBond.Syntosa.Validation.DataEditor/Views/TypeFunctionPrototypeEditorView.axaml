@@ -1,0 +1,55 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.TypeFunctionPrototypeEditorView">
+  <DockPanel>
+    <TextBox AcceptsReturn="False"
+             DockPanel.Dock="Top"
+             Text="{Binding TypeFunctionName}"
+             Watermark="Type function name"/>
+    <TextBox AcceptsReturn="False"
+             DockPanel.Dock="Top"
+             Text="{Binding TypeFunctionDescription}"
+             Watermark="Type function Description"/>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsActive}">
+      Is the type function active
+    </CheckBox>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding IsBuiltIn}">
+      Is the type function built in
+    </CheckBox>
+    <TextBlock DockPanel.Dock="Top">
+      Select the module associated with this type function.
+    </TextBlock>
+    <ListBox Items="{Binding AllModuleNames}"
+             Name="TypeList"
+             SelectionMode="Single"
+             DockPanel.Dock="Top"
+             ScrollViewer.VerticalScrollBarVisibility="Visible"
+             Height="100"
+             SelectedItem="{Binding SelectedModuleName}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Background="White" CornerRadius="4" Padding="2">
+            <TextBlock Text="{Binding}"/>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <Button DockPanel.Dock="Top"
+            Content="Insert Type function"
+            Command="{Binding InsertTypeFunction}"/>
+    <TextBlock DockPanel.Dock="Top"
+           IsVisible="{Binding HasErrors}"
+           Text="Please fix these errors"/>
+    <TextBox DockPanel.Dock="Top"
+             IsVisible="{Binding HasErrors}"
+             Text="{Binding Errors}"
+             IsReadOnly="True"/>
+  </DockPanel>
+</UserControl>

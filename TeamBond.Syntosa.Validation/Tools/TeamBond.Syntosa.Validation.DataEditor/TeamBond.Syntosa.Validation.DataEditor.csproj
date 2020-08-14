@@ -17,7 +17,6 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="GeneratedClasses\" />
-    <Folder Include="Settings\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\teambond-engine\TeamBond.Engine\Libraries\TeamBond.Application.Framework\TeamBond.Application.Framework.csproj" />
@@ -25,6 +24,9 @@
   <ItemGroup>
     <Compile Update="Views\PrototypeEditorView.axaml.cs">
       <DependentUpon>PrototypeEditorView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TypePrototypeEditorView.axaml.cs">
+      <DependentUpon>TypePrototypeEditorView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

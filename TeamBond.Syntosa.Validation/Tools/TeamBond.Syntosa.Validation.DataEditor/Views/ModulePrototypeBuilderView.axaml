@@ -1,0 +1,59 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.ModulePrototypeBuilderView">
+  <DockPanel>
+    <TextBox AcceptsReturn="False"
+             DockPanel.Dock="Top"
+             Text="{Binding Name}"
+             Watermark="Name"/>
+    <TextBox AcceptsReturn="False"
+             DockPanel.Dock="Top"
+             Text="{Binding Description}"
+             Watermark="Description"/>
+    <CheckBox DockPanel.Dock="Top"
+              Content="Is the module active?"
+              IsThreeState="False"
+              IsChecked="{Binding IsActive}"/>
+    <CheckBox DockPanel.Dock="Top"
+          Content="Is the module built in?"
+          IsThreeState="False"
+          IsChecked="{Binding IsBuiltIn}"/>
+    <CheckBox DockPanel.Dock="Top"
+              IsThreeState="False"
+              IsChecked="{Binding HasParent}"
+              Content="Does the module have a parent module?"/>
+    <TextBlock DockPanel.Dock="Top"
+               IsVisible="{Binding HasParent}">
+      Select the module associated with this type function.
+    </TextBlock>
+    <ListBox Items="{Binding AllModuleNames}"
+             IsVisible="{Binding HasParent}"
+             SelectionMode="Single"
+             DockPanel.Dock="Top"
+             ScrollViewer.VerticalScrollBarVisibility="Visible"
+             Height="100"
+             SelectedItem="{Binding SelectedModuleName}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Background="White" CornerRadius="4" Padding="2">
+            <TextBlock Text="{Binding}"/>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <Button DockPanel.Dock="Top"
+            Content="Create Domain"
+            Command="{Binding CreateModule}"
+            Height="10"/>
+    <TextBlock DockPanel.Dock="Top"
+       IsVisible="{Binding HasErrors}"
+       Text="Please fix these errors"/>
+    <TextBox DockPanel.Dock="Top"
+             IsVisible="{Binding HasErrors}"
+             Text="{Binding Errors}"
+             IsReadOnly="True"/>
+  </DockPanel>
+</UserControl>

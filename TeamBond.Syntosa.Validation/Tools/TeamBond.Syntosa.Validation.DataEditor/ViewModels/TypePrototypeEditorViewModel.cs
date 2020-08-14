@@ -18,9 +18,9 @@
     using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
-    /// The type proto type builder view model.
+    /// The type prototype editor view model.
     /// </summary>
-    public class TypePrototypeBuilderViewModel : ViewModelBase
+    public class TypePrototypeEditorViewModel : ViewModelBase
     {
         /// <summary>
         /// The syntosa dal.
@@ -113,9 +113,9 @@
         private string typeName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypePrototypeBuilderViewModel"/> class.
+        /// Initializes a new instance of the <see cref="TypePrototypeEditorViewModel"/> class.
         /// </summary>
-        public TypePrototypeBuilderViewModel()
+        public TypePrototypeEditorViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
@@ -408,34 +408,34 @@
         {
             var failureMessages = new StringBuilder();
             var createdTypeItem = new TypeItem
-                                      {
-                                          IsActive = this.IsActive,
-                                          IsBuiltIn = this.IsBuiltIn,
-                                          IsAutoCollect = this.IsAutoCollect,
-                                          IsAssignable = this.IsAssignable,
-                                          IsNotifiable = this.IsNotifiable,
-                                          SortOrder = Convert.ToInt32(this.SortOrder),
-                                          Name = this.TypeName,
-                                          Description = this.Description,
-                                          ModuleUIdAutoCollect = this.AllModuleNamesAndUIds.Values.FirstOrDefault(),
-                                          ParentUId = Guid.Empty,
-                                          ModifiedBy = this.userContext.CurrentUser.Email,
-                                          IsRelational = false,
-                                          IsKeyValue = false,
-                                          IsInMemory = false,
-                                          IsGraph = false,
-                                          IsDocument = false,
-                                          IsLedger = false,
-                                          IsTimeSeries = false,
-                                          IsSearch = false
-                                      };
+            {
+                IsActive = this.IsActive,
+                IsBuiltIn = this.IsBuiltIn,
+                IsAutoCollect = this.IsAutoCollect,
+                IsAssignable = this.IsAssignable,
+                IsNotifiable = this.IsNotifiable,
+                SortOrder = Convert.ToInt32(this.SortOrder),
+                Name = this.TypeName,
+                Description = this.Description,
+                ModuleUIdAutoCollect = this.AllModuleNamesAndUIds.Values.FirstOrDefault(),
+                ParentUId = Guid.Empty,
+                ModifiedBy = this.userContext.CurrentUser.Email,
+                IsRelational = false,
+                IsKeyValue = false,
+                IsInMemory = false,
+                IsGraph = false,
+                IsDocument = false,
+                IsLedger = false,
+                IsTimeSeries = false,
+                IsSearch = false
+            };
 
             if (string.IsNullOrWhiteSpace(this.SelectedTypeItemName))
             {
                 failureMessages.AppendLine("Please select a type function");
             }
             else
-            { 
+            {
                 createdTypeItem.TypeFunctionUId = this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName];
             }
 
@@ -519,7 +519,7 @@
             this.HasErrors = false;
             this.syntosaDal.CreateTypeItem(createdTypeItem);
         }
-        
+
         /// <summary>
         /// Gets all domains names and UIds in the Syntosa database.
         /// </summary>

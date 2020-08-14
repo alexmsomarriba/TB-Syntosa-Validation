@@ -66,6 +66,10 @@
              IsVisible="{Binding HasErrors}"/>
     <TabControl DockPanel.Dock="Top"
                 IsVisible="{Binding IsNotLoggingIn}">
+      <TabItem Header="Module Creator"
+               Content="{Binding ModuleCreatorContent}"/>
+      <TabItem Header="Type Unit Creator"
+               Content="{Binding TypeUnitCreatorContent}"/>
       <TabItem Header="Type Function Creator"
                Content="{Binding TypeFunctionCreatorContent}"/>
       <TabItem Header="Type Creator"
