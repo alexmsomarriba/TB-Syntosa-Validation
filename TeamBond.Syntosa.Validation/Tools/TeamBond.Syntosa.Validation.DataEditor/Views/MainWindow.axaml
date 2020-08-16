@@ -6,11 +6,11 @@
   <DockPanel>
     <TextBlock DockPanel.Dock="Top"
                IsVisible="{Binding !IsNotLoggingIn}"
-               Text="Please enter your username and password"/>
+               Text="Please enter your email and password"/>
     <TextBox DockPanel.Dock="Top"
              IsVisible="{Binding !IsNotLoggingIn}"
              Text="{Binding Username}"
-             Watermark="Username"/>
+             Watermark="Email"/>
     <TextBox DockPanel.Dock="Top"
              IsVisible="{Binding !IsNotLoggingIn}"
              Text="{Binding Password}"

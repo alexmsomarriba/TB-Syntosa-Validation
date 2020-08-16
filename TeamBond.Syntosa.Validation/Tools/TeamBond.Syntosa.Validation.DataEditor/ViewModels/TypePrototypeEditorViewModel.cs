@@ -15,6 +15,7 @@
 
     using TeamBond.Core.Engine;
     using TeamBond.Domain.User;
+    using TeamBond.Services.Users;
     using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
@@ -28,6 +29,11 @@
         private readonly SyntosaDal syntosaDal;
 
         /// <summary>
+        /// The user activity service.
+        /// </summary>
+        private readonly IUserActivityService userActivityService;
+
+        /// <summary>
         /// The application context.
         /// </summary>
         private readonly IUserContext userContext;
@@ -35,7 +41,7 @@
         /// <summary>
         /// The description of the type.
         /// </summary>
-        private string description;
+        private string newTypeItemDescription;
 
         /// <summary>
         /// The errors.
@@ -93,9 +99,24 @@
         private string selectedTypeFunctionName;
 
         /// <summary>
-        /// The parent type item name.
+        /// The name of the selected type item to edit.
         /// </summary>
         private string selectedTypeItemName;
+
+        /// <summary>
+        /// The current name of the type item to edit.
+        /// </summary>
+        private string currentName;
+
+        /// <summary>
+        /// The current description of the type item to edit.
+        /// </summary>
+        private string currentDescription;
+
+        /// <summary>
+        /// The parent type item name.
+        /// </summary>
+        private string selectedTypeItemParentName;
 
         /// <summary>
         /// The type unit name.
@@ -110,7 +131,7 @@
         /// <summary>
         /// The type name.
         /// </summary>
-        private string typeName;
+        private string newTypeItemName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypePrototypeEditorViewModel"/> class.
@@ -118,6 +139,7 @@
         public TypePrototypeEditorViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
+            this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
             this.InsertType = ReactiveCommand.Create(this.BuildTypeItem);
         }
@@ -142,6 +164,15 @@
 
                 return moduleNames;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the selected type item to edit.
+        /// </summary>
+        public string SelectedTypeItemName
+        {
+            get => this.selectedTypeItemName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedTypeItemName, value);
         }
 
         /// <summary>
@@ -250,10 +281,10 @@
         /// <summary>
         /// Gets or sets the description.
         /// </summary>
-        public string Description
+        public string NewTypeItemDescription
         {
-            get => this.description;
-            set => this.RaiseAndSetIfChanged(ref this.description, value);
+            get => this.newTypeItemDescription;
+            set => this.RaiseAndSetIfChanged(ref this.newTypeItemDescription, value);
         }
 
         /// <summary>
@@ -281,6 +312,24 @@
         {
             get => this.hasParent;
             set => this.RaiseAndSetIfChanged(ref this.hasParent, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the current name of the type item to edit.
+        /// </summary>
+        public string CurrentName
+        {
+            get => this.currentName;
+            set => this.RaiseAndSetIfChanged(ref this.currentName, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the current description of the type item to edit.
+        /// </summary>
+        public string CurrentDescription
+        {
+            get => this.currentDescription;
+            set => this.RaiseAndSetIfChanged(ref this.currentDescription, value);
         }
 
         /// <summary>
@@ -368,10 +417,10 @@
         /// <summary>
         /// Gets or sets the type unit u id.
         /// </summary>
-        public string SelectedTypeItemName
+        public string SelectedTypeItemParentName
         {
-            get => this.selectedTypeItemName;
-            set => this.RaiseAndSetIfChanged(ref this.selectedTypeItemName, value);
+            get => this.selectedTypeItemParentName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedTypeItemParentName, value);
         }
 
         /// <summary>
@@ -395,10 +444,77 @@
         /// <summary>
         /// Gets or sets the type name.
         /// </summary>
-        public string TypeName
+        public string NewTypeItemName
         {
-            get => this.typeName;
-            set => this.RaiseAndSetIfChanged(ref this.typeName, value);
+            get => this.newTypeItemName;
+            set => this.RaiseAndSetIfChanged(ref this.newTypeItemName, value);
+        }
+
+        /// <summary>
+        /// The retrieve info.
+        /// </summary>
+        private void RetrieveInfo()
+        {
+            var typeItemToEdit = this.syntosaDal.GetTypeItemByAny(
+                                typeItemName: this.SelectedTypeItemName,
+                                typeItemUId: this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName])
+                            .FirstOrDefault();
+
+            this.CurrentName = typeItemToEdit.Name;
+            this.CurrentDescription = typeItemToEdit.Description;
+            this.SelectedTypeUnitName = typeItemToEdit.TypeUnitName;
+            this.SelectedTypeFunctionName = typeItemToEdit.TypeFunctionName;
+            this.IsAssignable = typeItemToEdit.IsAssignable;
+            this.IsBuiltIn = typeItemToEdit.IsBuiltIn;
+            this.IsNotifiable = typeItemToEdit.IsNotifiable;
+            this.IsActive = typeItemToEdit.IsActive;
+            this.IsAutoCollect = typeItemToEdit.IsAutoCollect;
+
+            if (typeItemToEdit.ParentUId != Guid.Empty)
+            {
+                this.HasParent = true;
+                this.SelectedTypeItemParentName = typeItemToEdit.ParentName;
+            }
+
+            if (typeItemToEdit.IsRelational)
+            {
+                this.SelectedDataStoreType = "Relational";
+            }
+
+            if (typeItemToEdit.IsKeyValue)
+            {
+                this.SelectedDataStoreType = "Key value";
+            }
+
+            if (typeItemToEdit.IsInMemory)
+            {
+                this.SelectedDataStoreType = "In memory";
+            }
+
+            if (typeItemToEdit.IsGraph)
+            {
+                this.SelectedDataStoreType = "Graph";
+            }
+
+            if (typeItemToEdit.IsDocument)
+            {
+                this.SelectedDataStoreType = "Document";
+            }
+
+            if (typeItemToEdit.IsLedger)
+            {
+                this.SelectedDataStoreType = "Ledger";
+            }
+
+            if (typeItemToEdit.IsTimeSeries)
+            {
+                this.SelectedDataStoreType = "Time series";
+            }
+
+            if (typeItemToEdit.IsSearch)
+            {
+                this.SelectedDataStoreType = "Search";
+            }
         }
 
         /// <summary>
@@ -407,102 +523,159 @@
         private void BuildTypeItem()
         {
             var failureMessages = new StringBuilder();
-            var createdTypeItem = new TypeItem
-            {
-                IsActive = this.IsActive,
-                IsBuiltIn = this.IsBuiltIn,
-                IsAutoCollect = this.IsAutoCollect,
-                IsAssignable = this.IsAssignable,
-                IsNotifiable = this.IsNotifiable,
-                SortOrder = Convert.ToInt32(this.SortOrder),
-                Name = this.TypeName,
-                Description = this.Description,
-                ModuleUIdAutoCollect = this.AllModuleNamesAndUIds.Values.FirstOrDefault(),
-                ParentUId = Guid.Empty,
-                ModifiedBy = this.userContext.CurrentUser.Email,
-                IsRelational = false,
-                IsKeyValue = false,
-                IsInMemory = false,
-                IsGraph = false,
-                IsDocument = false,
-                IsLedger = false,
-                IsTimeSeries = false,
-                IsSearch = false
-            };
+            bool hasChanged = false;
+            TypeItem updatedTypeItem = this.syntosaDal.GetTypeItemByAny(
+                typeItemName: this.SelectedTypeItemName,
+                typeItemUId: this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName]).FirstOrDefault();
 
-            if (string.IsNullOrWhiteSpace(this.SelectedTypeItemName))
+            if (!string.IsNullOrWhiteSpace(this.NewTypeItemName))
             {
-                failureMessages.AppendLine("Please select a type function");
-            }
-            else
-            {
-                createdTypeItem.TypeFunctionUId = this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName];
+                updatedTypeItem.Name = this.NewTypeItemName;
+                hasChanged = true;
             }
 
-            if (string.IsNullOrWhiteSpace(this.SelectedTypeUnitName))
+            if (!string.IsNullOrWhiteSpace(this.NewTypeItemDescription))
             {
-                failureMessages.AppendLine("Please select a type unit");
-            }
-            else
-            {
-                createdTypeItem.TypeUnitUId = this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName];
+                updatedTypeItem.Description = this.NewTypeItemDescription;
+                hasChanged = true;
             }
 
-            if (this.IsAutoCollect)
+            if (!this.SelectedTypeUnitName.Equals(updatedTypeItem.TypeUnitName))
             {
-                if (string.IsNullOrWhiteSpace(this.SelectedModuleAutoCollectName))
-                {
-                    failureMessages.AppendLine("Please select a module to auto collect from");
-                }
-                else
-                {
-                    createdTypeItem.ModuleUIdAutoCollect =
-                        this.AllModuleNamesAndUIds[this.SelectedModuleAutoCollectName];
-                }
+                updatedTypeItem.TypeUnitUId = this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName];
+                hasChanged = true;
             }
 
-            if (this.HasParent)
+            if (!this.SelectedTypeFunctionName.Equals(updatedTypeItem.TypeFunctionName))
             {
-                if (string.IsNullOrWhiteSpace(this.SelectedTypeItemName))
-                {
-                    failureMessages.AppendLine("Please select a parent type");
-                }
-                else
-                {
-                    createdTypeItem.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName];
-                }
+                updatedTypeItem.TypeFunctionUId = this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName];
+                hasChanged = true;
             }
 
-            switch (this.SelectedDataStoreType)
+            string currentModuleName = this.AllModuleNamesAndUIds
+                .FirstOrDefault(x => x.Value == updatedTypeItem.ModuleUIdAutoCollect).Key;
+
+            if (!this.SelectedModuleAutoCollectName.Equals(currentModuleName))
             {
-                case "Relational":
-                    createdTypeItem.IsRelational = true;
-                    break;
-                case "Key value":
-                    createdTypeItem.IsKeyValue = true;
-                    break;
-                case "In memory":
-                    createdTypeItem.IsInMemory = true;
-                    break;
-                case "Graph":
-                    createdTypeItem.IsGraph = true;
-                    break;
-                case "Document":
-                    createdTypeItem.IsDocument = true;
-                    break;
-                case "Ledger":
-                    createdTypeItem.IsLedger = true;
-                    break;
-                case "Time series":
-                    createdTypeItem.IsTimeSeries = true;
-                    break;
-                case "Search":
-                    createdTypeItem.IsSearch = true;
-                    break;
+                updatedTypeItem.ModuleUIdAutoCollect = this.AllModuleNamesAndUIds[this.SelectedModuleAutoCollectName];
+                hasChanged = true;
+            }
+
+            if (this.SelectedDataStoreType.Equals("Relational") && !updatedTypeItem.IsRelational)
+            {
+                updatedTypeItem.IsRelational = true;
+                updatedTypeItem.IsKeyValue = false;
+                updatedTypeItem.IsInMemory = false;
+                updatedTypeItem.IsGraph = false;
+                updatedTypeItem.IsDocument = false;
+                updatedTypeItem.IsLedger = false;
+                updatedTypeItem.IsTimeSeries = false;
+                updatedTypeItem.IsSearch = false;
+                hasChanged = true;
+            }
+
+            if (this.SelectedDataStoreType.Equals("Key value") && !updatedTypeItem.IsKeyValue)
+            {
+                updatedTypeItem.IsRelational = false;
+                updatedTypeItem.IsKeyValue = true;
+                updatedTypeItem.IsInMemory = false;
+                updatedTypeItem.IsGraph = false;
+                updatedTypeItem.IsDocument = false;
+                updatedTypeItem.IsLedger = false;
+                updatedTypeItem.IsTimeSeries = false;
+                updatedTypeItem.IsSearch = false;
+                hasChanged = true;
+            }
+
+            if (this.SelectedDataStoreType.Equals("In Memory") && !updatedTypeItem.IsInMemory)
+            {
+                updatedTypeItem.IsRelational = false;
+                updatedTypeItem.IsKeyValue = false;
+                updatedTypeItem.IsInMemory = true;
+                updatedTypeItem.IsGraph = false;
+                updatedTypeItem.IsDocument = false;
+                updatedTypeItem.IsLedger = false;
+                updatedTypeItem.IsTimeSeries = false;
+                updatedTypeItem.IsSearch = false;
+                hasChanged = true;
+            }
+
+            if (this.SelectedDataStoreType.Equals("Graph") && !updatedTypeItem.IsGraph)
+            {
+                updatedTypeItem.IsRelational = false;
+                updatedTypeItem.IsKeyValue = false;
+                updatedTypeItem.IsInMemory = false;
+                updatedTypeItem.IsGraph = true;
+                updatedTypeItem.IsDocument = false;
+                updatedTypeItem.IsLedger = false;
+                updatedTypeItem.IsTimeSeries = false;
+                updatedTypeItem.IsSearch = false;
+                hasChanged = true;
+            }
+
+            if (this.SelectedDataStoreType.Equals("Document") && !updatedTypeItem.IsDocument)
+            {
+                updatedTypeItem.IsRelational = false;
+                updatedTypeItem.IsKeyValue = false;
+                updatedTypeItem.IsInMemory = false;
+                updatedTypeItem.IsGraph = false;
+                updatedTypeItem.IsDocument = true;
+                updatedTypeItem.IsLedger = false;
+                updatedTypeItem.IsTimeSeries = false;
+                updatedTypeItem.IsSearch = false;
+                hasChanged = true;
+            }
+
+            if (this.SelectedDataStoreType.Equals("Ledger") && !updatedTypeItem.IsLedger)
+            {
+                updatedTypeItem.IsRelational = false;
+                updatedTypeItem.IsKeyValue = false;
+                updatedTypeItem.IsInMemory = false;
+                updatedTypeItem.IsGraph = false;
+                updatedTypeItem.IsDocument = false;
+                updatedTypeItem.IsLedger = true;
+                updatedTypeItem.IsTimeSeries = false;
+                updatedTypeItem.IsSearch = false;
+                hasChanged = true;
+            }
+
+            if (this.SelectedDataStoreType.Equals("Time series") && !updatedTypeItem.IsTimeSeries)
+            {
+                updatedTypeItem.IsRelational = false;
+                updatedTypeItem.IsKeyValue = false;
+                updatedTypeItem.IsInMemory = false;
+                updatedTypeItem.IsGraph = false;
+                updatedTypeItem.IsDocument = false;
+                updatedTypeItem.IsLedger = false;
+                updatedTypeItem.IsTimeSeries = true;
+                updatedTypeItem.IsSearch = false;
+                hasChanged = true;
+            }
+
+            if (this.SelectedTypeFunctionName.Equals("Search") && !updatedTypeItem.IsSearch)
+            {
+                updatedTypeItem.IsRelational = false;
+                updatedTypeItem.IsKeyValue = false;
+                updatedTypeItem.IsInMemory = false;
+                updatedTypeItem.IsGraph = false;
+                updatedTypeItem.IsDocument = false;
+                updatedTypeItem.IsLedger = false;
+                updatedTypeItem.IsTimeSeries = false;
+                updatedTypeItem.IsSearch = true;
+                hasChanged = true;
+            }
+
+            string currentParentName = this.AllTypeFunctionNamesAndUIds
+                .FirstOrDefault(x => x.Value == updatedTypeItem.ParentUId).Key;
+
+            if (this.HasParent && !this.SelectedTypeItemParentName.Equals(currentParentName))
+            {
+                updatedTypeItem.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemParentName];
+                hasChanged = true;
             }
 
             var typeItemValidator = new TypeItemValidator();
-            ValidationResult validationResult = typeItemValidator.Validate(createdTypeItem);
+            ValidationResult validationResult = typeItemValidator.Validate(updatedTypeItem);
             if (!validationResult.IsValid || failureMessages.Length != 0)
             {
                 foreach (ValidationFailure failure in validationResult.Errors)
@@ -516,8 +689,18 @@
                 return;
             }
 
+            if (!hasChanged)
+            {
+                this.HasErrors = true;
+                this.Errors = "The type item has not changed";
+                return;
+            }
+
+            updatedTypeItem.ModifiedBy = this.userContext.CurrentUser.Email;
             this.HasErrors = false;
-            this.syntosaDal.CreateTypeItem(createdTypeItem);
+            this.Errors = string.Empty;
+            this.syntosaDal.UpdateTypeItem(updatedTypeItem);
+            this.userActivityService.InsertActivity(this.userContext.CurrentUser, "Type Item Updated", $"{this.userContext.CurrentUser.Email} has updated the type item named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]}");
         }
 
         /// <summary>

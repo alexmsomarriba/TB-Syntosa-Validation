@@ -5,13 +5,38 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.TypeFunctionPrototypeEditorView">
   <DockPanel>
+    <TextBox IsVisible="{Binding !HasSelected}"
+             Text="Please select a type function to edit"/>
+    <ListBox Items="{Binding AllTypeFunctionNames}"
+             IsVisible="{Binding !HasSelected}"
+             SelectionMode="Single"
+             DockPanel.Dock="Top"
+             ScrollViewer.VerticalScrollBarVisibility="Visible"
+             Height="100"
+             SelectedItem="{Binding SelectedTypeFunctionName}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Background="White" CornerRadius="4" Padding="2">
+            <TextBlock Text="{Binding}"/>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock Text="{Binding CurrentName}"
+               DockPanel.Dock="Top"
+               IsVisible="{Binding HasSelected}"/>
+    <TextBox AcceptsReturn="False"
+             IsVisible="{Binding HasSelected}"
+             DockPanel.Dock="Top"
+             Text="{Binding NewTypeFunctionName}"
+             Watermark="New type function name leave blank to not change"/>
+    <TextBlock Text="{Binding CurrentDescription}"
+               DockPanel.Dock="Top"
+               IsVisible="{Binding HasSelected}"/>
     <TextBox AcceptsReturn="False"
              DockPanel.Dock="Top"
-             Text="{Binding TypeFunctionName}"
-             Watermark="Type function name"/>
-    <TextBox AcceptsReturn="False"
-             DockPanel.Dock="Top"
-             Text="{Binding TypeFunctionDescription}"
+             IsVisible="{Binding HasSelected}"
+             Text="{Binding NewTypeFunctionDescription}"
              Watermark="Type function Description"/>
     <CheckBox DockPanel.Dock="Top"
               IsThreeState="False"
@@ -19,15 +44,17 @@
       Is the type function active
     </CheckBox>
     <CheckBox DockPanel.Dock="Top"
+              IsVisible="{Binding HasSelected}"
               IsThreeState="False"
               IsChecked="{Binding IsBuiltIn}">
       Is the type function built in
     </CheckBox>
-    <TextBlock DockPanel.Dock="Top">
+    <TextBlock DockPanel.Dock="Top"
+               IsVisible="{Binding HasSelected}">
       Select the module associated with this type function.
     </TextBlock>
     <ListBox Items="{Binding AllModuleNames}"
-             Name="TypeList"
+             IsVisible="{Binding HasSelected}"
              SelectionMode="Single"
              DockPanel.Dock="Top"
              ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -42,8 +69,17 @@
       </ListBox.ItemTemplate>
     </ListBox>
     <Button DockPanel.Dock="Top"
+            IsVisible="{Binding !HasSelected}"
+            Content="Next"
+            Command="{Binding Next}"/>
+    <Button DockPanel.Dock="Top"
+            IsVisible="{Binding HasSelected}"
             Content="Insert Type function"
             Command="{Binding InsertTypeFunction}"/>
+    <Button DockPanel.Dock="Top"
+            IsVisible="{Binding HasSelected}"
+            Content="Back"
+            Command="{Binding Back}"/>
     <TextBlock DockPanel.Dock="Top"
            IsVisible="{Binding HasErrors}"
            Text="Please fix these errors"/>

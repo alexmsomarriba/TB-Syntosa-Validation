@@ -47,7 +47,7 @@
     <Button DockPanel.Dock="Top"
             Content="Create Domain"
             Command="{Binding CreateModule}"
-            Height="10"/>
+            Height="30"/>
     <TextBlock DockPanel.Dock="Top"
        IsVisible="{Binding HasErrors}"
        Text="Please fix these errors"/>
