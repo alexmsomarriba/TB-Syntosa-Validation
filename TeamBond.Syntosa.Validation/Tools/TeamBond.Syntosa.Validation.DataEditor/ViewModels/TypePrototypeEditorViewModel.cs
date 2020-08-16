@@ -64,6 +64,11 @@
         private bool isActive;
 
         /// <summary>
+        /// A value indicating whether a type item to edit has been selected.
+        /// </summary>
+        private bool hasSelected;
+
+        /// <summary>
         /// A value indicating whether the type is assignable.
         /// </summary>
         private bool isAssignable;
@@ -141,7 +146,14 @@
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
-            this.InsertType = ReactiveCommand.Create(this.BuildTypeItem);
+
+            this.HasSelected = false;
+            this.HasParent = false;
+            this.IsAutoCollect = false;
+
+            this.Next = ReactiveCommand.Create(this.RetrieveInfo);
+            this.InsertType = ReactiveCommand.Create(this.EditTypeItem);
+            this.Back = ReactiveCommand.Create(this.Return);
         }
 
         /// <summary>
@@ -209,6 +221,11 @@
             get => this.GetAllTypeFunctionNamesAndUIds();
             set => value = this.GetAllTypeFunctionNamesAndUIds();
         }
+
+        /// <summary>
+        /// Gets whether the back button is pressed.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> Back { get; }
 
         /// <summary>
         /// Gets the all type function names.
@@ -347,6 +364,11 @@
         }
 
         /// <summary>
+        /// Gets whether the next button is pressed.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> Next { get; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether is assignable.
         /// </summary>
         public bool IsAssignable
@@ -415,6 +437,15 @@
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether a type item to edit has been selected.
+        /// </summary>
+        public bool HasSelected
+        {
+            get => this.hasSelected;
+            set => this.RaiseAndSetIfChanged(ref this.hasSelected, value);
+        }
+
+        /// <summary>
         /// Gets or sets the type unit u id.
         /// </summary>
         public string SelectedTypeItemParentName
@@ -455,10 +486,19 @@
         /// </summary>
         private void RetrieveInfo()
         {
+            if (string.IsNullOrWhiteSpace(this.SelectedTypeItemName))
+            {
+                this.HasErrors = true;
+                this.Errors = "Please select a type item to edit";
+                return;
+            }
+
             var typeItemToEdit = this.syntosaDal.GetTypeItemByAny(
                                 typeItemName: this.SelectedTypeItemName,
                                 typeItemUId: this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName])
                             .FirstOrDefault();
+
+            this.HasSelected = true;
 
             this.CurrentName = typeItemToEdit.Name;
             this.CurrentDescription = typeItemToEdit.Description;
@@ -520,7 +560,7 @@
         /// <summary>
         /// The build type item.
         /// </summary>
-        private void BuildTypeItem()
+        private void EditTypeItem()
         {
             var failureMessages = new StringBuilder();
             bool hasChanged = false;
@@ -700,7 +740,21 @@
             this.HasErrors = false;
             this.Errors = string.Empty;
             this.syntosaDal.UpdateTypeItem(updatedTypeItem);
-            this.userActivityService.InsertActivity(this.userContext.CurrentUser, "Type Item Updated", $"{this.userContext.CurrentUser.Email} has updated the type item named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]}");
+            this.userActivityService.InsertActivity(
+                this.userContext.CurrentUser,
+                "Type Item Updated",
+                $"{this.userContext.CurrentUser.Email} has updated the type item named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]}");
+        }
+
+        /// <summary>
+        /// The return.
+        /// </summary>
+        private void Return()
+        {
+            this.SelectedTypeItemName = string.Empty;
+            this.HasSelected = false;
+            this.HasParent = false;
+            this.IsAutoCollect = false;
         }
 
         /// <summary>

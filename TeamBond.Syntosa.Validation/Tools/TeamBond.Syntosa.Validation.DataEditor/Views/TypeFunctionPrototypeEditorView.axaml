@@ -5,8 +5,9 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.TypeFunctionPrototypeEditorView">
   <DockPanel>
-    <TextBox IsVisible="{Binding !HasSelected}"
-             Text="Please select a type function to edit"/>
+    <TextBlock IsVisible="{Binding !HasSelected}"
+               Text="Please select a type function to edit"
+               DockPanel.Dock="Top"/>
     <ListBox Items="{Binding AllTypeFunctionNames}"
              IsVisible="{Binding !HasSelected}"
              SelectionMode="Single"
@@ -39,6 +40,7 @@
              Text="{Binding NewTypeFunctionDescription}"
              Watermark="Type function Description"/>
     <CheckBox DockPanel.Dock="Top"
+              IsVisible="{Binding HasSelected}"
               IsThreeState="False"
               IsChecked="{Binding IsActive}">
       Is the type function active

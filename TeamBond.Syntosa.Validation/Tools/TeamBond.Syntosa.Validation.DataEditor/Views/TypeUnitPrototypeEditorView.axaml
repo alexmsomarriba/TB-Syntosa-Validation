@@ -3,36 +3,68 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.TypeUnitPrototypeBuilderView">
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.TypeUnitPrototypeEditorView">
   <DockPanel>
+    <TextBlock DockPanel.Dock="Top"
+               IsVisible="{Binding !HasSelected}">
+      Select the type unit to edit.
+    </TextBlock>
+    <ListBox Items="{Binding AllTypeUnitNames}"
+             IsVisible="{Binding !HasSelected}"
+             SelectionMode="Single"
+             DockPanel.Dock="Top"
+             ScrollViewer.VerticalScrollBarVisibility="Visible"
+             Height="100"
+             SelectedItem="{Binding SelectedTypeUnitName}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Background="White" CornerRadius="4" Padding="2">
+            <TextBlock Text="{Binding}"/>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock DockPanel.Dock="Top"
+               Text="{Binding CurrentName}"
+               IsVisible="{Binding HasSelected}"/>
     <TextBox AcceptsReturn="False"
              DockPanel.Dock="Top"
-             Text="{Binding TypeUnitName}"
+             IsVisible="{Binding HasSelected}"
+             Text="{Binding NewTypeUnitName}"
              Watermark="Type unit name"/>
+    <TextBlock DockPanel.Dock="Top"
+               Text="{Binding CurrentDescription}"
+               IsVisible="{Binding HasSelected}"/>
     <TextBox AcceptsReturn="False"
              DockPanel.Dock="Top"
-             Text="{Binding TypeUnitDescription}"
+             IsVisible="{Binding HasSelected}"
+             Text="{Binding NewTypeUnitDescription}"
              Watermark="Type unit Description"/>
     <CheckBox DockPanel.Dock="Top"
               IsThreeState="False"
+              IsVisible="{Binding HasSelected}"
               IsChecked="{Binding IsActive}">
       Is the type unit active
     </CheckBox>
     <CheckBox DockPanel.Dock="Top"
               IsThreeState="False"
+              IsVisible="{Binding HasSelected}"
               IsChecked="{Binding IsBuiltIn}">
       Is the type unit built in
     </CheckBox>
     <CheckBox DockPanel.Dock="Top"
               IsThreeState="False"
+              IsVisible="{Binding HasSelected}"
               IsChecked="{Binding HasParent}">
       Does the type unit have a parent type unit?
     </CheckBox>
-    <TextBlock DockPanel.Dock="Top">
+    <TextBlock DockPanel.Dock="Top"
+               IsVisible="{Binding HasSelected}">
       Select the module associated with this type unit.
     </TextBlock>
     <ListBox Items="{Binding AllModuleNames}"
              SelectionMode="Single"
+             IsVisible="{Binding HasSelected}"
              DockPanel.Dock="Top"
              ScrollViewer.VerticalScrollBarVisibility="Visible"
              Height="100"
@@ -55,7 +87,7 @@
              DockPanel.Dock="Top"
              ScrollViewer.VerticalScrollBarVisibility="Visible"
              Height="100"
-             SelectedItem="{Binding SelectedTypeUnitName}">
+             SelectedItem="{Binding SelectedTypeUnitParentName}">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <Border Background="White" CornerRadius="4" Padding="2">
@@ -65,8 +97,20 @@
       </ListBox.ItemTemplate>
     </ListBox>
     <Button DockPanel.Dock="Top"
-            Content="Insert Type Unit"
-            Command="{Binding InsertTypeUnit}"/>
+            Content="Next"
+            Command="{Binding Next}"
+            IsVisible="{Binding !HasSelected}"
+            Height="30"/>
+    <Button DockPanel.Dock="Top"
+            Content="Update Type Unit"
+            IsVisible="{Binding HasSelected}"
+            Height="30"
+            Command="{Binding UpdateTypeUnit}"/>
+    <Button DockPanel.Dock="Top"
+            Content="Back"
+            Command="{Binding Back}"
+            IsVisible="{Binding HasSelected}"
+            Height="30"/>
     <TextBlock DockPanel.Dock="Top"
            IsVisible="{Binding HasErrors}"
            Text="Please fix these errors"/>

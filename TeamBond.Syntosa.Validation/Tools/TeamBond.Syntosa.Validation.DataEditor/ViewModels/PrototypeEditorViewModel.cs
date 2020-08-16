@@ -8,6 +8,11 @@
     public class PrototypeEditorViewModel : ViewModelBase
     {
         /// <summary>
+        /// The module editor view model.
+        /// </summary>
+        private ViewModelBase moduleEditorContent;
+
+        /// <summary>
         /// The type prototype editor view model.
         /// </summary>
         private ViewModelBase typeEditorContent;
@@ -18,12 +23,33 @@
         private ViewModelBase typeFunctionEditorContent;
 
         /// <summary>
+        /// The type unit editor content.
+        /// </summary>
+        private ViewModelBase typeUnitEditorContent;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PrototypeEditorViewModel"/> class.
         /// </summary>
         public PrototypeEditorViewModel()
         {
-            this.TypeEditorContent = this.TypeEditor = new TypePrototypeEditorViewModel();
+            this.ModuleEditorContent = this.ModuleEditor = new ModulePrototypeEditorViewModel();
+            this.TypeUnitEditorContent = this.TypeUnitEditor = new TypeUnitPrototypeEditorViewModel();
             this.TypeFunctionEditorContent = this.TypeFunctionEditor = new TypeFunctionPrototypeEditorViewModel();
+            this.TypeEditorContent = this.TypeEditor = new TypePrototypeEditorViewModel();
+        }
+
+        /// <summary>
+        /// Gets the module editor.
+        /// </summary>
+        public ModulePrototypeEditorViewModel ModuleEditor { get; }
+
+        /// <summary>
+        /// Gets or sets the module editor content.
+        /// </summary>
+        public ViewModelBase ModuleEditorContent
+        {
+            get => this.moduleEditorContent;
+            set => this.RaiseAndSetIfChanged(ref this.moduleEditorContent, value);
         }
 
         /// <summary>
@@ -52,6 +78,20 @@
         {
             get => this.typeFunctionEditorContent;
             set => this.RaiseAndSetIfChanged(ref this.typeFunctionEditorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the type unit editor.
+        /// </summary>
+        public TypeUnitPrototypeEditorViewModel TypeUnitEditor { get; }
+
+        /// <summary>
+        /// Gets or sets the type unit editor content.
+        /// </summary>
+        public ViewModelBase TypeUnitEditorContent
+        {
+            get => this.typeUnitEditorContent;
+            set => this.RaiseAndSetIfChanged(ref this.typeUnitEditorContent, value);
         }
     }
 }

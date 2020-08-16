@@ -6,54 +6,81 @@
              x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.TypePrototypeEditorView">
   <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible">
     <DockPanel>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding !HasSelected}">
+        Select the type to edit.
+      </TextBlock>
+      <ListBox Items="{Binding AllTypeItemNames}"
+               IsVisible="{Binding !HasSelected}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedTypeItemName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top"
+                 Text="{Binding CurrentName}"
+                 IsVisible="{Binding HasSelected}"/>
       <TextBox DockPanel.Dock="Top"
-               IsVisible="{Binding TypeChosen}"
+               IsVisible="{Binding HasSelected}"
                Watermark="Type name"
-               Text="{Binding TypeName}"/>
+               Text="{Binding NewTypeItemName}"/>
+      <TextBlock DockPanel.Dock="Top"
+                 Text="{Binding CurrentDescription}"
+                 IsVisible="{Binding HasSelected}"/>
       <TextBox DockPanel.Dock="Top"
                Watermark="Type description"
-               Text="{Binding Description}"/>
+               IsVisible="{Binding HasSelected}"
+               Text="{Binding NewTypeItemDescription}"/>
       <CheckBox DockPanel.Dock="Top"
                 IsThreeState="False"
+                IsVisible="{Binding HasSelected}"
                 IsChecked="{Binding HasParent}">
         Does the type have a parent
       </CheckBox>
       <CheckBox DockPanel.Dock="Top"
                 IsThreeState="False"
-                IsVisible="{Binding TypeChosen}"
+                IsVisible="{Binding HasSelected}"
                 IsChecked="{Binding IsActive}">
         Is the type active
       </CheckBox>
       <CheckBox DockPanel.Dock="Top"
                 IsThreeState="False"
-                IsVisible="{Binding TypeChosen}"
+                IsVisible="{Binding HasSelected}"
                 IsChecked="{Binding IsBuiltIn}">
         Is the type built in
       </CheckBox>
       <CheckBox DockPanel.Dock="Top"
                 IsThreeState="False"
-                IsVisible="{Binding TypeChosen}"
+                IsVisible="{Binding HasSelected}"
                 IsChecked="{Binding IsAssignable}">
         Is the type assignable
       </CheckBox>
       <CheckBox DockPanel.Dock="Top"
                 IsThreeState="False"
-                IsVisible="{Binding TypeChosen}"
+                IsVisible="{Binding HasSelected}"
                 IsChecked="{Binding IsNotifiable}">
         Is the type notifiable
       </CheckBox>
       <CheckBox DockPanel.Dock="Top"
                 IsThreeState="False"
-                IsVisible="{Binding TypeChosen}"
+                IsVisible="{Binding HasSelected}"
                 IsChecked="{Binding IsAutoCollect}">
         Is the type auto collecting from somewhere
       </CheckBox>
       <TextBlock DockPanel.Dock="Top"
-                 IsVisible="{Binding TypeChosen}">
+                 IsVisible="{Binding HasSelected}">
         Select the data store type.
       </TextBlock>
       <ListBox Items="{Binding DatabaseTypes}"
-               IsVisible="{Binding TypeChosen}"
+               IsVisible="{Binding HasSelected}"
                SelectionMode="Single"
                DockPanel.Dock="Top"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -68,12 +95,12 @@
         </ListBox.ItemTemplate>
       </ListBox>
       <TextBlock DockPanel.Dock="Top"
-                 IsVisible="{Binding TypeChosen}">
+                 IsVisible="{Binding HasSelected}">
         Select the type function.
       </TextBlock>
       <ListBox Items="{Binding AllTypeFunctionNames}"
                SelectionMode="Single"
-               IsVisible="{Binding TypeChosen}"
+               IsVisible="{Binding HasSelected}"
                DockPanel.Dock="Top"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
                Height="100"
@@ -86,10 +113,12 @@
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
-      <TextBlock DockPanel.Dock="Top">
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding HasSelected}">
         Select the type unit.
       </TextBlock>
       <ListBox Items="{Binding AllTypeUnitNames}"
+               IsVisible="{Binding HasSelected}"
                SelectionMode="Single"
                DockPanel.Dock="Top"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -132,7 +161,7 @@
                DockPanel.Dock="Top"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
                Height="100"
-               SelectedItem="{Binding SelectedTypeItemName}">
+               SelectedItem="{Binding SelectedTypeItemParentName}">
         <ListBox.ItemTemplate>
           <DataTemplate>
             <Border Background="White" CornerRadius="4" Padding="2">
@@ -143,11 +172,23 @@
       </ListBox>
       <TextBox DockPanel.Dock="Top"
                Watermark="Sort order"
+               IsVisible="{Binding HasSelected}"
                Text="{Binding SortOrder}"/>
-      <Button Command="{Binding InsertType}"
+      <Button Command="{Binding Next}"
               DockPanel.Dock="Top"
-              Content="Insert the type"
+              Content="Next"
+              IsVisible="{Binding !HasSelected}"
               Height="30"/>
+      <Button Command="{Binding Update}"
+              DockPanel.Dock="Top"
+              Content="Update Type"
+              IsVisible="{Binding HasSelected}"
+              Height="30"/>
+      <Button Command="{Binding Back}"
+              DockPanel.Dock="Top"
+              Height="30"
+              Content="Back"
+              IsVisible="{Binding HasSelected}"/>
       <TextBlock DockPanel.Dock="Top"
                  IsVisible="{Binding HasErrors}"
                  Text="Please fix these errors"/>
