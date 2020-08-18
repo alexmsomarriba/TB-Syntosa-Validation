@@ -192,7 +192,7 @@
         public Dictionary<string, Guid> AllModuleNamesAndUIds
         {
             get => this.GetAllModuleNamesAndUIds();
-            set => value = this.GetAllModuleNamesAndUIds();
+            set => this.GetAllModuleNamesAndUIds();
         }
 
         /// <summary>
@@ -213,12 +213,12 @@
         }
 
         /// <summary>
-        /// Gets or sets the all type function name and u ids.
+        /// Gets or sets all type function name and u ids.
         /// </summary>
         public Dictionary<string, Guid> AllTypeFunctionNamesAndUIds
         {
             get => this.GetAllTypeFunctionNamesAndUIds();
-            set => value = this.GetAllTypeFunctionNamesAndUIds();
+            set => this.GetAllTypeFunctionNamesAndUIds();
         }
 
         /// <summary>
@@ -244,7 +244,7 @@
         public Dictionary<string, Guid> AllTypeItemNamesAndUIds
         {
             get => this.GetAllTypeItemNamesAndUIds();
-            set => value = this.GetAllTypeItemNamesAndUIds();
+            set => this.GetAllTypeItemNamesAndUIds();
         }
 
         /// <summary>
@@ -270,7 +270,7 @@
         public Dictionary<string, Guid> AllTypeUnitNamesAndUIds
         {
             get => this.GetAllTypeUnitNamesAndUIds();
-            set => value = this.GetAllTypeUnitNamesAndUIds();
+            set => this.GetAllTypeUnitNamesAndUIds();
         }
 
         /// <summary>

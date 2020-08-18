@@ -96,7 +96,7 @@
         public Dictionary<string, Guid> AllModuleNamesAndUIds
         {
             get => this.GetAllModuleNamesAndUIds();
-            set => value = this.GetAllModuleNamesAndUIds();
+            set => this.GetAllModuleNamesAndUIds();
         }
 
         /// <summary>

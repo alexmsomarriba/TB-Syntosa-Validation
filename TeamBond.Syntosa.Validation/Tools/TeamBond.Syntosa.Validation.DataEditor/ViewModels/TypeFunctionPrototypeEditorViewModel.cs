@@ -132,7 +132,7 @@
         public Dictionary<string, Guid> AllModuleNamesAndUIds
         {
             get => this.GetAllModuleNamesAndUIds();
-            set => value = this.GetAllModuleNamesAndUIds();
+            set => this.GetAllModuleNamesAndUIds();
         }
 
         /// <summary>
@@ -172,7 +172,7 @@
         public Dictionary<string, Guid> AllTypeFunctionNamesAndUIds
         {
             get => this.GetAllTypeFunctionNamesAndUIds();
-            set => value = this.GetAllTypeFunctionNamesAndUIds();
+            set => this.GetAllTypeFunctionNamesAndUIds();
         }
 
         /// <summary>
