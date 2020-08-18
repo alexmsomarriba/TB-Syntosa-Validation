@@ -39,9 +39,19 @@
         private readonly IUserContext userContext;
 
         /// <summary>
-        /// The description of the type.
+        /// The user service.
         /// </summary>
-        private string newTypeItemDescription;
+        private readonly IUserService userService;
+
+        /// <summary>
+        /// The current description of the type item to edit.
+        /// </summary>
+        private string currentDescription;
+
+        /// <summary>
+        /// The current name of the type item to edit.
+        /// </summary>
+        private string currentName;
 
         /// <summary>
         /// The errors.
@@ -49,24 +59,24 @@
         private string errors;
 
         /// <summary>
-        /// A value indicating whether this type has a parent.
-        /// </summary>
-        private bool hasParent;
-
-        /// <summary>
         /// The has errors.
         /// </summary>
         private bool hasErrors;
 
         /// <summary>
-        /// A value indicating whether the type is active.
+        /// A value indicating whether this type has a parent.
         /// </summary>
-        private bool isActive;
+        private bool hasParent;
 
         /// <summary>
         /// A value indicating whether a type item to edit has been selected.
         /// </summary>
         private bool hasSelected;
+
+        /// <summary>
+        /// A value indicating whether the type is active.
+        /// </summary>
+        private bool isActive;
 
         /// <summary>
         /// A value indicating whether the type is assignable.
@@ -84,6 +94,11 @@
         private bool isBuiltIn;
 
         /// <summary>
+        /// A value indicating whether the delete button is visible.
+        /// </summary>
+        private bool isDeleteVisible;
+
+        /// <summary>
         /// A value indicating whether the type is notifiable.
         /// </summary>
         private bool isNotifiable;
@@ -92,6 +107,16 @@
         /// The module auto collect name.
         /// </summary>
         private string moduleAutoCollectName;
+
+        /// <summary>
+        /// The description of the type.
+        /// </summary>
+        private string newTypeItemDescription;
+
+        /// <summary>
+        /// The type name.
+        /// </summary>
+        private string newTypeItemName;
 
         /// <summary>
         /// The selected data store type.
@@ -109,16 +134,6 @@
         private string selectedTypeItemName;
 
         /// <summary>
-        /// The current name of the type item to edit.
-        /// </summary>
-        private string currentName;
-
-        /// <summary>
-        /// The current description of the type item to edit.
-        /// </summary>
-        private string currentDescription;
-
-        /// <summary>
         /// The parent type item name.
         /// </summary>
         private string selectedTypeItemParentName;
@@ -134,19 +149,16 @@
         private string sortOrder;
 
         /// <summary>
-        /// The type name.
-        /// </summary>
-        private string newTypeItemName;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TypePrototypeEditorViewModel"/> class.
+        /// Initializes a new instance of the <see cref="TypePrototypeEditorViewModel" /> class.
         /// </summary>
         public TypePrototypeEditorViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
+            this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
 
+            this.isDeleteVisible = false;
             this.HasSelected = false;
             this.HasParent = false;
             this.IsAutoCollect = false;
@@ -154,12 +166,8 @@
             this.Next = ReactiveCommand.Create(this.RetrieveInfo);
             this.InsertType = ReactiveCommand.Create(this.EditTypeItem);
             this.Back = ReactiveCommand.Create(this.Return);
+            this.DeleteTypeItem = ReactiveCommand.Create(this.RemoveTypeItem);
         }
-
-        /// <summary>
-        /// Gets or sets the current user identifier.
-        /// </summary>
-        public string CurrentUserIdentifier { get; set; }
 
         /// <summary>
         /// Gets the all type function names.
@@ -176,15 +184,6 @@
 
                 return moduleNames;
             }
-        }
-
-        /// <summary>
-        /// Gets or sets the name of the selected type item to edit.
-        /// </summary>
-        public string SelectedTypeItemName
-        {
-            get => this.selectedTypeItemName;
-            set => this.RaiseAndSetIfChanged(ref this.selectedTypeItemName, value);
         }
 
         /// <summary>
@@ -221,11 +220,6 @@
             get => this.GetAllTypeFunctionNamesAndUIds();
             set => value = this.GetAllTypeFunctionNamesAndUIds();
         }
-
-        /// <summary>
-        /// Gets whether the back button is pressed.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> Back { get; }
 
         /// <summary>
         /// Gets the all type function names.
@@ -280,6 +274,34 @@
         }
 
         /// <summary>
+        /// Gets whether the back button is pressed.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> Back { get; }
+
+        /// <summary>
+        /// Gets or sets the current description of the type item to edit.
+        /// </summary>
+        public string CurrentDescription
+        {
+            get => this.currentDescription;
+            set => this.RaiseAndSetIfChanged(ref this.currentDescription, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the current name of the type item to edit.
+        /// </summary>
+        public string CurrentName
+        {
+            get => this.currentName;
+            set => this.RaiseAndSetIfChanged(ref this.currentName, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the current user identifier.
+        /// </summary>
+        public string CurrentUserIdentifier { get; set; }
+
+        /// <summary>
         /// The database types.
         /// </summary>
         public List<string> DatabaseTypes =>
@@ -296,13 +318,9 @@
                 };
 
         /// <summary>
-        /// Gets or sets the description.
+        /// Gets whether the delete type item button is pressed.
         /// </summary>
-        public string NewTypeItemDescription
-        {
-            get => this.newTypeItemDescription;
-            set => this.RaiseAndSetIfChanged(ref this.newTypeItemDescription, value);
-        }
+        public ReactiveCommand<Unit, Unit> DeleteTypeItem { get; }
 
         /// <summary>
         /// Gets or sets the errors.
@@ -332,21 +350,12 @@
         }
 
         /// <summary>
-        /// Gets or sets the current name of the type item to edit.
+        /// Gets or sets a value indicating whether a type item to edit has been selected.
         /// </summary>
-        public string CurrentName
+        public bool HasSelected
         {
-            get => this.currentName;
-            set => this.RaiseAndSetIfChanged(ref this.currentName, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the current description of the type item to edit.
-        /// </summary>
-        public string CurrentDescription
-        {
-            get => this.currentDescription;
-            set => this.RaiseAndSetIfChanged(ref this.currentDescription, value);
+            get => this.hasSelected;
+            set => this.RaiseAndSetIfChanged(ref this.hasSelected, value);
         }
 
         /// <summary>
@@ -362,11 +371,6 @@
             get => this.isActive;
             set => this.RaiseAndSetIfChanged(ref this.isActive, value);
         }
-
-        /// <summary>
-        /// Gets whether the next button is pressed.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> Next { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether is assignable.
@@ -396,6 +400,15 @@
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the delete button is visible.
+        /// </summary>
+        public bool IsDeleteVisible
+        {
+            get => this.isDeleteVisible;
+            set => this.RaiseAndSetIfChanged(ref this.isDeleteVisible, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether is notifiable.
         /// </summary>
         public bool IsNotifiable
@@ -408,6 +421,29 @@
         /// The is user admin.
         /// </summary>
         public bool IsUserAdmin => true;
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        public string NewTypeItemDescription
+        {
+            get => this.newTypeItemDescription;
+            set => this.RaiseAndSetIfChanged(ref this.newTypeItemDescription, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the type name.
+        /// </summary>
+        public string NewTypeItemName
+        {
+            get => this.newTypeItemName;
+            set => this.RaiseAndSetIfChanged(ref this.newTypeItemName, value);
+        }
+
+        /// <summary>
+        /// Gets whether the next button is pressed.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> Next { get; }
 
         /// <summary>
         /// Gets or sets the selected type.
@@ -437,12 +473,12 @@
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether a type item to edit has been selected.
+        /// Gets or sets the name of the selected type item to edit.
         /// </summary>
-        public bool HasSelected
+        public string SelectedTypeItemName
         {
-            get => this.hasSelected;
-            set => this.RaiseAndSetIfChanged(ref this.hasSelected, value);
+            get => this.selectedTypeItemName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedTypeItemName, value);
         }
 
         /// <summary>
@@ -470,91 +506,6 @@
         {
             get => this.sortOrder;
             set => this.RaiseAndSetIfChanged(ref this.sortOrder, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the type name.
-        /// </summary>
-        public string NewTypeItemName
-        {
-            get => this.newTypeItemName;
-            set => this.RaiseAndSetIfChanged(ref this.newTypeItemName, value);
-        }
-
-        /// <summary>
-        /// The retrieve info.
-        /// </summary>
-        private void RetrieveInfo()
-        {
-            if (string.IsNullOrWhiteSpace(this.SelectedTypeItemName))
-            {
-                this.HasErrors = true;
-                this.Errors = "Please select a type item to edit";
-                return;
-            }
-
-            var typeItemToEdit = this.syntosaDal.GetTypeItemByAny(
-                                typeItemName: this.SelectedTypeItemName,
-                                typeItemUId: this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName])
-                            .FirstOrDefault();
-
-            this.HasSelected = true;
-
-            this.CurrentName = typeItemToEdit.Name;
-            this.CurrentDescription = typeItemToEdit.Description;
-            this.SelectedTypeUnitName = typeItemToEdit.TypeUnitName;
-            this.SelectedTypeFunctionName = typeItemToEdit.TypeFunctionName;
-            this.IsAssignable = typeItemToEdit.IsAssignable;
-            this.IsBuiltIn = typeItemToEdit.IsBuiltIn;
-            this.IsNotifiable = typeItemToEdit.IsNotifiable;
-            this.IsActive = typeItemToEdit.IsActive;
-            this.IsAutoCollect = typeItemToEdit.IsAutoCollect;
-
-            if (typeItemToEdit.ParentUId != Guid.Empty)
-            {
-                this.HasParent = true;
-                this.SelectedTypeItemParentName = typeItemToEdit.ParentName;
-            }
-
-            if (typeItemToEdit.IsRelational)
-            {
-                this.SelectedDataStoreType = "Relational";
-            }
-
-            if (typeItemToEdit.IsKeyValue)
-            {
-                this.SelectedDataStoreType = "Key value";
-            }
-
-            if (typeItemToEdit.IsInMemory)
-            {
-                this.SelectedDataStoreType = "In memory";
-            }
-
-            if (typeItemToEdit.IsGraph)
-            {
-                this.SelectedDataStoreType = "Graph";
-            }
-
-            if (typeItemToEdit.IsDocument)
-            {
-                this.SelectedDataStoreType = "Document";
-            }
-
-            if (typeItemToEdit.IsLedger)
-            {
-                this.SelectedDataStoreType = "Ledger";
-            }
-
-            if (typeItemToEdit.IsTimeSeries)
-            {
-                this.SelectedDataStoreType = "Time series";
-            }
-
-            if (typeItemToEdit.IsSearch)
-            {
-                this.SelectedDataStoreType = "Search";
-            }
         }
 
         /// <summary>
@@ -705,12 +656,27 @@
                 hasChanged = true;
             }
 
-            string currentParentName = this.AllTypeFunctionNamesAndUIds
-                .FirstOrDefault(x => x.Value == updatedTypeItem.ParentUId).Key;
-
-            if (this.HasParent && !this.SelectedTypeItemParentName.Equals(currentParentName))
+            if ((this.HasParent && !string.IsNullOrWhiteSpace(this.SelectedTypeItemParentName)
+                                && updatedTypeItem.ParentUId == Guid.Empty)
+                || (!this.HasParent && updatedTypeItem.ParentUId != Guid.Empty) 
+                || (this.HasParent && !updatedTypeItem.ParentName.Equals(this.SelectedTypeItemParentName)))
             {
-                updatedTypeItem.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemParentName];
+                if (this.HasParent && !string.IsNullOrWhiteSpace(this.SelectedTypeItemParentName)
+                                   && updatedTypeItem.ParentUId == Guid.Empty)
+                {
+                    updatedTypeItem.ParentUId = this.AllModuleNamesAndUIds[this.SelectedTypeItemParentName];
+                }
+
+                if (!this.HasParent && updatedTypeItem.ParentUId != Guid.Empty)
+                {
+                    updatedTypeItem.ParentUId = Guid.Empty;
+                }
+
+                if (this.HasParent && !updatedTypeItem.ParentName.Equals(this.SelectedTypeItemParentName))
+                {
+                    updatedTypeItem.ParentUId = this.AllModuleNamesAndUIds[this.SelectedTypeItemParentName];
+                }
+
                 hasChanged = true;
             }
 
@@ -744,17 +710,6 @@
                 this.userContext.CurrentUser,
                 "Type Item Updated",
                 $"{this.userContext.CurrentUser.Email} has updated the type item named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]}");
-        }
-
-        /// <summary>
-        /// The return.
-        /// </summary>
-        private void Return()
-        {
-            this.SelectedTypeItemName = string.Empty;
-            this.HasSelected = false;
-            this.HasParent = false;
-            this.IsAutoCollect = false;
         }
 
         /// <summary>
@@ -827,6 +782,124 @@
             }
 
             return typeUnitNamesAndUIds;
+        }
+
+        /// <summary>
+        /// Removes the selected type unit from Syntosa.
+        /// </summary>
+        private void RemoveTypeItem()
+        {
+            if (!this.HasErrors && string.IsNullOrWhiteSpace(this.Errors))
+            {
+                this.HasErrors = true;
+                this.Errors = "To confirm deletion of this type unit press the 'Delete Type Item' Button again.";
+                return;
+            }
+
+            if (this.HasErrors && this.Errors.Equals(
+                    "To confirm deletion of this type unit press the 'Delete Type Type Item' Button again."))
+            {
+                this.syntosaDal.DeleteTypeUnit(this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName]);
+                this.HasErrors = false;
+                this.Errors = string.Empty;
+                this.Return();
+            }
+        }
+
+        /// <summary>
+        /// The retrieve info.
+        /// </summary>
+        private void RetrieveInfo()
+        {
+            if (string.IsNullOrWhiteSpace(this.SelectedTypeItemName))
+            {
+                this.HasErrors = true;
+                this.Errors = "Please select a type item to edit";
+                return;
+            }
+
+            var typeItemToEdit = this.syntosaDal.GetTypeItemByAny(
+                typeItemName: this.SelectedTypeItemName,
+                typeItemUId: this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]).FirstOrDefault();
+
+            this.HasSelected = true;
+
+            IList<UserRole> userRoles = this.userService.GetUserRoles(this.userContext.CurrentUser);
+
+            if (userRoles.Any(
+                userRole => userRole.SystemName.Equals(
+                    SystemUserRoleNames.TeamBondSuperUsers,
+                    StringComparison.OrdinalIgnoreCase)))
+            {
+                this.IsDeleteVisible = true;
+            }
+
+            this.CurrentName = typeItemToEdit.Name;
+            this.CurrentDescription = typeItemToEdit.Description;
+            this.SelectedTypeUnitName = typeItemToEdit.TypeUnitName;
+            this.SelectedTypeFunctionName = typeItemToEdit.TypeFunctionName;
+            this.IsAssignable = typeItemToEdit.IsAssignable;
+            this.IsBuiltIn = typeItemToEdit.IsBuiltIn;
+            this.IsNotifiable = typeItemToEdit.IsNotifiable;
+            this.IsActive = typeItemToEdit.IsActive;
+            this.IsAutoCollect = typeItemToEdit.IsAutoCollect;
+
+            if (typeItemToEdit.ParentUId != Guid.Empty)
+            {
+                this.HasParent = true;
+                this.SelectedTypeItemParentName = typeItemToEdit.ParentName;
+            }
+
+            if (typeItemToEdit.IsRelational)
+            {
+                this.SelectedDataStoreType = "Relational";
+            }
+
+            if (typeItemToEdit.IsKeyValue)
+            {
+                this.SelectedDataStoreType = "Key value";
+            }
+
+            if (typeItemToEdit.IsInMemory)
+            {
+                this.SelectedDataStoreType = "In memory";
+            }
+
+            if (typeItemToEdit.IsGraph)
+            {
+                this.SelectedDataStoreType = "Graph";
+            }
+
+            if (typeItemToEdit.IsDocument)
+            {
+                this.SelectedDataStoreType = "Document";
+            }
+
+            if (typeItemToEdit.IsLedger)
+            {
+                this.SelectedDataStoreType = "Ledger";
+            }
+
+            if (typeItemToEdit.IsTimeSeries)
+            {
+                this.SelectedDataStoreType = "Time series";
+            }
+
+            if (typeItemToEdit.IsSearch)
+            {
+                this.SelectedDataStoreType = "Search";
+            }
+        }
+
+        /// <summary>
+        /// The return.
+        /// </summary>
+        private void Return()
+        {
+            this.SelectedTypeItemName = string.Empty;
+            this.HasSelected = false;
+            this.HasParent = false;
+            this.IsAutoCollect = false;
         }
     }
 }

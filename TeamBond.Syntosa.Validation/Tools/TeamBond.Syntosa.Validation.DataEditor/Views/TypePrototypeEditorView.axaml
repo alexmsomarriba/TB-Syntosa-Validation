@@ -189,6 +189,11 @@
               Height="30"
               Content="Back"
               IsVisible="{Binding HasSelected}"/>
+      <Button Command="{Binding DeleteTypeItem}"
+              Height="30"
+              DockPanel.Dock="Top"
+              Content="Delete Type"
+              IsVisible="{Binding IsDeleteVisible}"/>
       <TextBlock DockPanel.Dock="Top"
                  IsVisible="{Binding HasErrors}"
                  Text="Please fix these errors"/>

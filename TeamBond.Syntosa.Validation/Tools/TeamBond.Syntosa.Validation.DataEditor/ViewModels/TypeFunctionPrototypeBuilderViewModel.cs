@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reactive;
     using System.Text;
 
@@ -14,6 +15,7 @@
 
     using TeamBond.Core.Engine;
     using TeamBond.Domain.User;
+    using TeamBond.Services.Users;
     using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
@@ -25,6 +27,11 @@
         /// The syntosa dal.
         /// </summary>
         private readonly SyntosaDal syntosaDal;
+
+        /// <summary>
+        /// The user activity service.
+        /// </summary>
+        private readonly IUserActivityService userActivityService;
 
         /// <summary>
         /// The application context.
@@ -72,8 +79,10 @@
         public TypeFunctionPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.InsertTypeFunction = ReactiveCommand.Create(this.BuildTypeFunction);
+            this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
+
+            this.InsertTypeFunction = ReactiveCommand.Create(this.BuildTypeFunction);
         }
 
         /// <summary>
@@ -210,7 +219,17 @@
             }
 
             this.HasErrors = false;
+            this.Errors = string.Empty;
             this.syntosaDal.CreateTypeFunction(createdTypeFunction);
+            createdTypeFunction = this.syntosaDal.GetTypeFunctionByAny(
+                typeFunctionName: this.TypeFunctionName,
+                typeFunctionDesc: this.TypeFunctionDescription,
+                isActive: this.IsActive,
+                isBuiltIn: this.IsBuiltIn).FirstOrDefault();
+            this.userActivityService.InsertActivity(
+                this.userContext.CurrentUser,
+                "Type Function Inserted",
+                $"{this.userContext.CurrentUser.Email} has inserted the type function named {createdTypeFunction.Name} with UId {createdTypeFunction.UId}");
         }
 
         /// <summary>

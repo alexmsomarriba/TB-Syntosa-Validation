@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reactive;
     using System.Text;
 
@@ -14,6 +15,7 @@
 
     using TeamBond.Core.Engine;
     using TeamBond.Domain.User;
+    using TeamBond.Services.Users;
     using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
@@ -25,6 +27,11 @@
         /// The syntosa dal.
         /// </summary>
         private readonly SyntosaDal syntosaDal;
+
+        /// <summary>
+        /// The user activity service.
+        /// </summary>
+        private readonly IUserActivityService userActivityService;
 
         /// <summary>
         /// The application context.
@@ -82,8 +89,10 @@
         public TypeUnitPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.InsertTypeUnit = ReactiveCommand.Create(this.BuildTypeUnit);
+            this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
+
+            this.InsertTypeUnit = ReactiveCommand.Create(this.BuildTypeUnit);
         }
 
         /// <summary>
@@ -277,7 +286,17 @@
             }
 
             this.HasErrors = false;
+            this.Errors = string.Empty;
             this.syntosaDal.CreateTypeUnit(createdTypeUnit);
+            createdTypeUnit = this.syntosaDal.GetTypeUnitByAny(
+                typeUnitName: this.TypeUnitName,
+                typeUnitDesc: this.TypeUnitDescription,
+                isActive: this.IsActive,
+                isBuiltIn: this.IsBuiltIn).FirstOrDefault();
+            this.userActivityService.InsertActivity(
+                this.userContext.CurrentUser,
+                "Type Item Inserted",
+                $"{this.userContext.CurrentUser.Email} has inserted the type unit named {createdTypeUnit.Name} with UId {createdTypeUnit.UId}");
         }
 
         /// <summary>

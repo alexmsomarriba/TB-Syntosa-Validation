@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reactive;
     using System.Text;
 
@@ -14,6 +15,7 @@
 
     using TeamBond.Core.Engine;
     using TeamBond.Domain.User;
+    using TeamBond.Services.Users;
     using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
@@ -25,6 +27,11 @@
         /// The syntosa dal.
         /// </summary>
         private readonly SyntosaDal syntosaDal;
+
+        /// <summary>
+        /// The user activity service.
+        /// </summary>
+        private readonly IUserActivityService userActivityService;
 
         /// <summary>
         /// The user context.
@@ -77,6 +84,7 @@
         public ModulePrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
+            this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.CreateModule = ReactiveCommand.Create(this.BuildModule);
@@ -230,6 +238,15 @@
             }
 
             this.syntosaDal.CreateModule(createdModule);
+            createdModule = this.syntosaDal.GetModuleByAny(
+                moduleName: this.Name,
+                moduleDesc: this.Description,
+                isActive: this.IsActive,
+                isBuiltIn: this.isBuiltIn).FirstOrDefault();
+            this.userActivityService.InsertActivity(
+                this.userContext.CurrentUser,
+                "Module Inserted",
+                $"{this.userContext.CurrentUser.Email} has inserted the module named {createdModule.Name} with UId {createdModule.UId}");
             this.errors = string.Empty;
             this.hasErrors = false;
         }

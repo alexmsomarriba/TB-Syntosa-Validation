@@ -15,6 +15,7 @@
 
     using TeamBond.Core.Engine;
     using TeamBond.Domain.User;
+    using TeamBond.Services.Users;
     using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
@@ -26,6 +27,11 @@
         /// The syntosa dal.
         /// </summary>
         private readonly SyntosaDal syntosaDal;
+
+        /// <summary>
+        /// The user activity service.
+        /// </summary>
+        private readonly IUserActivityService userActivityService;
 
         /// <summary>
         /// The application context.
@@ -118,7 +124,9 @@
         public TypePrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
+            this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
+
             this.InsertType = ReactiveCommand.Create(this.BuildTypeItem);
         }
 
@@ -517,9 +525,20 @@
             }
 
             this.HasErrors = false;
+            this.Errors = string.Empty;
             this.syntosaDal.CreateTypeItem(createdTypeItem);
+            createdTypeItem = this.syntosaDal.GetTypeItemByAny(
+                typeItemName: this.TypeName,
+                typeItemDesc: this.Description,
+                isActive: this.IsActive,
+                isBuiltIn: this.IsBuiltIn,
+                isAssignable: this.IsAssignable).FirstOrDefault();
+            this.userActivityService.InsertActivity(
+                this.userContext.CurrentUser,
+                "Type Item Inserted",
+                $"{this.userContext.CurrentUser.Email} has inserted the type item named {createdTypeItem.Name} with UId {createdTypeItem.UId}");
         }
-        
+
         /// <summary>
         /// Gets all domains names and UIds in the Syntosa database.
         /// </summary>

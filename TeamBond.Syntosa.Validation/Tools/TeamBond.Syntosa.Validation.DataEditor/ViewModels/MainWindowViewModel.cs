@@ -428,7 +428,7 @@
         {
             if (string.IsNullOrWhiteSpace(this.Username) || string.IsNullOrWhiteSpace(this.Password))
             {
-                this.Errors = "Please make sure both the username and password fields are filled out";
+                this.Errors = "Please make sure both the email and password fields are filled out";
                 this.HasErrors = true;
                 return;
             }

@@ -38,9 +38,19 @@
         private readonly IUserContext userContext;
 
         /// <summary>
+        /// The user service.
+        /// </summary>
+        private readonly IUserService userService;
+
+        /// <summary>
         /// A value indicating whether the user has selected a type unit to edit.
         /// </summary>
         private bool hasSelected;
+
+        /// <summary>
+        /// A value indicating whether the delete button is visible to the current user.
+        /// </summary>
+        private bool isDeleteVisible;
 
         /// <summary>
         /// The current description of the type unit to edit.
@@ -110,13 +120,16 @@
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
+            this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
 
             this.HasSelected = false;
             this.HasParent = false;
+            this.IsDeleteVisible = false;
 
             this.Next = ReactiveCommand.Create(this.RetrieveInfo);
             this.UpdateTypeUnit = ReactiveCommand.Create(this.EditTypeUnit);
             this.Back = ReactiveCommand.Create(this.Return);
+            this.DeleteTypeUnit = ReactiveCommand.Create(this.RemoveTypeUnit);
         }
 
         /// <summary>
@@ -179,6 +192,15 @@
         {
             get => this.hasSelected;
             set => this.RaiseAndSetIfChanged(ref this.hasSelected, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the delete button is visible for the current user.
+        /// </summary>
+        public bool IsDeleteVisible
+        {
+            get => this.isDeleteVisible;
+            set => this.RaiseAndSetIfChanged(ref this.isDeleteVisible, value);
         }
 
         /// <summary>
@@ -304,6 +326,11 @@
         public ReactiveCommand<Unit, Unit> Back { get; }
 
         /// <summary>
+        /// Gets whether the delete type unit button has been pressed.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> DeleteTypeUnit { get; }
+
+        /// <summary>
         /// Retrieves the info related to the selected type unit.
         /// </summary>
         private void RetrieveInfo()
@@ -319,6 +346,16 @@
                 typeUnitName: this.SelectedTypeUnitName,
                 typeUnitUId: this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName]).FirstOrDefault();
             this.HasSelected = true;
+
+            IList<UserRole> userRoles = this.userService.GetUserRoles(this.userContext.CurrentUser);
+
+            if (userRoles.Any(
+                userRole => userRole.SystemName.Equals(
+                    SystemUserRoleNames.TeamBondSuperUsers,
+                    StringComparison.OrdinalIgnoreCase)))
+            {
+                this.IsDeleteVisible = true;
+            }
 
             this.CurrentName = $"The current name of this type unit is {typeUnitToEdit.Name}";
             this.CurrentDescription = $"The current description of this type unit is {typeUnitToEdit.Description}";
@@ -428,6 +465,28 @@
                 $"{this.userContext.CurrentUser.Email} has updated the type unit named {this.CurrentName} with UId {this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName]}");
             this.HasErrors = false;
             this.Errors = string.Empty;
+        }
+
+        /// <summary>
+        /// Removes the selected type unit from Syntosa.
+        /// </summary>
+        private void RemoveTypeUnit()
+        {
+            if (!this.HasErrors && string.IsNullOrWhiteSpace(this.Errors))
+            {
+                this.HasErrors = true;
+                this.Errors = "To confirm deletion of this type unit press the 'Delete Type Unit' Button again.";
+                return;
+            }
+
+            if (this.HasErrors && this.Errors.Equals(
+                    "To confirm deletion of this type unit press the 'Delete Type Unit' Button again."))
+            {
+                this.syntosaDal.DeleteTypeUnit(this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName]);
+                this.HasErrors = false;
+                this.Errors = string.Empty;
+                this.Return();
+            }
         }
 
         /// <summary>
