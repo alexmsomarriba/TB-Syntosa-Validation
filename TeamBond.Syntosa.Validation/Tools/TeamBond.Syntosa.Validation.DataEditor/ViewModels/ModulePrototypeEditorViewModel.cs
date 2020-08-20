@@ -376,10 +376,10 @@
 
             updatedModule.ModifiedBy = this.userContext.CurrentUser.Email;
             this.syntosaDal.UpdateModule(updatedModule);
-            this.userActivityService.InsertActivity(
-                this.userContext.CurrentUser,
-                "Module Updated",
-                $"{this.userContext.CurrentUser.Email} has updated the module named {this.CurrentName} with UId {this.AllModuleNamesAndUIds[this.SelectedModuleName]}");
+            //this.userActivityService.InsertActivity(
+            //    this.userContext.CurrentUser,
+            //    "Module Updated",
+            //    $"{this.userContext.CurrentUser.Email} has updated the module named {this.CurrentName} with UId {this.AllModuleNamesAndUIds[this.SelectedModuleName]}");
             this.errors = string.Empty;
             this.hasErrors = false;
         }

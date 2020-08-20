@@ -376,10 +376,10 @@
 
             this.HasErrors = false;
             this.Errors = string.Empty;
-            this.userActivityService.InsertActivity(
-                this.userContext.CurrentUser,
-                "Updated Type Function",
-                $"{this.userContext.CurrentUser.Email} has updated the type function named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName]}.");
+            //this.userActivityService.InsertActivity(
+            //    this.userContext.CurrentUser,
+            //    "Updated Type Function",
+            //    $"{this.userContext.CurrentUser.Email} has updated the type function named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName]}.");
             this.syntosaDal.UpdateTypeFunction(updatedTypeFunction);
         }
 

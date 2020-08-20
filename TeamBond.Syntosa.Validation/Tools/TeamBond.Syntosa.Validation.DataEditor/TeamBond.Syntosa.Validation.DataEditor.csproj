@@ -13,7 +13,7 @@
     <PackageReference Include="NJsonSchema" Version="10.1.24" />
     <PackageReference Include="NJsonSchema.CodeGeneration.CSharp" Version="10.1.24" />
     <PackageReference Include="Syntosa.Core" Version="0.1.1" />
-    <PackageReference Include="TeamBond.Application.Framework" Version="0.1.8" />
+    <PackageReference Include="TeamBond.Application.Framework" Version="0.1.9" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

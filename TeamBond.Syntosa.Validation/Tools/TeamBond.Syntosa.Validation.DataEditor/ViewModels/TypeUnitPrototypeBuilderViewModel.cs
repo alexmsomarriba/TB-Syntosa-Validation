@@ -293,10 +293,10 @@
                 typeUnitDesc: this.TypeUnitDescription,
                 isActive: this.IsActive,
                 isBuiltIn: this.IsBuiltIn).FirstOrDefault();
-            this.userActivityService.InsertActivity(
-                this.userContext.CurrentUser,
-                "Type Item Inserted",
-                $"{this.userContext.CurrentUser.Email} has inserted the type unit named {createdTypeUnit.Name} with UId {createdTypeUnit.UId}");
+            //this.userActivityService.InsertActivity(
+            //    this.userContext.CurrentUser,
+            //    "Type Item Inserted",
+            //    $"{this.userContext.CurrentUser.Email} has inserted the type unit named {createdTypeUnit.Name} with UId {createdTypeUnit.UId}");
         }
 
         /// <summary>

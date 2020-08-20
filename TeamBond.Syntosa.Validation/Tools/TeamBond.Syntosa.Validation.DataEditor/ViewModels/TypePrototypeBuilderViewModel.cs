@@ -533,10 +533,10 @@
                 isActive: this.IsActive,
                 isBuiltIn: this.IsBuiltIn,
                 isAssignable: this.IsAssignable).FirstOrDefault();
-            this.userActivityService.InsertActivity(
-                this.userContext.CurrentUser,
-                "Type Item Inserted",
-                $"{this.userContext.CurrentUser.Email} has inserted the type item named {createdTypeItem.Name} with UId {createdTypeItem.UId}");
+            //this.userActivityService.InsertActivity(
+            //    this.userContext.CurrentUser,
+            //    "Type Item Inserted",
+            //    $"{this.userContext.CurrentUser.Email} has inserted the type item named {createdTypeItem.Name} with UId {createdTypeItem.UId}");
         }
 
         /// <summary>

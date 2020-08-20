@@ -459,10 +459,10 @@
 
             updatedTypeUnit.ModifiedBy = this.userContext.CurrentUser.Email;
             this.syntosaDal.UpdateTypeUnit(updatedTypeUnit);
-            this.userActivityService.InsertActivity(
-                this.userContext.CurrentUser,
-                "Type Unit Updated",
-                $"{this.userContext.CurrentUser.Email} has updated the type unit named {this.CurrentName} with UId {this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName]}");
+            //this.userActivityService.InsertActivity(
+            //    this.userContext.CurrentUser,
+            //    "Type Unit Updated",
+            //    $"{this.userContext.CurrentUser.Email} has updated the type unit named {this.CurrentName} with UId {this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName]}");
             this.HasErrors = false;
             this.Errors = string.Empty;
         }

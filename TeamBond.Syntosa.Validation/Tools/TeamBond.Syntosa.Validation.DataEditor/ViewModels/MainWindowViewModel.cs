@@ -95,6 +95,11 @@
         private string password;
 
         /// <summary>
+        /// The is editor visible.
+        /// </summary>
+        private bool isContentVisible;
+
+        /// <summary>
         /// The password confirm.
         /// </summary>
         private string passwordConfirm;
@@ -135,6 +140,8 @@
         public MainWindowViewModel()
         {
             this.IsNotLoggingIn = false;
+            this.IsRegistering = false;
+            this.IsContentVisible = false;
 
             this.userRegistrationService = TeamBondEngineContext.Current.Resolve<IUserRegistrationService>();
             this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
@@ -251,6 +258,15 @@
         {
             get => this.lastName;
             set => this.RaiseAndSetIfChanged(ref this.lastName, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether is content visible.
+        /// </summary>
+        public bool IsContentVisible
+        {
+            get => this.isContentVisible;
+            set => this.RaiseAndSetIfChanged(ref this.isContentVisible, value);
         }
 
         /// <summary>
@@ -463,6 +479,7 @@
                         this.IsEditorVisible = true;
                     }
 
+                    this.IsContentVisible = true;
                     return;
                 case UserLogInResults.UserDoesNotExist:
                     this.Errors = "There is no user associated with this account information";
@@ -492,6 +509,7 @@
         {
             this.IsNotLoggingIn = false;
             this.IsRegistering = false;
+            this.IsContentVisible = false;
         }
 
         /// <summary>
@@ -499,8 +517,9 @@
         /// </summary>
         private void UserRegistration()
         {
-            this.IsNotLoggingIn = true;
             this.IsRegistering = true;
+            this.IsNotLoggingIn = true;
+            this.IsContentVisible = false;
         }
     }
 }

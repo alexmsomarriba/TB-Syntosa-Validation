@@ -706,10 +706,10 @@
             this.HasErrors = false;
             this.Errors = string.Empty;
             this.syntosaDal.UpdateTypeItem(updatedTypeItem);
-            this.userActivityService.InsertActivity(
-                this.userContext.CurrentUser,
-                "Type Item Updated",
-                $"{this.userContext.CurrentUser.Email} has updated the type item named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]}");
+            //this.userActivityService.InsertActivity(
+            //    this.userContext.CurrentUser,
+            //    "Type Item Updated",
+            //    $"{this.userContext.CurrentUser.Email} has updated the type item named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]}");
         }
 
         /// <summary>

@@ -243,10 +243,10 @@
                 moduleDesc: this.Description,
                 isActive: this.IsActive,
                 isBuiltIn: this.isBuiltIn).FirstOrDefault();
-            this.userActivityService.InsertActivity(
-                this.userContext.CurrentUser,
-                "Module Inserted",
-                $"{this.userContext.CurrentUser.Email} has inserted the module named {createdModule.Name} with UId {createdModule.UId}");
+            //this.userActivityService.InsertActivity(
+            //    this.userContext.CurrentUser,
+            //    "Module Inserted",
+            //    $"{this.userContext.CurrentUser.Email} has inserted the module named {createdModule.Name} with UId {createdModule.UId}");
             this.errors = string.Empty;
             this.hasErrors = false;
         }

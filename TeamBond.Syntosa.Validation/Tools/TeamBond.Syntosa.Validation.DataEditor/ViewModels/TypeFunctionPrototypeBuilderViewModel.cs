@@ -226,10 +226,10 @@
                 typeFunctionDesc: this.TypeFunctionDescription,
                 isActive: this.IsActive,
                 isBuiltIn: this.IsBuiltIn).FirstOrDefault();
-            this.userActivityService.InsertActivity(
-                this.userContext.CurrentUser,
-                "Type Function Inserted",
-                $"{this.userContext.CurrentUser.Email} has inserted the type function named {createdTypeFunction.Name} with UId {createdTypeFunction.UId}");
+            //this.userActivityService.InsertActivity(
+            //    this.userContext.CurrentUser,
+            //    "Type Function Inserted",
+            //    $"{this.userContext.CurrentUser.Email} has inserted the type function named {createdTypeFunction.Name} with UId {createdTypeFunction.UId}");
         }
 
         /// <summary>
