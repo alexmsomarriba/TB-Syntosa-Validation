@@ -16,7 +16,6 @@
     <PackageReference Include="TeamBond.Application.Framework" Version="0.1.10" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="GeneratedClasses\" />
   </ItemGroup>
   <ItemGroup>
