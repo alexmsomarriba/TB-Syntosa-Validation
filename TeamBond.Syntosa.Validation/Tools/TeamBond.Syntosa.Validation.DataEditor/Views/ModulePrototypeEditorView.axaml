@@ -79,7 +79,7 @@
             Command="{Binding Next}"
             IsVisible="{Binding !HasSelected}"/>
     <Button DockPanel.Dock="Top"
-            Content="Update Domain"
+            Content="Update Module"
             Command="{Binding UpdateModule}"
             IsVisible="{Binding HasSelected}"
             Height="30"/>

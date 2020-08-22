@@ -45,7 +45,7 @@
       </ListBox.ItemTemplate>
     </ListBox>
     <Button DockPanel.Dock="Top"
-            Content="Create Domain"
+            Content="Create Module"
             Command="{Binding CreateModule}"
             Height="30"/>
     <TextBlock DockPanel.Dock="Top"
