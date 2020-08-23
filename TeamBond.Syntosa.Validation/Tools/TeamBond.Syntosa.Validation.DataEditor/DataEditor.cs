@@ -60,7 +60,7 @@
 
             if (string.IsNullOrWhiteSpace(appName))
             {
-                throw new TeamBondException("Could not retrieve APP_NAME from Environment Variables.");
+                throw new TeamBondException("Could not retrieve TEAMBOND_APP_NAME from Environment Variables.");
             }
 
             // Add the optional appsettings.json in the base directory
