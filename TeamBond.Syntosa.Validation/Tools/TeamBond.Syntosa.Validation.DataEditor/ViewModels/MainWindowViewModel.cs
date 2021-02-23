@@ -120,6 +120,11 @@
         private ViewModelBase typeCreatorContent;
 
         /// <summary>
+        /// The domain creator content.
+        /// </summary>
+        private ViewModelBase domainCreatorContent;
+
+        /// <summary>
         /// The type function creator content.
         /// </summary>
         private ViewModelBase typeFunctionCreatorContent;
@@ -168,6 +173,7 @@
             this.ReturnToLogin = ReactiveCommand.Create(this.LoginReturn);
 
             this.ModuleCreatorContent = this.ModuleBuilder = new ModulePrototypeBuilderViewModel();
+            this.DomainCreatorContent = this.DomainBuilder = new DomainPrototypeBuilderViewModel();
             this.TypeUnitCreatorContent = this.TypeUnitBuilder = new TypeUnitPrototypeBuilderViewModel();
             this.TypeCreatorContent = this.TypeBuilder = new TypePrototypeBuilderViewModel();
             this.TypeFunctionCreatorContent = this.TypeFunctionBuilder = new TypeFunctionPrototypeBuilderViewModel();
@@ -286,6 +292,20 @@
         {
             get => this.moduleCreatorContent;
             set => this.RaiseAndSetIfChanged(ref this.moduleCreatorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the domain builder.
+        /// </summary>
+        public DomainPrototypeBuilderViewModel DomainBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the domain creator content.
+        /// </summary>
+        public ViewModelBase DomainCreatorContent
+        {
+            get => this.domainCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.domainCreatorContent, value);
         }
 
         /// <summary>

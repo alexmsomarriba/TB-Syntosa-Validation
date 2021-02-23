@@ -1,0 +1,37 @@
+{
+  "Worker": {
+    "TypeUId": "b1ef4918-aad5-403d-b2b9-f7620746a5b3",
+    "ElementProperties": {
+      "Alias": "Alex",
+      "Description": "TeamBond worker",
+      "DomainUId": "d6c4959d-9406-4f59-9cfb-0c216504bd2a",
+      "ModuleRecordKey": "",
+      "IsActive": true,
+      "ModifiedBy": "alex@teambond.io",
+      "ModuleUId": "e63f21d6-0143-4b2f-817d-c47672e1e9b2",
+      "Name": "AlexSomarriba",
+      "ParentName": "",
+      "ParentUId": "",
+      "RecordStatus": "Active",
+      "SysEndTime": "9999-12-31 23:59:59.9999999",
+      "SysStartTime": "2021-02-11 19:24:42.5921603",
+      "TypeItemUId": "b1ef4918-aad5-403d-b2b9-f7620746a5b3",
+      "TypeUIdRecordStatus": "4586c01b-bf70-4924-9801-64f81b81f8d5",
+      "UIdVersion": ""
+    },
+    "GlobalProperties": {
+      "Title": "CTO",
+      "JobUIds": [
+      ]
+    },
+    "Edges": {
+      "EdgeElementElement": {
+        "ModifiedBy": "alex@teambond.io",
+        "TargetElementUId": "",
+        "SourceElementUId": "",
+        "LabelUId": "",
+        "TypeItemUId": "c0e6c076-57e4-4a00-9dea-7e9628251497"
+      }
+    }
+  }
+}

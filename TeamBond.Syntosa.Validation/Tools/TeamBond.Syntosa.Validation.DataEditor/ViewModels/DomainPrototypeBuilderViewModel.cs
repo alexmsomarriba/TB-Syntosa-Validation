@@ -19,7 +19,7 @@
     /// <summary>
     /// The module prototype builder view model.
     /// </summary>
-    public class ModulePrototypeBuilderViewModel : ViewModelBase
+    public class DomainPrototypeBuilderViewModel : ViewModelBase
     {
         /// <summary>
         /// The syntosa dal.
@@ -67,30 +67,30 @@
         private string name;
 
         /// <summary>
-        /// The name of the selected parent module name.
+        /// The name of the selected parent domain name.
         /// </summary>
-        private string selectedModuleName;
+        private string selectedDomainName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ModulePrototypeBuilderViewModel" /> class.
+        /// Initializes a new instance of the <see cref="DomainPrototypeBuilderViewModel" /> class.
         /// </summary>
-        public ModulePrototypeBuilderViewModel()
+        public DomainPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
-            this.CreateModule = ReactiveCommand.Create(this.BuildModule);
+            this.CreateDomain = ReactiveCommand.Create(this.BuildDomain);
         }
 
         /// <summary>
-        /// Gets the all type function names.
+        /// Gets the all Domain names.
         /// </summary>
-        public List<string> AllModuleNames
+        public List<string> AllDomainNames
         {
             get
             {
                 var moduleNames = new List<string>();
-                foreach (var moduleName in this.AllModuleNamesAndUIds.Keys)
+                foreach (var moduleName in this.AllDomainNamesAndUIds.Keys)
                 {
                     moduleNames.Add(moduleName);
                 }
@@ -102,16 +102,16 @@
         /// <summary>
         /// Gets or sets the all module names and u ids.
         /// </summary>
-        public Dictionary<string, Guid> AllModuleNamesAndUIds
+        public Dictionary<string, Guid> AllDomainNamesAndUIds
         {
-            get => this.GetAllModuleNamesAndUIds();
-            set => this.GetAllModuleNamesAndUIds();
+            get => this.GetAllDomainNamesAndUIds();
+            set => this.GetAllDomainNamesAndUIds();
         }
 
         /// <summary>
         /// Gets the create domain button interaction.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> CreateModule { get; }
+        public ReactiveCommand<Unit, Unit> CreateDomain { get; }
 
         /// <summary>
         /// Gets or sets the description of the module.
@@ -179,23 +179,24 @@
         /// <summary>
         /// Gets or sets the selected parent module name.
         /// </summary>
-        public string SelectedModuleName
+        public string SelectedDomainName
         {
-            get => this.selectedModuleName;
-            set => this.RaiseAndSetIfChanged(ref this.selectedModuleName, value);
+            get => this.selectedDomainName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedDomainName, value);
         }
 
         /// <summary>
-        /// The build module based off the given inputs.
+        /// The build domain based off the given inputs.
         /// </summary>
-        private void BuildModule()
+        private void BuildDomain()
         {
             var failureMessage = new StringBuilder();
-            var createdModule = new Module
+            var createdDomain = new Domain
                                     {
                                         Name = this.Name,
+                                        AccountInformation = string.Empty,
                                         Description = this.Description,
-                                        IsActive = this.isActive,
+                                        IsActive = this.IsActive,
                                         IsBuiltIn = this.IsBuiltIn,
                                         ParentUId = Guid.Empty,
                                         ModifiedBy = this.userContext.CurrentUser.Email
@@ -203,19 +204,19 @@
 
             if (this.HasParent)
             {
-                if (string.IsNullOrWhiteSpace(this.SelectedModuleName))
+                if (string.IsNullOrWhiteSpace(this.SelectedDomainName))
                 {
                     failureMessage.AppendLine(
                         "Please select a parent module or deselect the 'Has parent domain' check box");
                 }
                 else
                 {
-                    createdModule.ParentUId = this.AllModuleNamesAndUIds[this.SelectedModuleName];
+                    createdDomain.ParentUId = this.AllDomainNamesAndUIds[this.SelectedDomainName];
                 }
             }
 
-            var moduleValidator = new ModuleValidator();
-            ValidationResult validationResult = moduleValidator.Validate(createdModule);
+            var domainValidator = new DomainValidator();
+            ValidationResult validationResult = domainValidator.Validate(createdDomain);
             if (!validationResult.IsValid || failureMessage.Length != 0)
             {
                 foreach (var failure in validationResult.Errors)
@@ -229,7 +230,7 @@
                 return;
             }
 
-            this.syntosaDal.CreateModule(createdModule);
+            this.syntosaDal.CreateDomain(createdDomain);
 
             // createdModule = this.syntosaDal.GetModuleByAny(
             //    moduleName: this.Name,
@@ -245,21 +246,21 @@
         }
 
         /// <summary>
-        /// Gets all modules names and UIds in the Syntosa database.
+        /// Gets all domain names and UIds in the Syntosa database.
         /// </summary>
         /// <returns>
-        /// All module names and UIds in the Syntosa database.
+        /// All domain names and UIds in the Syntosa database.
         /// </returns>
-        private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
+        private Dictionary<string, Guid> GetAllDomainNamesAndUIds()
         {
-            var modules = this.syntosaDal.GetModuleByAny();
-            var moduleNamesUIds = new Dictionary<string, Guid>();
-            foreach (var module in modules)
+            var domains = this.syntosaDal.GetDomainByAny();
+            var domainNamesUIds = new Dictionary<string, Guid>();
+            foreach (var domain in domains)
             {
-                moduleNamesUIds.Add(module.Name, module.UId);
+                domainNamesUIds.Add(domain.Name, domain.UId);
             }
 
-            return moduleNamesUIds;
+            return domainNamesUIds;
         }
     }
 }

@@ -9,7 +9,7 @@
     using FluentValidation.Results;
 
     using global::Syntosa.Core.DataAccessLayer;
-    using global::Syntosa.Core.ObjectModel.CoreClasses;
+    using global::Syntosa.Core.ObjectModel.CoreClasses.Element;
 
     using ReactiveUI;
 
@@ -21,7 +21,7 @@
     /// <summary>
     /// The type proto type builder view model.
     /// </summary>
-    public class TypePrototypeBuilderViewModel : ViewModelBase
+    public class ElementPrototypeBuilderViewModel : ViewModelBase
     {
         /// <summary>
         /// The syntosa dal.
@@ -64,11 +64,6 @@
         private bool isActive;
 
         /// <summary>
-        /// A value indicating whether the type is assignable.
-        /// </summary>
-        private bool isAssignable;
-
-        /// <summary>
         /// A value indicating whether the type  auto collect.
         /// </summary>
         private bool isAutoCollect;
@@ -79,24 +74,14 @@
         private bool isBuiltIn;
 
         /// <summary>
-        /// A value indicating whether the type is notifiable.
-        /// </summary>
-        private bool isNotifiable;
-
-        /// <summary>
         /// The module auto collect name.
         /// </summary>
-        private string moduleAutoCollectName;
+        private string selectedModuleName;
 
         /// <summary>
-        /// The selected data store type.
+        /// The selected domain name.
         /// </summary>
-        private string selectedDataStoreType;
-
-        /// <summary>
-        /// The type function name.
-        /// </summary>
-        private string selectedTypeFunctionName;
+        private string selectedDomainName;
 
         /// <summary>
         /// The parent type item name.
@@ -104,9 +89,9 @@
         private string selectedTypeItemName;
 
         /// <summary>
-        /// The type unit name.
+        /// The selected element parent name.
         /// </summary>
-        private string selectedTypeUnitName;
+        private string selectedParentElementName;
 
         /// <summary>
         /// The sort order.
@@ -119,21 +104,73 @@
         private string typeName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypePrototypeBuilderViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ElementPrototypeBuilderViewModel"/> class.
         /// </summary>
-        public TypePrototypeBuilderViewModel()
+        public ElementPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
-            this.InsertType = ReactiveCommand.Create(this.BuildTypeItem);
+            this.InsertType = ReactiveCommand.Create(this.BuildElement);
         }
 
         /// <summary>
         /// Gets or sets the current user identifier.
         /// </summary>
         public string CurrentUserIdentifier { get; set; }
+
+        /// <summary>
+        /// Gets the all domain names.
+        /// </summary>
+        public List<string> AllDomainNames
+        {
+            get
+            {
+                var domainNames = new List<string>();
+                foreach (var name in this.AllDomainNamesAndUIds.Keys)
+                {
+                    domainNames.Add(name);
+                }
+
+                return domainNames;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the all domain names and u ids.
+        /// </summary>
+        public Dictionary<string, Guid> AllDomainNamesAndUIds
+        {
+            get => this.GetAllDomainNamesAndUIds();
+            set => this.GetAllDomainNamesAndUIds();
+        }
+
+        /// <summary>
+        /// Gets the all element names.
+        /// </summary>
+        public List<string> AllElementNames
+        {
+            get
+            {
+                var elementNames = new List<string>();
+                foreach (var name in this.AllElementNamesAndUIds.Keys)
+                {
+                    elementNames.Add(name);
+                }
+
+                return elementNames;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the all element names and u ids.
+        /// </summary>
+        public Dictionary<string, Guid> AllElementNamesAndUIds
+        {
+            get => this.GetAllElementNamesAndUIds();
+            set => this.GetAllElementNamesAndUIds();
+        }
 
         /// <summary>
         /// Gets the all type function names.
@@ -240,22 +277,6 @@
         }
 
         /// <summary>
-        /// The database types.
-        /// </summary>
-        public List<string> DatabaseTypes =>
-            new List<string>
-                {
-                    "Relational",
-                    "Key value",
-                    "In memory",
-                    "Graph",
-                    "Document",
-                    "Ledger",
-                    "Time series",
-                    "Search"
-                };
-
-        /// <summary>
         /// Gets or sets the description.
         /// </summary>
         public string Description
@@ -306,15 +327,6 @@
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether is assignable.
-        /// </summary>
-        public bool IsAssignable
-        {
-            get => this.isAssignable;
-            set => this.RaiseAndSetIfChanged(ref this.isAssignable, value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether is auto collect.
         /// </summary>
         public bool IsAutoCollect
@@ -333,44 +345,35 @@
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether is notifiable.
-        /// </summary>
-        public bool IsNotifiable
-        {
-            get => this.isNotifiable;
-            set => this.RaiseAndSetIfChanged(ref this.isNotifiable, value);
-        }
-
-        /// <summary>
         /// The is user admin.
         /// </summary>
         public bool IsUserAdmin => true;
 
         /// <summary>
-        /// Gets or sets the selected type.
+        /// Gets or sets the selected domain name.
         /// </summary>
-        public string SelectedDataStoreType
+        public string SelectedDomainName
         {
-            get => this.selectedDataStoreType;
-            set => this.RaiseAndSetIfChanged(ref this.selectedDataStoreType, value);
+            get => this.selectedDomainName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedDomainName, value);
         }
 
         /// <summary>
         /// Gets or sets the module auto collect u id.
         /// </summary>
-        public string SelectedModuleAutoCollectName
+        public string SelectedModuleName
         {
-            get => this.moduleAutoCollectName;
-            set => this.RaiseAndSetIfChanged(ref this.moduleAutoCollectName, value);
+            get => this.selectedModuleName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedModuleName, value);
         }
 
         /// <summary>
-        /// Gets or sets the type function u id.
+        /// Gets or sets the selected parent element name.
         /// </summary>
-        public string SelectedTypeFunctionName
+        public string SelectedParentElementName
         {
-            get => this.selectedTypeFunctionName;
-            set => this.RaiseAndSetIfChanged(ref this.selectedTypeFunctionName, value);
+            get => this.selectedParentElementName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedParentElementName, value);
         }
 
         /// <summary>
@@ -380,15 +383,6 @@
         {
             get => this.selectedTypeItemName;
             set => this.RaiseAndSetIfChanged(ref this.selectedTypeItemName, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the type unit u id.
-        /// </summary>
-        public string SelectedTypeUnitName
-        {
-            get => this.selectedTypeUnitName;
-            set => this.RaiseAndSetIfChanged(ref this.selectedTypeUnitName, value);
         }
 
         /// <summary>
@@ -412,105 +406,37 @@
         /// <summary>
         /// The build type item.
         /// </summary>
-        private void BuildTypeItem()
+        private void BuildElement()
         {
             var failureMessages = new StringBuilder();
-            var createdTypeItem = new TypeItem
+            var createdElement = new Element
                                       {
+                                          DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName],
                                           IsActive = this.IsActive,
                                           IsBuiltIn = this.IsBuiltIn,
+                                          TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName],
+                                          ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName],
                                           IsAutoCollect = this.IsAutoCollect,
-                                          IsAssignable = this.IsAssignable,
-                                          IsNotifiable = this.IsNotifiable,
-                                          SortOrder = Convert.ToInt32(this.SortOrder),
                                           Name = this.TypeName,
                                           Description = this.Description,
-                                          ModuleUIdAutoCollect = this.AllModuleNamesAndUIds.Values.FirstOrDefault(),
                                           ParentUId = Guid.Empty,
                                           ModifiedBy = this.userContext.CurrentUser.Email,
-                                          IsRelational = false,
-                                          IsKeyValue = false,
-                                          IsInMemory = false,
-                                          IsGraph = false,
-                                          IsDocument = false,
-                                          IsLedger = false,
-                                          IsTimeSeries = false,
-                                          IsSearch = false
                                       };
-
-            if (string.IsNullOrWhiteSpace(this.SelectedTypeFunctionName))
-            {
-                failureMessages.AppendLine("Please select a type function");
-            }
-            else
-            { 
-                createdTypeItem.TypeFunctionUId = this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName];
-            }
-
-            if (string.IsNullOrWhiteSpace(this.SelectedTypeUnitName))
-            {
-                failureMessages.AppendLine("Please select a type unit");
-            }
-            else
-            {
-                createdTypeItem.TypeUnitUId = this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName];
-            }
-
-            if (this.IsAutoCollect)
-            {
-                if (string.IsNullOrWhiteSpace(this.SelectedModuleAutoCollectName))
-                {
-                    failureMessages.AppendLine("Please select a module to auto collect from");
-                }
-                else
-                {
-                    createdTypeItem.ModuleUIdAutoCollect =
-                        this.AllModuleNamesAndUIds[this.SelectedModuleAutoCollectName];
-                }
-            }
 
             if (this.HasParent)
             {
-                if (string.IsNullOrWhiteSpace(this.SelectedTypeItemName))
+                if (string.IsNullOrWhiteSpace(this.SelectedParentElementName))
                 {
-                    failureMessages.AppendLine("Please select a parent type");
+                    failureMessages.AppendLine("Please select a parent element");
                 }
                 else
                 {
-                    createdTypeItem.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName];
+                    createdElement.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedParentElementName];
                 }
             }
 
-            switch (this.SelectedDataStoreType)
-            {
-                case "Relational":
-                    createdTypeItem.IsRelational = true;
-                    break;
-                case "Key value":
-                    createdTypeItem.IsKeyValue = true;
-                    break;
-                case "In memory":
-                    createdTypeItem.IsInMemory = true;
-                    break;
-                case "Graph":
-                    createdTypeItem.IsGraph = true;
-                    break;
-                case "Document":
-                    createdTypeItem.IsDocument = true;
-                    break;
-                case "Ledger":
-                    createdTypeItem.IsLedger = true;
-                    break;
-                case "Time series":
-                    createdTypeItem.IsTimeSeries = true;
-                    break;
-                case "Search":
-                    createdTypeItem.IsSearch = true;
-                    break;
-            }
-
-            var typeItemValidator = new TypeItemValidator();
-            ValidationResult validationResult = typeItemValidator.Validate(createdTypeItem);
+            var elementValidator = new ElementValidator();
+            ValidationResult validationResult = elementValidator.Validate(createdElement);
             if (!validationResult.IsValid || failureMessages.Length != 0)
             {
                 foreach (ValidationFailure failure in validationResult.Errors)
@@ -526,13 +452,12 @@
 
             this.HasErrors = false;
             this.Errors = string.Empty;
-            this.syntosaDal.CreateTypeItem(createdTypeItem);
-            createdTypeItem = this.syntosaDal.GetTypeItemByAny(
+            this.syntosaDal.CreateElement(createdElement);
+            createdElement = this.syntosaDal.GetElementByAny(
                 typeItemName: this.TypeName,
-                typeItemDesc: this.Description,
+                elementDesc: this.Description,
                 isActive: this.IsActive,
-                isBuiltIn: this.IsBuiltIn,
-                isAssignable: this.IsAssignable).FirstOrDefault();
+                isBuiltIn: this.IsBuiltIn).FirstOrDefault();
 
             // this.userActivityService.InsertActivity(
             //    this.userContext.CurrentUser,
@@ -541,10 +466,46 @@
         }
 
         /// <summary>
-        /// Gets all domains names and UIds in the Syntosa database.
+        /// Gets all domain names and UIds in the syntosa database.
         /// </summary>
         /// <returns>
-        /// All domain names and UIds in the Syntosa database.
+        /// All the domain names and UIds in the syntosa database.
+        /// </returns>
+        private Dictionary<string, Guid> GetAllDomainNamesAndUIds()
+        {
+            var domains = this.syntosaDal.GetDomainByAny();
+            var domainNamesUIds = new Dictionary<string, Guid>();
+            foreach (var domain in domains)
+            {
+                domainNamesUIds.Add(domain.Name, domain.UId);
+            }
+
+            return domainNamesUIds;
+        }
+
+        /// <summary>
+        /// Gets all element names and UIds in the syntosa database.
+        /// </summary>
+        /// <returns>
+        /// All element names and UIds in the syntosa database.
+        /// </returns>
+        private Dictionary<string, Guid> GetAllElementNamesAndUIds()
+        {
+            var elements = this.syntosaDal.GetElementByAny();
+            var elementNamesUIds = new Dictionary<string, Guid>();
+            foreach (var element in elements)
+            {
+                elementNamesUIds.Add(element.Name, element.UId);
+            }
+
+            return elementNamesUIds;
+        }
+
+        /// <summary>
+        /// Gets all modules names and UIds in the Syntosa database.
+        /// </summary>
+        /// <returns>
+        /// All modules names and UIds in the Syntosa database.
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {

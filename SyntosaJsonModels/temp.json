@@ -1,0 +1,135 @@
+{
+  "OutsideCanidate": {
+    "TypeUId": "",
+    "ElementProperties": {
+      "Alias": "",
+      "Description": "",
+      "DomainUId": "",
+      "ModuleRecordKey": "",
+      "IsActive": false,
+      "ModifiedBy": "",
+      "ModuleUId": "",
+      "Name": "",
+      "ParentName": "",
+      "ParentUId": "",
+      "RecordStatus": "",
+      "SysEndTime": "",
+      "SysStartTime": "",
+      "TypeItemUId": "",
+      "TypeUIdRecordStatus": "",
+      "UIdVersion": ""
+    },
+    "GlobalProperties": {
+      "BrokerUId": "",
+      "JobUId": ""
+    }
+  },
+  "Broker": {
+    "TypeUId": "",
+    "ElementProperties": {
+      "Alias": "",
+      "Description": "",
+      "DomainUId": "",
+      "ModuleRecordKey": "",
+      "IsActive": false,
+      "ModifiedBy": "",
+      "ModuleUId": "",
+      "Name": "",
+      "ParentName": "",
+      "ParentUId": "",
+      "RecordStatus": "",
+      "SysEndTime": "",
+      "SysStartTime": "",
+      "TypeItemUId": "",
+      "TypeUIdRecordStatus": "",
+      "UIdVersion": ""
+    },
+    "GlobalProperties": {
+      "EmployerUId": ""
+    }
+  },
+  "Resume": {
+    "TypeUId": "",
+    "ElementProperties": {
+      "Alias": "",
+      "Description": "",
+      "DomainUId": "",
+      "ModuleRecordKey": "",
+      "IsActive": false,
+      "ModifiedBy": "",
+      "ModuleUId": "",
+      "Name": "",
+      "ParentName": "",
+      "ParentUId": "",
+      "RecordStatus": "",
+      "SysEndTime": "",
+      "SysStartTime": "",
+      "TypeItemUId": "",
+      "TypeUIdRecordStatus": "",
+      "UIdVersion": ""
+    },
+    "GlobalProperties": {
+      "CVUId": "",
+      "PersonalityAssessmentUId": "",
+      "BackgroundCheckUId": "",
+      "SkillUIds": [
+      ],
+      "CertificationUIds": [
+      ]
+    }
+  },
+  "Canidate": {
+    "TypeUId": "",
+    "ElementProperties": {
+      "Alias": "",
+      "Description": "",
+      "DomainUId": "",
+      "ModuleRecordKey": "",
+      "IsActive": false,
+      "ModifiedBy": "",
+      "ModuleUId": "",
+      "Name": "",
+      "ParentName": "",
+      "ParentUId": "",
+      "RecordStatus": "",
+      "SysEndTime": "",
+      "SysStartTime": "",
+      "TypeItemUId": "",
+      "TypeUIdRecordStatus": "",
+      "UIdVersion": ""
+    },
+    "GlobalProperties": {
+      "EmployeeUId": "",
+      "WorkerUId": "",
+      "ResumeUId": "",
+      "BrokerUId": ""
+    }
+  },
+  "Employee": {
+    "TypeUId": "",
+    "ElementProperties": {
+      "Alias": "",
+      "Description": "",
+      "DomainUId": "",
+      "ModuleRecordKey": "",
+      "IsActive": false,
+      "ModifiedBy": "",
+      "ModuleUId": "",
+      "Name": "",
+      "ParentName": "",
+      "ParentUId": "",
+      "RecordStatus": "",
+      "SysEndTime": "",
+      "SysStartTime": "",
+      "TypeItemUId": "",
+      "TypeUIdRecordStatus": "",
+      "UIdVersion": ""
+    },
+    "GlobalProperties": {
+      "ResumeUId": "",
+      "EmployerUId": "",
+      "CanidateUId": "",
+      "WorkerUId": ""
+    }
+  }
+}

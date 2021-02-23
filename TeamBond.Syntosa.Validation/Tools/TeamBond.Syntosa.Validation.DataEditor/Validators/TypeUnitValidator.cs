@@ -18,10 +18,9 @@
         {
             this.RuleFor(typeUnit => typeUnit.Name).NotEmpty();
             this.RuleFor(typeUnit => typeUnit.Description).NotEmpty();
-            this.RuleFor(typeUnit => typeUnit.ParentUId).NotEmpty();
             this.RuleFor(typeUnit => typeUnit.IsActive).NotEmpty();
             this.RuleFor(typeUnit => typeUnit.IsBuiltIn).NotEmpty();
             this.RuleFor(typeUnit => typeUnit.ModifiedBy).NotEmpty();
         }
     }
-}
+}   

@@ -68,6 +68,8 @@
                 IsVisible="{Binding IsContentVisible}">
       <TabItem Header="Module Creator"
                Content="{Binding ModuleCreatorContent}"/>
+      <TabItem Header="Domain Creator"
+               Content="{Binding DomainCreatorContent}"/>
       <TabItem Header="Type Unit Creator"
                Content="{Binding TypeUnitCreatorContent}"/>
       <TabItem Header="Type Function Creator"

@@ -19,6 +19,9 @@
     <Folder Include="GeneratedClasses\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\DomainPrototypeBuilderView.axaml.cs">
+      <DependentUpon>DomainPrototypeBuilderView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PrototypeEditorView.axaml.cs">
       <DependentUpon>PrototypeEditorView.axaml</DependentUpon>
     </Compile>
