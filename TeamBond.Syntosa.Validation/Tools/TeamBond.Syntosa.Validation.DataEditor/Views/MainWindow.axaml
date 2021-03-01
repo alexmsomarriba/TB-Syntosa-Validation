@@ -76,6 +76,8 @@
                Content="{Binding TypeFunctionCreatorContent}"/>
       <TabItem Header="Type Creator"
                Content="{Binding TypeCreatorContent}"/>
+      <TabItem Header="Element Creator"
+               Content="{Binding ElementCreatorContent}"/>
       <TabItem Header="Data Editor"
                IsVisible="{Binding IsEditorVisible}"
                Content="{Binding PrototypeEditorContent}"/>

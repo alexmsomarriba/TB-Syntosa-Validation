@@ -32,6 +32,11 @@
         private readonly IUserContext userContext;
 
         /// <summary>
+        /// The account information.
+        /// </summary>
+        private string accountInformation;
+
+        /// <summary>
         /// The module description.
         /// </summary>
         private string description;
@@ -100,12 +105,21 @@
         }
 
         /// <summary>
-        /// Gets or sets the all module names and u ids.
+        /// Gets or sets the all domain names and u ids.
         /// </summary>
         public Dictionary<string, Guid> AllDomainNamesAndUIds
         {
             get => this.GetAllDomainNamesAndUIds();
             set => this.GetAllDomainNamesAndUIds();
+        }
+
+        /// <summary>
+        /// Gets or sets the account information.
+        /// </summary>
+        public string AccountInformation
+        {
+            get => this.accountInformation;
+            set => this.RaiseAndSetIfChanged(ref this.accountInformation, value);
         }
 
         /// <summary>
@@ -194,13 +208,18 @@
             var createdDomain = new Domain
                                     {
                                         Name = this.Name,
-                                        AccountInformation = string.Empty,
+                                        AccountInformation = this.AccountInformation,
                                         Description = this.Description,
                                         IsActive = this.IsActive,
                                         IsBuiltIn = this.IsBuiltIn,
                                         ParentUId = Guid.Empty,
                                         ModifiedBy = this.userContext.CurrentUser.Email
                                     };
+
+            if (string.IsNullOrWhiteSpace(this.AccountInformation))
+            {
+                createdDomain.AccountInformation = string.Empty;
+            }
 
             if (this.HasParent)
             {

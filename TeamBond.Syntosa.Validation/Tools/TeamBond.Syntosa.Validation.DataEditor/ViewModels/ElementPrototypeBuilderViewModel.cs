@@ -54,6 +54,11 @@
         private bool hasParent;
 
         /// <summary>
+        /// The element alias.
+        /// </summary>
+        private string elementAlias;
+
+        /// <summary>
         /// The has errors.
         /// </summary>
         private bool hasErrors;
@@ -101,7 +106,7 @@
         /// <summary>
         /// The type name.
         /// </summary>
-        private string typeName;
+        private string elementName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementPrototypeBuilderViewModel"/> class.
@@ -201,32 +206,6 @@
         /// <summary>
         /// Gets the all type function names.
         /// </summary>
-        public List<string> AllTypeFunctionNames
-        {
-            get
-            {
-                var typeFunctionNames = new List<string>();
-                foreach (var name in this.AllTypeFunctionNamesAndUIds.Keys)
-                {
-                    typeFunctionNames.Add(name);
-                }
-
-                return typeFunctionNames;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the all type function name and u ids.
-        /// </summary>
-        public Dictionary<string, Guid> AllTypeFunctionNamesAndUIds
-        {
-            get => this.GetAllTypeFunctionNamesAndUIds();
-            set => this.GetAllTypeFunctionNamesAndUIds();
-        }
-
-        /// <summary>
-        /// Gets the all type function names.
-        /// </summary>
         public List<string> AllTypeItemNames
         {
             get
@@ -251,38 +230,21 @@
         }
 
         /// <summary>
-        /// Gets the all type function names.
-        /// </summary>
-        public List<string> AllTypeUnitNames
-        {
-            get
-            {
-                var typeUnitNames = new List<string>();
-                foreach (var name in this.AllTypeUnitNamesAndUIds.Keys)
-                {
-                    typeUnitNames.Add(name);
-                }
-
-                return typeUnitNames;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets all the type function name and u ids.
-        /// </summary>
-        public Dictionary<string, Guid> AllTypeUnitNamesAndUIds
-        {
-            get => this.GetAllTypeUnitNamesAndUIds();
-            set => this.GetAllTypeUnitNamesAndUIds();
-        }
-
-        /// <summary>
         /// Gets or sets the description.
         /// </summary>
         public string Description
         {
             get => this.description;
             set => this.RaiseAndSetIfChanged(ref this.description, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the element alias.
+        /// </summary>
+        public string ElementAlias
+        {
+            get => this.elementAlias;
+            set => this.RaiseAndSetIfChanged(ref this.elementAlias, value);
         }
 
         /// <summary>
@@ -395,12 +357,12 @@
         }
 
         /// <summary>
-        /// Gets or sets the type name.
+        /// Gets or sets the element name.
         /// </summary>
-        public string TypeName
+        public string ElementName
         {
-            get => this.typeName;
-            set => this.RaiseAndSetIfChanged(ref this.typeName, value);
+            get => this.elementName;
+            set => this.RaiseAndSetIfChanged(ref this.elementName, value);
         }
 
         /// <summary>
@@ -412,12 +374,13 @@
             var createdElement = new Element
                                       {
                                           DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName],
+                                          Alias = this.ElementAlias,
                                           IsActive = this.IsActive,
                                           IsBuiltIn = this.IsBuiltIn,
                                           TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName],
                                           ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName],
                                           IsAutoCollect = this.IsAutoCollect,
-                                          Name = this.TypeName,
+                                          Name = this.ElementName,
                                           Description = this.Description,
                                           ParentUId = Guid.Empty,
                                           ModifiedBy = this.userContext.CurrentUser.Email,
@@ -454,7 +417,7 @@
             this.Errors = string.Empty;
             this.syntosaDal.CreateElement(createdElement);
             createdElement = this.syntosaDal.GetElementByAny(
-                typeItemName: this.TypeName,
+                elementName: this.ElementName,
                 elementDesc: this.Description,
                 isActive: this.IsActive,
                 isBuiltIn: this.IsBuiltIn).FirstOrDefault();
@@ -525,24 +488,6 @@
         /// <returns>
         /// All type function names and UIds in the Syntosa database.
         /// </returns>
-        private Dictionary<string, Guid> GetAllTypeFunctionNamesAndUIds()
-        {
-            var typeFunctions = this.syntosaDal.GetTypeFunctionByAny();
-            var typeFunctionNamesUIds = new Dictionary<string, Guid>();
-            foreach (var typeFunction in typeFunctions)
-            {
-                typeFunctionNamesUIds.Add(typeFunction.Name, typeFunction.UId);
-            }
-
-            return typeFunctionNamesUIds;
-        }
-
-        /// <summary>
-        /// Gets all type function names and UIds in the Syntosa database.
-        /// </summary>
-        /// <returns>
-        /// All type function names and UIds in the Syntosa database.
-        /// </returns>
         private Dictionary<string, Guid> GetAllTypeItemNamesAndUIds()
         {
             var typeItems = this.syntosaDal.GetTypeItemByAny(isAssignable: true);
@@ -553,24 +498,6 @@
             }
 
             return typeItemNamesUIds;
-        }
-
-        /// <summary>
-        /// Gets all type unit names and UIds in the Syntosa database.
-        /// </summary>
-        /// <returns>
-        /// All type unit names and UIds in the Syntosa database.
-        /// </returns>
-        private Dictionary<string, Guid> GetAllTypeUnitNamesAndUIds()
-        {
-            var typeUnits = this.syntosaDal.GetTypeUnitByAny();
-            var typeUnitNamesAndUIds = new Dictionary<string, Guid>();
-            foreach (var typeUnit in typeUnits)
-            {
-                typeUnitNamesAndUIds.Add(typeUnit.Name, typeUnit.UId);
-            }
-
-            return typeUnitNamesAndUIds;
         }
     }
 }

@@ -120,6 +120,11 @@
         private ViewModelBase typeCreatorContent;
 
         /// <summary>
+        /// The element creator content.
+        /// </summary>
+        private ViewModelBase elementCreatorContent;
+
+        /// <summary>
         /// The domain creator content.
         /// </summary>
         private ViewModelBase domainCreatorContent;
@@ -174,6 +179,7 @@
 
             this.ModuleCreatorContent = this.ModuleBuilder = new ModulePrototypeBuilderViewModel();
             this.DomainCreatorContent = this.DomainBuilder = new DomainPrototypeBuilderViewModel();
+            this.ElementCreatorContent = this.ElementBuilder = new ElementPrototypeBuilderViewModel(); 
             this.TypeUnitCreatorContent = this.TypeUnitBuilder = new TypeUnitPrototypeBuilderViewModel();
             this.TypeCreatorContent = this.TypeBuilder = new TypePrototypeBuilderViewModel();
             this.TypeFunctionCreatorContent = this.TypeFunctionBuilder = new TypeFunctionPrototypeBuilderViewModel();
@@ -306,6 +312,20 @@
         {
             get => this.domainCreatorContent;
             set => this.RaiseAndSetIfChanged(ref this.domainCreatorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the element builder.
+        /// </summary>
+        public ElementPrototypeBuilderViewModel ElementBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the element creator content.
+        /// </summary>
+        public ViewModelBase ElementCreatorContent
+        {
+            get => this.elementCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.elementCreatorContent, value);
         }
 
         /// <summary>

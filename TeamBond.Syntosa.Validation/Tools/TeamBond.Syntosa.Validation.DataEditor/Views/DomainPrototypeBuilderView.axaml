@@ -13,6 +13,10 @@
              DockPanel.Dock="Top"
              Text="{Binding Description}"
              Watermark="Description"/>
+    <TextBox DockPanel.Dock="Top"
+             AcceptsReturn="False"
+             Text="{Binding AccountInformation}"
+             Watermark="Account Information"/>
     <CheckBox DockPanel.Dock="Top"
               Content="Is the domain active?"
               IsThreeState="False"
@@ -45,7 +49,7 @@
       </ListBox.ItemTemplate>
     </ListBox>
     <Button DockPanel.Dock="Top"
-            Content="Create Module"
+            Content="Create Domain"
             Command="{Binding CreateDomain}"
             Height="30"/>
     <TextBlock DockPanel.Dock="Top"

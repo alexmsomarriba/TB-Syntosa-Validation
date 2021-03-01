@@ -25,6 +25,9 @@
     <Compile Update="Views\PrototypeEditorView.axaml.cs">
       <DependentUpon>PrototypeEditorView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ElementPrototypeBuilderView.axaml.cs">
+      <DependentUpon>ElementPrototypeBuilderView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\TypePrototypeEditorView.axaml.cs">
       <DependentUpon>TypePrototypeEditorView.axaml</DependentUpon>
     </Compile>
