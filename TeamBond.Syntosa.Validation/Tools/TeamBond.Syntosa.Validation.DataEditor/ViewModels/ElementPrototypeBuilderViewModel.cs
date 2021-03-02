@@ -117,7 +117,7 @@
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
-            this.InsertType = ReactiveCommand.Create(this.BuildElement);
+            this.InsertElement = ReactiveCommand.Create(this.BuildElement);
         }
 
         /// <summary>
@@ -277,7 +277,7 @@
         /// <summary>
         /// Gets the insert type.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> InsertType { get; }
+        public ReactiveCommand<Unit, Unit> InsertElement { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether is active.

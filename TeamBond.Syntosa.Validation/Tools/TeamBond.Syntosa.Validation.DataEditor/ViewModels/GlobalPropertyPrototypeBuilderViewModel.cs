@@ -2,7 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reactive;
     using System.Text;
+
+    using FluentValidation.Results;
 
     using global::Syntosa.Core.DataAccessLayer;
     using global::Syntosa.Core.ObjectModel.CoreClasses;
@@ -12,6 +15,7 @@
 
     using TeamBond.Core.Engine;
     using TeamBond.Domain.User;
+    using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
     /// The global property prototype builder view model.
@@ -29,34 +33,14 @@
         private readonly IUserContext userContext;
 
         /// <summary>
-        /// The element name.
+        /// The errors.
         /// </summary>
-        private string selectedElementName;
+        private string errors;
 
         /// <summary>
-        /// The type item name.
+        /// The has errors.
         /// </summary>
-        private string selectedTypeItemName;
-
-        /// <summary>
-        /// The is auto collect.
-        /// </summary>
-        private bool isAutoCollect;
-
-        /// <summary>
-        /// The is active.
-        /// </summary>
-        private bool isActive;
-
-        /// <summary>
-        /// The module auto collect name.
-        /// </summary>
-        private string selectedModuleAutoCollectName;
-
-        /// <summary>
-        /// The sort order.
-        /// </summary>
-        private int sortOrder;
+        private bool hasErrors;
 
         /// <summary>
         /// The global attribute.
@@ -64,12 +48,49 @@
         private string globalAttribute;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GlobalPropertyPrototypeBuilderViewModel"/> class.
+        /// The global property name.
+        /// </summary>
+        private string globalPropertyName;
+
+        /// <summary>
+        /// The is active.
+        /// </summary>
+        private bool isActive;
+
+        /// <summary>
+        /// The is auto collect.
+        /// </summary>
+        private bool isAutoCollect;
+
+        /// <summary>
+        /// The element name.
+        /// </summary>
+        private string selectedElementName;
+
+        /// <summary>
+        /// The module auto collect name.
+        /// </summary>
+        private string selectedModuleAutoCollectName;
+
+        /// <summary>
+        /// The type item name.
+        /// </summary>
+        private string selectedTypeItemName;
+
+        /// <summary>
+        /// The sort order.
+        /// </summary>
+        private int sortOrder;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GlobalPropertyPrototypeBuilderViewModel" /> class.
         /// </summary>
         public GlobalPropertyPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
+
+            this.InsertGlobalProperty = ReactiveCommand.Create(this.BuildGlobalProperty);
         }
 
         /// <summary>
@@ -151,6 +172,24 @@
         }
 
         /// <summary>
+        /// Gets or sets the errors.
+        /// </summary>
+        public string Errors
+        {
+            get => this.errors;
+            set => this.RaiseAndSetIfChanged(ref this.errors, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether has errors.
+        /// </summary>
+        public bool HasErrors
+        {
+            get => this.hasErrors;
+            set => this.RaiseAndSetIfChanged(ref this.hasErrors, value);
+        }
+
+        /// <summary>
         /// Gets or sets the global attribute.
         /// </summary>
         public string GlobalAttribute
@@ -158,6 +197,20 @@
             get => this.globalAttribute;
             set => this.RaiseAndSetIfChanged(ref this.globalAttribute, value);
         }
+
+        /// <summary>
+        /// Gets or sets the global property name.
+        /// </summary>
+        public string GlobalPropertyName
+        {
+            get => this.globalPropertyName;
+            set => this.RaiseAndSetIfChanged(ref this.globalPropertyName, value);
+        }
+
+        /// <summary>
+        /// Gets the insert global property.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> InsertGlobalProperty { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether is active.
@@ -221,6 +274,7 @@
             var failureMessage = new StringBuilder();
             var createdGlobalProperty = new ElementGlobalProperty
                                             {
+                                                Name = this.GlobalPropertyName,
                                                 Attribute = this.GlobalAttribute,
                                                 ElementUId = this.AllElementNamesAndUIds[this.SelectedElementName],
                                                 TypeItemUId = this.AllTypeItemNamesAndUIds[this.selectedTypeItemName],
@@ -235,7 +289,24 @@
                     this.AllModuleNamesAndUIds[this.selectedModuleAutoCollectName];
             }
 
+            var globalPropertyValidator = new GlobalPropertyValidator();
+            ValidationResult validationResult = globalPropertyValidator.Validate(createdGlobalProperty);
+            if (!validationResult.IsValid || failureMessage.Length != 0)
+            {
+                foreach (ValidationFailure validationFailure in validationResult.Errors)
+                {
+                    failureMessage.AppendLine(
+                        $"Property ({validationFailure.PropertyName}) failed validation with error message: ({validationFailure.ErrorMessage})");
+                }
 
+                this.HasErrors = true;
+                this.Errors = failureMessage.ToString();
+                return;
+            }
+
+            this.HasErrors = false;
+            this.Errors = string.Empty;
+            this.syntosaDal.CreateElementGlobalProperty(createdGlobalProperty);
         }
 
         /// <summary>
@@ -257,24 +328,6 @@
         }
 
         /// <summary>
-        /// Returns a dictionary containing all type item UIds keyed by their names
-        /// </summary>
-        /// <returns>
-        /// The dictionary containing all type item UIds keyed by their names.
-        /// </returns>
-        private Dictionary<string, Guid> GetAllTypeItemNamesAndUIds()
-        {
-            List<TypeItem> types = this.syntosaDal.GetTypeItemByAny();
-            var typeNamesAndUIds = new Dictionary<string, Guid>();
-            foreach (var type in types)
-            {
-                typeNamesAndUIds.Add(type.Name, type.UId);
-            }
-
-            return typeNamesAndUIds;
-        }
-
-        /// <summary>
         /// Returns a dictionary containing all module UIds keyed by their names
         /// </summary>
         /// <returns>
@@ -290,6 +343,24 @@
             }
 
             return moduleNamesAndUIds;
+        }
+
+        /// <summary>
+        /// Returns a dictionary containing all type item UIds keyed by their names
+        /// </summary>
+        /// <returns>
+        /// The dictionary containing all type item UIds keyed by their names.
+        /// </returns>
+        private Dictionary<string, Guid> GetAllTypeItemNamesAndUIds()
+        {
+            List<TypeItem> types = this.syntosaDal.GetTypeItemByAny();
+            var typeNamesAndUIds = new Dictionary<string, Guid>();
+            foreach (var type in types)
+            {
+                typeNamesAndUIds.Add(type.Name, type.UId);
+            }
+
+            return typeNamesAndUIds;
         }
     }
 }
