@@ -125,6 +125,11 @@
         private ViewModelBase elementCreatorContent;
 
         /// <summary>
+        /// The global property creator content.
+        /// </summary>
+        private ViewModelBase globalPropertyCreatorContent;
+
+        /// <summary>
         /// The domain creator content.
         /// </summary>
         private ViewModelBase domainCreatorContent;
@@ -184,6 +189,8 @@
             this.TypeCreatorContent = this.TypeBuilder = new TypePrototypeBuilderViewModel();
             this.TypeFunctionCreatorContent = this.TypeFunctionBuilder = new TypeFunctionPrototypeBuilderViewModel();
             this.PrototypeEditorContent = this.PrototypeEditor = new PrototypeEditorViewModel();
+            this.GlobalPropertyCreatorContent =
+                this.GlobalPropertyBuilder = new GlobalPropertyPrototypeBuilderViewModel();
         }
 
         /// <summary>
@@ -285,6 +292,20 @@
         /// Gets the log in.
         /// </summary>
         public ReactiveCommand<Unit, Unit> LogIn { get; }
+
+        /// <summary>
+        /// Gets the global property builder.
+        /// </summary>
+        public GlobalPropertyPrototypeBuilderViewModel GlobalPropertyBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the global property creator content.
+        /// </summary>
+        public ViewModelBase GlobalPropertyCreatorContent
+        {
+            get => this.globalPropertyCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.globalPropertyCreatorContent, value);
+        }
 
         /// <summary>
         /// Gets the module builder.
