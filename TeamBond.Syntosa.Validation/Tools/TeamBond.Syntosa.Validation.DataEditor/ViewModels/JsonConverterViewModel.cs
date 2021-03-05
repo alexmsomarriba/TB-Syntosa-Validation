@@ -156,12 +156,18 @@
             HandleReferences = true,
         };
 
+        /// <summary>
+        /// Gets or sets the selected style.
+        /// </summary>
         public CSharpClassStyle SelectedStyle
         {
             get => this.selectedStyle;
             set => this.RaiseAndSetIfChanged(ref this.selectedStyle, value);
         }
 
+        /// <summary>
+        /// The class styles.
+        /// </summary>
         public IEnumerable<CSharpClassStyle> ClassStyles;
 
         /// <summary>
