@@ -145,6 +145,11 @@
         private ViewModelBase typeUnitCreatorContent;
 
         /// <summary>
+        /// The edge element element creator content.
+        /// </summary>
+        private ViewModelBase edgeElementElementCreatorContent;
+
+        /// <summary>
         /// The username.
         /// </summary>
         private string username;
@@ -191,6 +196,8 @@
             this.PrototypeEditorContent = this.PrototypeEditor = new PrototypeEditorViewModel();
             this.GlobalPropertyCreatorContent =
                 this.GlobalPropertyBuilder = new GlobalPropertyPrototypeBuilderViewModel();
+            this.EdgeElementElementCreatorContent =
+                this.EdgeElementElementBuilder = new EdgeElementElementPrototypeBuilderViewModel();
         }
 
         /// <summary>
@@ -406,12 +413,12 @@
         public TypePrototypeBuilderViewModel TypeBuilder { get; }
 
         /// <summary>
-        /// Gets the content.
+        /// Gets or sets the type creator content.
         /// </summary>
         public ViewModelBase TypeCreatorContent
         {
             get => this.typeCreatorContent;
-            private set => this.RaiseAndSetIfChanged(ref this.typeCreatorContent, value);
+            set => this.RaiseAndSetIfChanged(ref this.typeCreatorContent, value);
         }
 
         /// <summary>
@@ -420,12 +427,26 @@
         public TypeFunctionPrototypeBuilderViewModel TypeFunctionBuilder { get; }
 
         /// <summary>
-        /// Gets the content.
+        /// Gets or sets the type function creator content.
         /// </summary>
         public ViewModelBase TypeFunctionCreatorContent
         {
             get => this.typeFunctionCreatorContent;
-            private set => this.RaiseAndSetIfChanged(ref this.typeFunctionCreatorContent, value);
+            set => this.RaiseAndSetIfChanged(ref this.typeFunctionCreatorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the edge element element builder.
+        /// </summary>
+        public EdgeElementElementPrototypeBuilderViewModel EdgeElementElementBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the edge element element creator content.
+        /// </summary>
+        public ViewModelBase EdgeElementElementCreatorContent
+        {
+            get => this.edgeElementElementCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.elementCreatorContent, value);
         }
 
         /// <summary>

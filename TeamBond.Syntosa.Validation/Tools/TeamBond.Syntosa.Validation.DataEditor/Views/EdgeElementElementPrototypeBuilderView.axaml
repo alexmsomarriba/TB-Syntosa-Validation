@@ -1,0 +1,71 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.EdgeElementElementPrototypeBuilderView">
+  <DockPanel>
+    <TextBlock DockPanel.Dock="Top">
+      Select the source element of this element to element edge.
+    </TextBlock>
+    <ListBox Items="{Binding AllElementNames}"
+             SelectionMode="Single"
+             DockPanel.Dock="Top"
+             ScrollViewer.VerticalScrollBarVisibility="Visible"
+             Height="100"
+             SelectedItem="{Binding SelectedSourceElementName}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <Border Background="White" CornerRadius="4" Padding="2">
+            <TextBlock Text="{Binding}"/>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock DockPanel.Dock="Top">
+        Select the target element of this element to element edge.
+    </TextBlock>
+    <ListBox Items="{Binding AllElementNames}"
+            SelectionMode="Single"
+            DockPanel.Dock="Top"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            Height="100"
+            SelectedItem="{Binding SelectedTargetElementName}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <Border Background="White" CornerRadius="4" Padding="2">
+                    <TextBlock Text="{Binding}"/>
+                </Border>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock DockPanel.Dock="Top">
+        Select the target element of this element to element edge.
+    </TextBlock>
+    <ListBox Items="{Binding AllTypeItemNames}"
+            SelectionMode="Single"
+            DockPanel.Dock="Top"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            Height="100"
+            SelectedItem="{Binding SelectedEdgeTypeName}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <Border Background="White" CornerRadius="4" Padding="2">
+                    <TextBlock Text="{Binding}"/>
+                </Border>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>  
+    <Button DockPanel.Dock="Top"
+              Content="Create EdgeElementElement"
+              Command="{Binding CreateEdgeElementElement}"
+              Height="30"/>
+    <TextBlock DockPanel.Dock="Top"
+               IsVisible="{Binding HasErrors}"
+               Text="Please fix these errors"/>
+    <TextBox DockPanel.Dock="Top"
+             IsVisible="{Binding HasErrors}"
+             Text="{Binding Errors}"
+             IsReadOnly="True"/>
+  </DockPanel>
+</UserControl>

@@ -19,6 +19,9 @@
     <Folder Include="GeneratedClasses\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\EdgeElementElementPrototypeBuilderView.axaml.cs">
+      <DependentUpon>EdgeElementElementPrototypeBuilderView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\DomainPrototypeBuilderView.axaml.cs">
       <DependentUpon>DomainPrototypeBuilderView.axaml</DependentUpon>
     </Compile>

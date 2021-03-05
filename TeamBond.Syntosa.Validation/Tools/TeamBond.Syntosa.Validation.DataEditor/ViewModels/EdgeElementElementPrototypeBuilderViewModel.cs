@@ -2,15 +2,21 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reactive;
+    using System.Text;
+
+    using FluentValidation.Results;
 
     using global::Syntosa.Core.DataAccessLayer;
     using global::Syntosa.Core.ObjectModel.CoreClasses;
+    using global::Syntosa.Core.ObjectModel.CoreClasses.Edge;
     using global::Syntosa.Core.ObjectModel.CoreClasses.Element;
 
     using ReactiveUI;
 
     using TeamBond.Core.Engine;
     using TeamBond.Domain.User;
+    using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
     /// The edge element element prototype builder view model.
@@ -43,12 +49,24 @@
         private string selectedEdgeTypeName;
 
         /// <summary>
+        /// The has errors.
+        /// </summary>
+        private bool hasErrors;
+
+        /// <summary>
+        /// The errors.
+        /// </summary>
+        private string errors;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EdgeElementElementPrototypeBuilderViewModel"/> class.
         /// </summary>
         public EdgeElementElementPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
+
+            this.InsertEdgeElementElement = ReactiveCommand.Create(this.CreateEdgeElementElement);
         }
 
         /// <summary>
@@ -122,12 +140,72 @@
         }
 
         /// <summary>
+        /// Gets the insert edge element element.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> InsertEdgeElementElement { get; }
+
+        /// <summary>
         /// Gets or sets the selected edge type name.
         /// </summary>
         public string SelectedEdgeTypeName
         {
             get => this.selectedEdgeTypeName;
             set => this.RaiseAndSetIfChanged(ref this.selectedEdgeTypeName, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether has errors.
+        /// </summary>
+        public bool HasErrors
+        {
+            get => this.hasErrors;
+            set => this.RaiseAndSetIfChanged(ref this.hasErrors, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the errors.
+        /// </summary>
+        public string Errors
+        {
+            get => this.errors;
+            set => this.RaiseAndSetIfChanged(ref this.errors, value);
+        }
+
+        /// <summary>
+        /// The create edge element element.
+        /// </summary>
+        private void CreateEdgeElementElement()
+        {
+            var failureMessage = new StringBuilder();
+            var createdEdgeElementElement = new EdgeElementElement
+                                                {
+                                                    SourceElementUId =
+                                                        this.AllElementNamesAndUIds[this.SelectedSourceElementName],
+                                                    TargetElementUId =
+                                                        this.AllElementNamesAndUIds[this.SelectedTargetElementName],
+                                                    TypeItemUId =
+                                                        this.AllTypeItemsNamesAndUIds[this.selectedEdgeTypeName],
+                                                    ModifiedBy = this.userContext.CurrentUser.Email
+                                                };
+
+            var edgeElementElementValidator = new EdgeElementElementValidator();
+            ValidationResult validationResult = edgeElementElementValidator.Validate(createdEdgeElementElement);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    failureMessage.AppendLine(
+                        $"Property ({error.PropertyName}) has failed validation with error ({error.ErrorMessage})");
+                }
+
+                this.HasErrors = true;
+                this.Errors = failureMessage.ToString();
+                return;
+            }
+
+            this.HasErrors = false;
+            this.Errors = string.Empty;
+            this.syntosaDal.CreateEdgeElementElement(createdEdgeElementElement);
         }
 
         /// <summary>
