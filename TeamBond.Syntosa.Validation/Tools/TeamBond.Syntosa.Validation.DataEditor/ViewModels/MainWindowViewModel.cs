@@ -40,6 +40,21 @@
         private readonly UserSettings userSettings;
 
         /// <summary>
+        /// The domain creator content.
+        /// </summary>
+        private ViewModelBase domainCreatorContent;
+
+        /// <summary>
+        /// The edge element element creator content.
+        /// </summary>
+        private ViewModelBase edgeElementElementCreatorContent;
+
+        /// <summary>
+        /// The element creator content.
+        /// </summary>
+        private ViewModelBase elementCreatorContent;
+
+        /// <summary>
         /// The email.
         /// </summary>
         private string email;
@@ -55,9 +70,19 @@
         private string firstName;
 
         /// <summary>
+        /// The global property creator content.
+        /// </summary>
+        private ViewModelBase globalPropertyCreatorContent;
+
+        /// <summary>
         /// The has errors.
         /// </summary>
         private bool hasErrors;
+
+        /// <summary>
+        /// The is editor visible.
+        /// </summary>
+        private bool isContentVisible;
 
         /// <summary>
         /// A value indicating whether the logged in user is a super user.
@@ -80,6 +105,11 @@
         private bool isRegistering;
 
         /// <summary>
+        /// The label creator content.
+        /// </summary>
+        private ViewModelBase labelCreatorContent;
+
+        /// <summary>
         /// The last name.
         /// </summary>
         private string lastName;
@@ -93,11 +123,6 @@
         /// The password.
         /// </summary>
         private string password;
-
-        /// <summary>
-        /// The is editor visible.
-        /// </summary>
-        private bool isContentVisible;
 
         /// <summary>
         /// The password confirm.
@@ -120,21 +145,6 @@
         private ViewModelBase typeCreatorContent;
 
         /// <summary>
-        /// The element creator content.
-        /// </summary>
-        private ViewModelBase elementCreatorContent;
-
-        /// <summary>
-        /// The global property creator content.
-        /// </summary>
-        private ViewModelBase globalPropertyCreatorContent;
-
-        /// <summary>
-        /// The domain creator content.
-        /// </summary>
-        private ViewModelBase domainCreatorContent;
-
-        /// <summary>
         /// The type function creator content.
         /// </summary>
         private ViewModelBase typeFunctionCreatorContent;
@@ -143,11 +153,6 @@
         /// The type unit creator content.
         /// </summary>
         private ViewModelBase typeUnitCreatorContent;
-
-        /// <summary>
-        /// The edge element element creator content.
-        /// </summary>
-        private ViewModelBase edgeElementElementCreatorContent;
 
         /// <summary>
         /// The username.
@@ -189,7 +194,7 @@
 
             this.ModuleCreatorContent = this.ModuleBuilder = new ModulePrototypeBuilderViewModel();
             this.DomainCreatorContent = this.DomainBuilder = new DomainPrototypeBuilderViewModel();
-            this.ElementCreatorContent = this.ElementBuilder = new ElementPrototypeBuilderViewModel(); 
+            this.ElementCreatorContent = this.ElementBuilder = new ElementPrototypeBuilderViewModel();
             this.TypeUnitCreatorContent = this.TypeUnitBuilder = new TypeUnitPrototypeBuilderViewModel();
             this.TypeCreatorContent = this.TypeBuilder = new TypePrototypeBuilderViewModel();
             this.TypeFunctionCreatorContent = this.TypeFunctionBuilder = new TypeFunctionPrototypeBuilderViewModel();
@@ -198,12 +203,55 @@
                 this.GlobalPropertyBuilder = new GlobalPropertyPrototypeBuilderViewModel();
             this.EdgeElementElementCreatorContent =
                 this.EdgeElementElementBuilder = new EdgeElementElementPrototypeBuilderViewModel();
+            this.LabelCreatorContent = this.LabelBuilder = new LabelPrototypeBuilderViewModel();
         }
 
         /// <summary>
         /// Gets the create user.
         /// </summary>
         public ReactiveCommand<Unit, Unit> CreateUser { get; }
+
+        /// <summary>
+        /// Gets the domain builder.
+        /// </summary>
+        public DomainPrototypeBuilderViewModel DomainBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the domain creator content.
+        /// </summary>
+        public ViewModelBase DomainCreatorContent
+        {
+            get => this.domainCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.domainCreatorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the edge element element builder.
+        /// </summary>
+        public EdgeElementElementPrototypeBuilderViewModel EdgeElementElementBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the edge element element creator content.
+        /// </summary>
+        public ViewModelBase EdgeElementElementCreatorContent
+        {
+            get => this.edgeElementElementCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.edgeElementElementCreatorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the element builder.
+        /// </summary>
+        public ElementPrototypeBuilderViewModel ElementBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the element creator content.
+        /// </summary>
+        public ViewModelBase ElementCreatorContent
+        {
+            get => this.elementCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.elementCreatorContent, value);
+        }
 
         /// <summary>
         /// Gets or sets the email.
@@ -233,12 +281,35 @@
         }
 
         /// <summary>
+        /// Gets the global property builder.
+        /// </summary>
+        public GlobalPropertyPrototypeBuilderViewModel GlobalPropertyBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the global property creator content.
+        /// </summary>
+        public ViewModelBase GlobalPropertyCreatorContent
+        {
+            get => this.globalPropertyCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.globalPropertyCreatorContent, value);
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether has errors.
         /// </summary>
         public bool HasErrors
         {
             get => this.hasErrors;
             set => this.RaiseAndSetIfChanged(ref this.hasErrors, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether is content visible.
+        /// </summary>
+        public bool IsContentVisible
+        {
+            get => this.isContentVisible;
+            set => this.RaiseAndSetIfChanged(ref this.isContentVisible, value);
         }
 
         /// <summary>
@@ -278,6 +349,20 @@
         }
 
         /// <summary>
+        /// Gets the label builder.
+        /// </summary>
+        public LabelPrototypeBuilderViewModel LabelBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the label creator content.
+        /// </summary>
+        public ViewModelBase LabelCreatorContent
+        {
+            get => this.labelCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.labelCreatorContent, value);
+        }
+
+        /// <summary>
         /// Gets or sets the last name.
         /// </summary>
         public string LastName
@@ -287,32 +372,9 @@
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether is content visible.
-        /// </summary>
-        public bool IsContentVisible
-        {
-            get => this.isContentVisible;
-            set => this.RaiseAndSetIfChanged(ref this.isContentVisible, value);
-        }
-
-        /// <summary>
         /// Gets the log in.
         /// </summary>
         public ReactiveCommand<Unit, Unit> LogIn { get; }
-
-        /// <summary>
-        /// Gets the global property builder.
-        /// </summary>
-        public GlobalPropertyPrototypeBuilderViewModel GlobalPropertyBuilder { get; }
-
-        /// <summary>
-        /// Gets or sets the global property creator content.
-        /// </summary>
-        public ViewModelBase GlobalPropertyCreatorContent
-        {
-            get => this.globalPropertyCreatorContent;
-            set => this.RaiseAndSetIfChanged(ref this.globalPropertyCreatorContent, value);
-        }
 
         /// <summary>
         /// Gets the module builder.
@@ -326,34 +388,6 @@
         {
             get => this.moduleCreatorContent;
             set => this.RaiseAndSetIfChanged(ref this.moduleCreatorContent, value);
-        }
-
-        /// <summary>
-        /// Gets the domain builder.
-        /// </summary>
-        public DomainPrototypeBuilderViewModel DomainBuilder { get; }
-
-        /// <summary>
-        /// Gets or sets the domain creator content.
-        /// </summary>
-        public ViewModelBase DomainCreatorContent
-        {
-            get => this.domainCreatorContent;
-            set => this.RaiseAndSetIfChanged(ref this.domainCreatorContent, value);
-        }
-
-        /// <summary>
-        /// Gets the element builder.
-        /// </summary>
-        public ElementPrototypeBuilderViewModel ElementBuilder { get; }
-
-        /// <summary>
-        /// Gets or sets the element creator content.
-        /// </summary>
-        public ViewModelBase ElementCreatorContent
-        {
-            get => this.elementCreatorContent;
-            set => this.RaiseAndSetIfChanged(ref this.elementCreatorContent, value);
         }
 
         /// <summary>
@@ -433,20 +467,6 @@
         {
             get => this.typeFunctionCreatorContent;
             set => this.RaiseAndSetIfChanged(ref this.typeFunctionCreatorContent, value);
-        }
-
-        /// <summary>
-        /// Gets the edge element element builder.
-        /// </summary>
-        public EdgeElementElementPrototypeBuilderViewModel EdgeElementElementBuilder { get; }
-
-        /// <summary>
-        /// Gets or sets the edge element element creator content.
-        /// </summary>
-        public ViewModelBase EdgeElementElementCreatorContent
-        {
-            get => this.edgeElementElementCreatorContent;
-            set => this.RaiseAndSetIfChanged(ref this.elementCreatorContent, value);
         }
 
         /// <summary>

@@ -2,7 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reactive;
     using System.Text;
+
+    using FluentValidation.Results;
 
     using global::Syntosa.Core.DataAccessLayer;
     using global::Syntosa.Core.ObjectModel.CoreClasses;
@@ -12,6 +15,7 @@
 
     using TeamBond.Core.Engine;
     using TeamBond.Domain.User;
+    using TeamBond.Syntosa.Validation.DataEditor.Validators;
 
     /// <summary>
     /// The label prototype builder view model.
@@ -64,12 +68,24 @@
         private string selectedDomainName;
 
         /// <summary>
+        /// The has errors.
+        /// </summary>
+        private bool hasErrors;
+
+        /// <summary>
+        /// The errors.
+        /// </summary>
+        private string errors;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LabelPrototypeBuilderViewModel" /> class.
         /// </summary>
         public LabelPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
+
+            this.InsertLabel = ReactiveCommand.Create(this.CreateLabel);
         }
 
         /// <summary>
@@ -135,12 +151,35 @@
         }
 
         /// <summary>
+        /// Gets the insert label.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> InsertLabel { get; }
+
+        /// <summary>
         /// Gets or sets the label description.
         /// </summary>
         public string LabelDescription
         {
             get => this.labelDescription;
             set => this.RaiseAndSetIfChanged(ref this.labelDescription, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether has errors.
+        /// </summary>
+        public bool HasErrors
+        {
+            get => this.hasErrors;
+            set => this.RaiseAndSetIfChanged(ref this.hasErrors, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the errors.
+        /// </summary>
+        public string Errors
+        {
+            get => this.errors;
+            set => this.RaiseAndSetIfChanged(ref this.errors, value);
         }
 
         /// <summary>
@@ -161,17 +200,49 @@
             set => this.RaiseAndSetIfChanged(ref this.selectedDomainName, value);
         }
 
+        /// <summary>
+        /// The create label.
+        /// </summary>
         private void CreateLabel()
         {
             var failureMessage = new StringBuilder();
-            var createdLabel = new ElementLabel { };
+            var createdLabel = new ElementLabel
+                                   {
+                                       Name = this.LabelName,
+                                       Description = this.LabelDescription,
+                                       IsActive = this.IsActive,
+                                       IsBuiltIn = this.IsBuiltIn,
+                                       IsGlobalEdit = this.IsGlobalEdit,
+                                       IsPrivate = this.IsPrivate,
+                                       DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName],
+                                       ModifiedBy = this.userContext.CurrentUser.Email
+                                   };
+
+            LabelValidator labelValidator = new LabelValidator();
+            ValidationResult validationResult = labelValidator.Validate(createdLabel);
+            if (!validationResult.IsValid)
+            {
+                foreach (var validationFailure in validationResult.Errors)
+                {
+                    failureMessage.AppendLine(
+                        $"Property ({validationFailure.PropertyName}) failed validation with error message: ({validationFailure.ErrorMessage})");
+                }
+                    
+                this.HasErrors = true;
+                this.Errors = failureMessage.ToString();
+                return;
+            }
+
+            this.HasErrors = false;
+            this.Errors = string.Empty;
+            this.syntosaDal.CreateElementLabel(createdLabel);
         }
 
         /// <summary>
         /// The get all domain names and u ids.
         /// </summary>
         /// <returns>
-        /// The <see cref="Dictionary" />.
+        /// All domain names and u ids.
         /// </returns>
         private Dictionary<string, Guid> GetAllDomainNamesAndUIds()
         {
@@ -185,4 +256,4 @@
             return domainNamesAndUIds;
         }
     }
-}
+}   

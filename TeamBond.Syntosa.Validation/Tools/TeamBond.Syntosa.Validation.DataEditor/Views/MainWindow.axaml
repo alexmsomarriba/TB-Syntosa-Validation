@@ -80,6 +80,10 @@
                Content="{Binding ElementCreatorContent}"/>
       <TabItem Header="Global Prop Creator"
                Content="{Binding GlobalPropertyCreatorContent}"/>
+      <TabItem Header="Edge Creator"
+               Content="{Binding EdgeElementElementCreatorContent}"/>
+      <TabItem Header="Label Creator"
+               Content="{Binding LabelCreatorContent}"/>
       <TabItem Header="Data Editor"
                IsVisible="{Binding IsEditorVisible}"
                Content="{Binding PrototypeEditorContent}"/>
