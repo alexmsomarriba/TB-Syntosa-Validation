@@ -50,6 +50,11 @@
         private ViewModelBase edgeElementElementCreatorContent;
 
         /// <summary>
+        /// The edge label creator content.
+        /// </summary>
+        private ViewModelBase edgeLabelCreatorContent;
+
+        /// <summary>
         /// The element creator content.
         /// </summary>
         private ViewModelBase elementCreatorContent;
@@ -204,6 +209,7 @@
             this.EdgeElementElementCreatorContent =
                 this.EdgeElementElementBuilder = new EdgeElementElementPrototypeBuilderViewModel();
             this.LabelCreatorContent = this.LabelBuilder = new LabelPrototypeBuilderViewModel();
+            this.EdgeLabelCreatorContent = this.EdgeLabelBuilder = new EdgeLabelPrototypeBuilderViewModel();
         }
 
         /// <summary>
@@ -237,6 +243,20 @@
         {
             get => this.edgeElementElementCreatorContent;
             set => this.RaiseAndSetIfChanged(ref this.edgeElementElementCreatorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the edge label builder.
+        /// </summary>
+        public EdgeLabelPrototypeBuilderViewModel EdgeLabelBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the edge label creator content.
+        /// </summary>
+        public ViewModelBase EdgeLabelCreatorContent
+        {
+            get => this.edgeLabelCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.edgeLabelCreatorContent, value);
         }
 
         /// <summary>
