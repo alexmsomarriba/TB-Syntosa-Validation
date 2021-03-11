@@ -160,6 +160,11 @@
         private ViewModelBase typeUnitCreatorContent;
 
         /// <summary>
+        /// The private property key creator content.
+        /// </summary>
+        private ViewModelBase privatePropertyKeyCreatorContent;
+
+        /// <summary>
         /// The username.
         /// </summary>
         private string username;
@@ -210,6 +215,8 @@
                 this.EdgeElementElementBuilder = new EdgeElementElementPrototypeBuilderViewModel();
             this.LabelCreatorContent = this.LabelBuilder = new LabelPrototypeBuilderViewModel();
             this.EdgeLabelCreatorContent = this.EdgeLabelBuilder = new EdgeLabelPrototypeBuilderViewModel();
+            this.PrivatePropertyKeyCreatorContent =
+                this.PrivatePropertyKeyBuilder = new PrivatePropertyKeyPrototypeBuilderViewModel();
         }
 
         /// <summary>
@@ -271,6 +278,20 @@
         {
             get => this.elementCreatorContent;
             set => this.RaiseAndSetIfChanged(ref this.elementCreatorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the private property key builder.
+        /// </summary>
+        public PrivatePropertyKeyPrototypeBuilderViewModel PrivatePropertyKeyBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the private property key creator content.
+        /// </summary>
+        public ViewModelBase PrivatePropertyKeyCreatorContent
+        {
+            get => this.privatePropertyKeyCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.privatePropertyKeyCreatorContent, value);
         }
 
         /// <summary>

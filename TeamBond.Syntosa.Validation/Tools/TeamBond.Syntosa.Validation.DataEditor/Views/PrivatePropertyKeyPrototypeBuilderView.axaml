@@ -1,0 +1,109 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.PrivatePropertyKeyPrototypeBuilderView">
+  <ScrollViewer VerticalScrollBarVisibility="Visible">
+    <DockPanel>
+      <TextBox DockPanel.Dock="Top"
+               Watermark="private property key name"
+               Text="{Binding PrivatePropertyKeyName}"/>
+      <CheckBox DockPanel.Dock="Top"
+                IsThreeState="False"
+                IsChecked="{Binding IsActive}">
+        Is the private property key active
+      </CheckBox>
+      <CheckBox DockPanel.Dock="Top"
+                IsThreeState="False"
+                IsChecked="{Binding IsAutoCollect}">
+        Is the private property key auto collecting from somewhere
+      </CheckBox>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding IsAutoCollect}">
+          Select auto collecting module
+      </TextBlock>
+      <ListBox
+          DockPanel.Dock="Top"
+          Items="{Binding AllModuleNames}"
+          IsVisible="{Binding IsAutoCollect}"
+          SelectionMode="Single"
+          ScrollViewer.VerticalScrollBarVisibility="Visible"
+          Height="100"
+          SelectedItem="{Binding SelectedModuleAutoCollectName}">
+          <ListBox.ItemTemplate>
+              <DataTemplate>
+                  <Border Background="White" CornerRadius="4" Padding="2">
+                      <TextBlock Text="{Binding}"/>
+                  </Border>
+              </DataTemplate>
+          </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top">
+        Select Element.
+      </TextBlock>
+      <ListBox Items="{Binding AllElementNames}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedElementName}">
+          <ListBox.ItemTemplate>
+              <DataTemplate>
+                  <Border Background="White" CornerRadius="4" Padding="2">
+                      <TextBlock Text="{Binding}"/>
+                  </Border>
+              </DataTemplate>
+          </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top">
+        Select the type key.
+      </TextBlock>
+      <ListBox Items="{Binding AllTypeItemNames}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedTypeKeyName}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <Border Background="White" CornerRadius="4" Padding="2">
+              <TextBlock Text="{Binding}"/>
+            </Border>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock DockPanel.Dock="Top">
+          Select the type value.
+      </TextBlock>
+      <ListBox Items="{Binding AllTypeValueNames}"
+               SelectionMode="Single"
+               DockPanel.Dock="Top"
+               ScrollViewer.VerticalScrollBarVisibility="Visible"
+               Height="100"
+               SelectedItem="{Binding SelectedTypeValueName}">
+          <ListBox.ItemTemplate>
+              <DataTemplate>
+                  <Border Background="White" CornerRadius="4" Padding="2">
+                      <TextBlock Text="{Binding}"/>
+                  </Border>
+              </DataTemplate>
+          </ListBox.ItemTemplate>
+      </ListBox>
+      <TextBox DockPanel.Dock="Top"
+               Watermark="Sort order"
+               Text="{Binding SortOrder}"/>
+      <Button Command="{Binding InsertPrivatePropertyKey}"
+              DockPanel.Dock="Top"
+              Content="Insert the private property key"
+              Height="30"/>
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding HasErrors}"
+                 Text="Please fix these errors"/>
+      <TextBox DockPanel.Dock="Top" 
+               IsVisible="{Binding HasErrors}"
+               Text="{Binding Errors}"
+               IsReadOnly="True"/>
+    </DockPanel>
+  </ScrollViewer>
+</UserControl>
