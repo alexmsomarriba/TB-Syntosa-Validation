@@ -3,43 +3,52 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.Private PropertyPrototypeBuilderView">
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.PrivatePropertyPrototypeBuilderView">
   <ScrollViewer VerticalScrollBarVisibility="Visible">
     <DockPanel>
-      <TextBox DockPanel.Dock="Top"
-               Watermark="Global property name"
-               Text="{Binding GlobalPropertyName}"/>
+        <TextBox DockPanel.Dock="Top"
+                 Watermark="Private property name"/>
+        <TextBox DockPanel.Dock="Top"
+                 Watermark="Private Attribute"
+                 Text="{Binding PrivateAttribute}"/>
       <CheckBox DockPanel.Dock="Top"
                 IsThreeState="False"
                 IsChecked="{Binding IsActive}">
-        Is the global property active
+        Is the private property active
       </CheckBox>
-      <CheckBox DockPanel.Dock="Top"
-                IsThreeState="False"
-                IsChecked="{Binding IsAutoCollect}">
+        <CheckBox DockPanel.Dock="Top"
+                  IsThreeState="False"
+                  IsChecked="{Binding HasParent}">
+            Does the private property have a parent
+        </CheckBox>
+        <TextBlock DockPanel.Dock="Top"
+                   IsVisible="{Binding HasParent}">
+            Select the parent private property.
+        </TextBlock>
+        <ListBox Items="{Binding AllPrivatePropertyNames}"
+                 SelectionMode="Single"
+                 IsVisible="{Binding HasParent}"
+                 DockPanel.Dock="Top"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 Height="100"
+                 SelectedItem="{Binding SelectedParentPrivatePropertyName}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" CornerRadius="4" Padding="2">
+                        <TextBlock Text="{Binding}"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <CheckBox DockPanel.Dock="Top"
+                  IsThreeState="False"
+                  IsChecked="{Binding IsAutoCollect}">
         Is the global property auto collecting from somewhere
       </CheckBox>
-      <TextBlock DockPanel.Dock="Top">
-        Select Element.
-      </TextBlock>
-      <ListBox Items="{Binding AllElementNames}"
-               SelectionMode="Single"
-               DockPanel.Dock="Top"
-               ScrollViewer.VerticalScrollBarVisibility="Visible"
-               Height="100"
-               SelectedItem="{Binding SelectedElementName}">
-          <ListBox.ItemTemplate>
-              <DataTemplate>
-                  <Border Background="White" CornerRadius="4" Padding="2">
-                      <TextBlock Text="{Binding}"/>
-                  </Border>
-              </DataTemplate>
-          </ListBox.ItemTemplate>
-      </ListBox>
-      <TextBlock DockPanel.Dock="Top">
+        <TextBlock DockPanel.Dock="Top">
         Select the private property key.
       </TextBlock>
-      <ListBox Items="{Binding AllPrivatePropertyKey}"
+      <ListBox Items="{Binding AllPrivatePropertyKeyNames}"
                SelectionMode="Single"
                DockPanel.Dock="Top"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -56,9 +65,9 @@
       <TextBox DockPanel.Dock="Top"
                Watermark="Sort order"
                Text="{Binding SortOrder}"/>
-      <Button Command="{Binding InsertGlobalProperty}"
+      <Button Command="{Binding InsertPrivateProperty}"
               DockPanel.Dock="Top"
-              Content="Insert the global property"
+              Content="Insert the private property"
               Height="30"/>
       <TextBlock DockPanel.Dock="Top"
                  IsVisible="{Binding HasErrors}"

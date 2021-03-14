@@ -88,9 +88,12 @@
                Content="{Binding EdgeLabelCreatorContent}"/>
       <TabItem Header="private prop key creator"
                Content="{Binding PrivatePropertyKeyCreatorContent}"/>
+      <TabItem Header="private prop creator"  
+               Content="{Binding PrivatePropertyCreatorContent}"/>
       <TabItem Header="Data Editor"
                IsVisible="{Binding IsEditorVisible}"
                Content="{Binding PrototypeEditorContent}"/>
     </TabControl>
   </DockPanel>
 </Window>
+    

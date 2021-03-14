@@ -110,6 +110,11 @@
         private bool isRegistering;
 
         /// <summary>
+        /// The private property creator content.
+        /// </summary>
+        private ViewModelBase privatePropertyCreatorContent;
+
+        /// <summary>
         /// The label creator content.
         /// </summary>
         private ViewModelBase labelCreatorContent;
@@ -217,6 +222,8 @@
             this.EdgeLabelCreatorContent = this.EdgeLabelBuilder = new EdgeLabelPrototypeBuilderViewModel();
             this.PrivatePropertyKeyCreatorContent =
                 this.PrivatePropertyKeyBuilder = new PrivatePropertyKeyPrototypeBuilderViewModel();
+            this.PrivatePropertyCreatorContent =
+                this.PrivatePropertyBuilder = new PrivatePropertyPrototypeBuilderViewModel();
         }
 
         /// <summary>
@@ -278,6 +285,20 @@
         {
             get => this.elementCreatorContent;
             set => this.RaiseAndSetIfChanged(ref this.elementCreatorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the private property builder.
+        /// </summary>
+        public PrivatePropertyPrototypeBuilderViewModel PrivatePropertyBuilder { get; }
+
+        /// <summary>
+        /// Gets or sets the private property creator content.
+        /// </summary>
+        public ViewModelBase PrivatePropertyCreatorContent
+        {
+            get => this.privatePropertyCreatorContent;
+            set => this.RaiseAndSetIfChanged(ref this.privatePropertyCreatorContent, value);
         }
 
         /// <summary>
