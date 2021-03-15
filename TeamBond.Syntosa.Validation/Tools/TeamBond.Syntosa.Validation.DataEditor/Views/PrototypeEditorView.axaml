@@ -16,6 +16,8 @@
                  Content="{Binding TypeFunctionEditorContent}"/>
         <TabItem Header="Type Editor"
                  Content="{Binding TypeEditorContent}"/>
+        <TabItem Header="Element editor"
+                 Content="{Binding ElementEditorContent}"/>
       </TabControl>
     </DockPanel>
   </ScrollViewer>

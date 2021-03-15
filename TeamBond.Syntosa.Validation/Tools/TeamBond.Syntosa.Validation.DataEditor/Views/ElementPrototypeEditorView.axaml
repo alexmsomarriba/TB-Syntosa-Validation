@@ -3,42 +3,75 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.ElementPrototypeBuilderView">
+             x:Class="TeamBond.Syntosa.Validation.DataEditor.Views.ElementPrototypeEditorView">
   <ScrollViewer VerticalScrollBarVisibility="Visible">
     <DockPanel>
+        <TextBlock DockPanel.Dock="Top"
+                   IsVisible="{Binding !IsElementSelected}">
+            Select the parent type.
+        </TextBlock>
+        <ListBox Items="{Binding AllElementNames}"
+                 IsVisible="{Binding !IsElementSelected}"
+                 SelectionMode="Single"
+                 DockPanel.Dock="Top"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 Height="100"
+                 SelectedItem="{Binding SelectedElementToUpdateName}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" CornerRadius="4" Padding="2">
+                        <TextBlock Text="{Binding}"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button
+            Command="{Binding GetElementToUpdate}"
+            Content="Select element"
+            IsVisible="{Binding !IsElementSelected}"
+            Height="30"/>
+        <TextBox DockPanel.Dock="Top"
+                 Watermark="Element name"
+                 IsVisible="{Binding IsElementSelected}"
+                 Text="{Binding ElementName}"/>
       <TextBox DockPanel.Dock="Top"
-               Watermark="Element name"
-               Text="{Binding ElementName}"/>
-      <TextBox DockPanel.Dock="Top"
+               IsVisible="{Binding IsElementSelected}"
                Watermark="Element Alias"
-               Text="{Binding ElementAlias}"></TextBox>
+               Text="{Binding ElementAlias}"/>
       <TextBox DockPanel.Dock="Top"
+               IsVisible="{Binding IsElementSelected}"
                Watermark="Element description"
                Text="{Binding Description}"/>
       <CheckBox DockPanel.Dock="Top"
+                IsVisible="{Binding IsElementSelected}"
                 IsThreeState="False"
                 IsChecked="{Binding HasParent}">
         Does the element have a parent
       </CheckBox>
       <CheckBox DockPanel.Dock="Top"
+                IsVisible="{Binding IsElementSelected}"
                 IsThreeState="False"
                 IsChecked="{Binding IsActive}">
         Is the type active
       </CheckBox>
       <CheckBox DockPanel.Dock="Top"
+                IsVisible="{Binding IsElementSelected}"
                 IsThreeState="False"
                 IsChecked="{Binding IsBuiltIn}">
         Is the type built in
       </CheckBox>
       <CheckBox DockPanel.Dock="Top"
+                IsVisible="{Binding IsElementSelected}"
                 IsThreeState="False"
                 IsChecked="{Binding IsAutoCollect}">
         Is the type auto collecting from somewhere
       </CheckBox>
-      <TextBlock DockPanel.Dock="Top">
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding IsElementSelected}">
         Select domain.
       </TextBlock>
       <ListBox Items="{Binding AllDomainNames}"
+               IsVisible="{Binding IsElementSelected}"
                SelectionMode="Single"
                DockPanel.Dock="Top"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -52,12 +85,14 @@
               </DataTemplate>
           </ListBox.ItemTemplate>
       </ListBox>
-      <TextBlock DockPanel.Dock="Top">
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding IsElementSelected}">
         Select the type.
       </TextBlock>
       <ListBox Items="{Binding AllTypeItemNames}"
                SelectionMode="Single"
                DockPanel.Dock="Top"
+               IsVisible="{Binding IsElementSelected}"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
                Height="100"
                SelectedItem="{Binding SelectedTypeItemName}">
@@ -69,12 +104,14 @@
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
-      <TextBlock DockPanel.Dock="Top">
+      <TextBlock DockPanel.Dock="Top"
+                 IsVisible="{Binding IsElementSelected}">
           Select the record type.
       </TextBlock>
       <ListBox Items="{Binding AllTypeItemNames}"
                SelectionMode="Single"
                DockPanel.Dock="Top"
+               IsVisible="{Binding IsElementSelected}"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
                Height="100"
                SelectedItem="{Binding SelectedTypeRecordName}">
@@ -91,6 +128,7 @@
       </TextBlock>
       <ListBox Items="{Binding AllModuleNames}"
                SelectionMode="Single"
+               IsVisible="{Binding IsElementSelected}"
                DockPanel.Dock="Top"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
                Height="100"
@@ -107,6 +145,7 @@
           Select module record type.
       </TextBlock>
       <ListBox Items="{Binding AllModuleNames}"
+               IsVisible="{Binding IsElementSelected}"
                SelectionMode="Single"
                DockPanel.Dock="Top"
                ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -141,9 +180,11 @@
       </ListBox>
       <TextBox DockPanel.Dock="Top"
                Watermark="Sort order"
+               IsVisible="{Binding IsElementSelected}"
                Text="{Binding SortOrder}"/>
       <Button Command="{Binding InsertElement}"
               DockPanel.Dock="Top"
+              IsVisible="{Binding IsElementSelected}"
               Content="Insert the type"
               Height="30"/>
       <TextBlock DockPanel.Dock="Top"

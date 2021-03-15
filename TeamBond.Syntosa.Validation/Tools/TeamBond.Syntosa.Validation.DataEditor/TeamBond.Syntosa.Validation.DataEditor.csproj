@@ -22,6 +22,9 @@
     <Compile Update="Views\EdgeLabelPrototypeBuilderView.axaml.cs">
       <DependentUpon>EdgeLabelPrototypeBuilderView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ElementPrototypeEditorView.axaml.cs">
+      <DependentUpon>ElementPrototypeEditorView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PrivatePropertyPrototypeBuilderView.axaml.cs">
       <DependentUpon>PrivatePropertyPrototypeBuilderView.axaml</DependentUpon>
     </Compile>

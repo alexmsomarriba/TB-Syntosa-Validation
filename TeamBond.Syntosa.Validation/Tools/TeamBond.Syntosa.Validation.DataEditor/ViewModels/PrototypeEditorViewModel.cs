@@ -28,6 +28,11 @@
         private ViewModelBase typeUnitEditorContent;
 
         /// <summary>
+        /// The element editor content.
+        /// </summary>
+        private ViewModelBase elementEditorContent;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PrototypeEditorViewModel"/> class.
         /// </summary>
         public PrototypeEditorViewModel()
@@ -36,6 +41,7 @@
             this.TypeUnitEditorContent = this.TypeUnitEditor = new TypeUnitPrototypeEditorViewModel();
             this.TypeFunctionEditorContent = this.TypeFunctionEditor = new TypeFunctionPrototypeEditorViewModel();
             this.TypeEditorContent = this.TypeEditor = new TypePrototypeEditorViewModel();
+            this.ElementEditorContent = this.ElementEditor = new ElementPrototypeEditorViewModel();
         }
 
         /// <summary>
@@ -56,6 +62,20 @@
         /// Gets the type editor.
         /// </summary>
         public TypePrototypeEditorViewModel TypeEditor { get; }
+
+        /// <summary>
+        /// Gets or sets the element editor content.
+        /// </summary>
+        public ViewModelBase ElementEditorContent
+        {
+            get => this.elementEditorContent;
+            set => this.RaiseAndSetIfChanged(ref this.elementEditorContent, value);
+        }
+
+        /// <summary>
+        /// Gets the element editor.
+        /// </summary>
+        public ElementPrototypeEditorViewModel ElementEditor { get; }
 
         /// <summary>
         /// Gets or sets the type editor content.

@@ -21,7 +21,7 @@
     /// <summary>
     /// The type proto type builder view model.
     /// </summary>
-    public class ElementPrototypeBuilderViewModel : ViewModelBase
+    public class ElementPrototypeEditorViewModel : ViewModelBase
     {
         /// <summary>
         /// The syntosa dal.
@@ -79,6 +79,11 @@
         private bool isBuiltIn;
 
         /// <summary>
+        /// The is element selected.
+        /// </summary>
+        private bool isElementSelected;
+
+        /// <summary>
         /// The module auto collect name.
         /// </summary>
         private string selectedModuleName;
@@ -104,6 +109,11 @@
         private string selectedParentElementName;
 
         /// <summary>
+        /// The selected element to update.
+        /// </summary>
+        private string selectedElementToUpdateName;
+
+        /// <summary>
         /// The sort order.
         /// </summary>
         private string sortOrder;
@@ -114,15 +124,17 @@
         private string elementName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ElementPrototypeBuilderViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ElementPrototypeEditorViewModel"/> class.
         /// </summary>
-        public ElementPrototypeBuilderViewModel()
+        public ElementPrototypeEditorViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
             this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
+            this.IsElementSelected = false;
 
-            this.InsertElement = ReactiveCommand.Create(this.BuildElement);
+            this.SelectElement = ReactiveCommand.Create(this.GetElementToUpdate);
+            this.InsertElement = ReactiveCommand.Create(this.UpdateElement);
         }
 
         /// <summary>
@@ -206,6 +218,15 @@
         {
             get => this.GetAllModuleNamesAndUIds();
             set => this.GetAllModuleNamesAndUIds();
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether is element selected.
+        /// </summary>
+        public bool IsElementSelected
+        {
+            get => this.isElementSelected;
+            set => this.RaiseAndSetIfChanged(ref this.isElementSelected, value);
         }
 
         /// <summary>
@@ -294,6 +315,11 @@
         public ReactiveCommand<Unit, Unit> InsertElement { get; }
 
         /// <summary>
+        /// Gets the select element.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> SelectElement { get; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether is active.
         /// </summary>
         public bool IsActive
@@ -362,6 +388,15 @@
         }
 
         /// <summary>
+        /// Gets or sets the selected element to update name.
+        /// </summary>
+        public string SelectedElementToUpdateName
+        {
+            get => this.selectedElementToUpdateName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedElementToUpdateName, value);
+        }
+
+        /// <summary>
         /// Gets or sets the sort order.
         /// </summary>
         public string SortOrder
@@ -380,12 +415,37 @@
         }
 
         /// <summary>
+        /// The get element to update.
+        /// </summary>
+        private void GetElementToUpdate()
+        {
+            Guid elementToUpdateUId = this.AllElementNamesAndUIds[this.SelectedElementToUpdateName];
+            Element elementToUpdate = this.syntosaDal.GetElementByAny(elementUId: elementToUpdateUId).FirstOrDefault();
+
+            this.ElementName = elementToUpdate.Name;
+            this.SelectedTypeItemName = elementToUpdate.TypeItemName;
+            this.SelectedTypeRecordName = elementToUpdate.RecordStatus;
+            this.Description = elementToUpdate.Description;
+            this.ElementAlias = elementToUpdate.Alias;
+            this.SelectedDomainName = elementToUpdate.DomainName;
+            this.IsActive = elementToUpdate.IsActive;
+            this.HasParent = !elementToUpdate.ParentUId.Equals(Guid.Empty);
+
+            if (this.HasParent)
+            {
+                this.SelectedParentElementName = elementToUpdate.ParentName;
+            }
+
+            this.IsElementSelected = true;
+        }
+
+        /// <summary>
         /// The build type item.
         /// </summary>
-        private void BuildElement()
+        private void UpdateElement()
         {
             var failureMessages = new StringBuilder();
-            var createdElement = new Element
+            var updatedElement = new Element
                                       {
                                           DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName],
                                           Alias = this.ElementAlias,
@@ -410,12 +470,12 @@
                 }
                 else
                 {
-                    createdElement.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedParentElementName];
+                    updatedElement.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedParentElementName];
                 }
             }
 
             var elementValidator = new ElementValidator();
-            ValidationResult validationResult = elementValidator.Validate(createdElement);
+            ValidationResult validationResult = elementValidator.Validate(updatedElement);
             if (!validationResult.IsValid || failureMessages.Length != 0)
             {
                 foreach (ValidationFailure failure in validationResult.Errors)
@@ -431,8 +491,8 @@
 
             this.HasErrors = false;
             this.Errors = string.Empty;
-            this.syntosaDal.CreateElement(createdElement);
-            createdElement = this.syntosaDal.GetElementByAny(
+            this.syntosaDal.UpdateElement(updatedElement);
+            updatedElement = this.syntosaDal.GetElementByAny(
                 elementName: this.ElementName,
                 elementDesc: this.Description,
                 isActive: this.IsActive,

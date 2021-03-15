@@ -21,8 +21,6 @@
             this.RuleFor(element => element.ModuleUId).NotEmpty();
             this.RuleFor(element => element.TypeItemUId).NotEmpty();
             this.RuleFor(element => element.DomainUId).NotEmpty();
-            this.RuleFor(element => element.ModuleRecordKey).NotEmpty();
-            this.RuleFor(element => element.TypeUIdRecordStatus).NotEmpty();
         }
     }
 }
