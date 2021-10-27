@@ -445,23 +445,23 @@
         private void UpdateElement()
         {
             var failureMessages = new StringBuilder();
-            var updatedElement = new Element
-                                      {
-                                          DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName],
-                                          Alias = this.ElementAlias,
-                                          IsActive = this.IsActive,
-                                          IsBuiltIn = this.IsBuiltIn,
-                                          TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName],
-                                          TypeUIdRecordStatus = this.AllTypeItemNamesAndUIds[this.SelectedTypeRecordName],
-                                          ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName],
-                                          ModuleRecordKey = string.Empty,
-                                          IsAutoCollect = this.IsAutoCollect,
-                                          Name = this.ElementName,
-                                          Description = this.Description,
-                                          ParentUId = Guid.Empty,
-                                          ModifiedBy = this.userContext.CurrentUser.Email,
-                                      };
+            Guid elementToUpdateUId = this.AllElementNamesAndUIds[this.SelectedElementToUpdateName];
+            Element elementToUpdate = this.syntosaDal.GetElementByAny(elementUId: elementToUpdateUId).FirstOrDefault();
 
+            elementToUpdate.DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName];
+            elementToUpdate.Alias = this.ElementAlias;
+            elementToUpdate.IsActive = this.IsActive;
+            elementToUpdate.IsBuiltIn = this.IsBuiltIn;
+            elementToUpdate.TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName];
+            elementToUpdate.TypeUIdRecordStatus = this.AllTypeItemNamesAndUIds[this.SelectedTypeRecordName];
+            elementToUpdate.ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName];
+            elementToUpdate.ModuleRecordKey = string.Empty;
+            elementToUpdate.IsAutoCollect = this.IsAutoCollect;
+            elementToUpdate.Name = this.ElementName;
+            elementToUpdate.Description = this.Description;
+            elementToUpdate.ParentUId = Guid.Empty;
+            elementToUpdate.ModifiedBy = this.userContext.CurrentUser.Email;
+                                     
             if (this.HasParent)
             {
                 if (string.IsNullOrWhiteSpace(this.SelectedParentElementName))
@@ -470,12 +470,12 @@
                 }
                 else
                 {
-                    updatedElement.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedParentElementName];
+                    elementToUpdate.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedParentElementName];
                 }
             }
 
             var elementValidator = new ElementValidator();
-            ValidationResult validationResult = elementValidator.Validate(updatedElement);
+            ValidationResult validationResult = elementValidator.Validate(elementToUpdate);
             if (!validationResult.IsValid || failureMessages.Length != 0)
             {
                 foreach (ValidationFailure failure in validationResult.Errors)
@@ -491,12 +491,7 @@
 
             this.HasErrors = false;
             this.Errors = string.Empty;
-            this.syntosaDal.UpdateElement(updatedElement);
-            updatedElement = this.syntosaDal.GetElementByAny(
-                elementName: this.ElementName,
-                elementDesc: this.Description,
-                isActive: this.IsActive,
-                isBuiltIn: this.IsBuiltIn).FirstOrDefault();
+            this.syntosaDal.UpdateElement(elementToUpdate);
 
             // this.userActivityService.InsertActivity(
             //    this.userContext.CurrentUser,

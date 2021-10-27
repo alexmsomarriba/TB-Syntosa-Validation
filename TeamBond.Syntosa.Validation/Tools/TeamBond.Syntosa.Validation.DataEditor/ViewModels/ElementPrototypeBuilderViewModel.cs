@@ -224,7 +224,7 @@
                 return typeFunctionNames;
             }
         }
-
+            
         /// <summary>
         /// Gets or sets the all type function name and u ids.
         /// </summary>
@@ -435,7 +435,7 @@
             createdElement = this.syntosaDal.GetElementByAny(
                 elementName: this.ElementName,
                 elementDesc: this.Description,
-                isActive: this.IsActive,
+                isActive: this.IsActive, 
                 isBuiltIn: this.IsBuiltIn).FirstOrDefault();
 
             // this.userActivityService.InsertActivity(

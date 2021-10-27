@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Alex Somarriba</Authors>
+    <Version>0.1.0</Version>
+    <Company>TeamBond Inc.</Company>
+    <Description>This package contains the classes that defines services that are part of the Teambond.Engine.</Description>
+    <PackageTags>TeamBond.Services, TeamBond.Engine</PackageTags>
+    <Copyright>Copyright 2021 TeamBond Inc. All Rights Reserved.</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syntosa.Core" Version="0.1.1" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == 'Release'">
+    <Exec Command="$(SolutionDir)\.nuget\NuGet.exe pack $(ProjectPath) -Prop Configuration=Release -IncludeReferencedProjects -OutputDirectory $(SolutionDir)\.nuget\packages\" />
+  </Target>
+
+</Project>

@@ -179,7 +179,7 @@
               Content="Next"
               IsVisible="{Binding !HasSelected}"
               Height="30"/>
-      <Button Command="{Binding Update}"
+      <Button Command="{Binding InsertType}"
               DockPanel.Dock="Top"
               Content="Update Type"
               IsVisible="{Binding HasSelected}"

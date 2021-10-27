@@ -546,12 +546,13 @@
             string currentModuleName = this.AllModuleNamesAndUIds
                 .FirstOrDefault(x => x.Value == updatedTypeItem.ModuleUIdAutoCollect).Key;
 
-            if (!this.SelectedModuleAutoCollectName.Equals(currentModuleName))
+            if (!string.IsNullOrEmpty(currentModuleName) || !this.SelectedModuleAutoCollectName.Equals(currentModuleName))
             {
                 updatedTypeItem.ModuleUIdAutoCollect = this.AllModuleNamesAndUIds[this.SelectedModuleAutoCollectName];
                 hasChanged = true;
             }
 
+            /*
             if (this.SelectedDataStoreType.Equals("Relational") && !updatedTypeItem.IsRelational)
             {
                 updatedTypeItem.IsRelational = true;
@@ -655,16 +656,17 @@
                 updatedTypeItem.IsSearch = true;
                 hasChanged = true;
             }
+            */
 
-            if ((this.HasParent && !string.IsNullOrWhiteSpace(this.SelectedTypeItemParentName)
-                                && updatedTypeItem.ParentUId == Guid.Empty)
-                || (!this.HasParent && updatedTypeItem.ParentUId != Guid.Empty) 
-                || (this.HasParent && !updatedTypeItem.ParentName.Equals(this.SelectedTypeItemParentName)))
+            if (this.HasParent && !string.IsNullOrWhiteSpace(this.SelectedTypeItemParentName)
+                               && (updatedTypeItem.ParentUId == Guid.Empty
+                || !this.HasParent && updatedTypeItem.ParentUId != Guid.Empty || this.HasParent
+                && !updatedTypeItem.ParentName.Equals(this.SelectedTypeItemParentName)))
             {
                 if (this.HasParent && !string.IsNullOrWhiteSpace(this.SelectedTypeItemParentName)
                                    && updatedTypeItem.ParentUId == Guid.Empty)
                 {
-                    updatedTypeItem.ParentUId = this.AllModuleNamesAndUIds[this.SelectedTypeItemParentName];
+                    updatedTypeItem.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemParentName];
                 }
 
                 if (!this.HasParent && updatedTypeItem.ParentUId != Guid.Empty)
@@ -672,9 +674,9 @@
                     updatedTypeItem.ParentUId = Guid.Empty;
                 }
 
-                if (this.HasParent && !updatedTypeItem.ParentName.Equals(this.SelectedTypeItemParentName))
+                if (this.HasParent)
                 {
-                    updatedTypeItem.ParentUId = this.AllModuleNamesAndUIds[this.SelectedTypeItemParentName];
+                    updatedTypeItem.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemParentName];
                 }
 
                 hasChanged = true;
@@ -706,10 +708,11 @@
             this.HasErrors = false;
             this.Errors = string.Empty;
             this.syntosaDal.UpdateTypeItem(updatedTypeItem);
-            //this.userActivityService.InsertActivity(
-            //    this.userContext.CurrentUser,
-            //    "Type Item Updated",
-            //    $"{this.userContext.CurrentUser.Email} has updated the type item named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]}");
+
+            // this.userActivityService.InsertActivity(
+            // this.userContext.CurrentUser,
+            // "Type Item Updated",
+            // $"{this.userContext.CurrentUser.Email} has updated the type item named {this.CurrentName} with UId {this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]}");
         }
 
         /// <summary>
@@ -818,9 +821,8 @@
                 return;
             }
 
-            var typeItemToEdit = this.syntosaDal.GetTypeItemByAny(
-                typeItemName: this.SelectedTypeItemName,
-                typeItemUId: this.AllTypeFunctionNamesAndUIds[this.SelectedTypeItemName]).FirstOrDefault();
+            var typeItemToEdit = this.syntosaDal.GetTypeItemByAny(typeItemName: this.SelectedTypeItemName)
+                .FirstOrDefault();
 
             this.HasSelected = true;
 
