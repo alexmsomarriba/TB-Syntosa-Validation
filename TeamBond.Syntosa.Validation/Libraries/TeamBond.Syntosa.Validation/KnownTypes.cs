@@ -81,7 +81,6 @@
     /// </summary>
     public struct GlobalPropertyTypes
     {
-        public const string IsActive = Guid().ToString();
     }
 
     /// <summary>

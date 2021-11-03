@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Alex Somarriba</Authors>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Company>TeamBond Inc.</Company>
     <Description>This package contains the classes that defines services that are part of the Teambond.Engine.</Description>
     <PackageTags>TeamBond.Services, TeamBond.Engine</PackageTags>
