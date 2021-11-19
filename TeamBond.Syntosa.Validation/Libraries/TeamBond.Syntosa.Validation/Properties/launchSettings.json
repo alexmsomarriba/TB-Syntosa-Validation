@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TeamBond.Syntosa.Validation": {
+      "commandName": "Project",
+      "workingDirectory": "Y:\\Work\\TeamBond\\teambond-syntosa-validation\\TeamBond.Syntosa.Validation\\Libraries\\TeamBond.Syntosa.Validation"
+    }
+  }
+}

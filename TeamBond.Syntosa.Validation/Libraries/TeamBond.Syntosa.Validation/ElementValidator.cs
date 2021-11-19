@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using global::Syntosa.Core.DataAccessLayer;
     using global::Syntosa.Core.ObjectModel;
     using global::Syntosa.Core.ObjectModel.CoreClasses;
     using global::Syntosa.Core.ObjectModel.CoreClasses.Edge;
@@ -17,19 +16,10 @@
     public class ElementValidator : SyntosaRecordValidatorBase<Element>
     {
         /// <summary>
-        /// The _synto dal.
-        /// </summary>
-        private SyntosaDal _syntoDal;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ElementValidator"/> class.
         /// </summary>
-        /// <param name="syntoDal">
-        /// The synto Dal.
-        /// </param>
-        public ElementValidator(SyntosaDal syntoDal)
+        public ElementValidator()
         {
-            this._syntoDal = syntoDal;
         }
 
         /// <summary>
@@ -38,16 +28,15 @@
         /// <param name="connectionString">
         /// The connection string to the Syntosa DAL.
         /// </param>
-        public ElementValidator(string connectionString, SyntosaDal syntoDal)
+        public ElementValidator(string connectionString)
             : base(connectionString)
         {
-            this._syntoDal = syntoDal;
         }
 
         /// <inheritdoc />
         public override Dictionary<string, string> GetPrototypeTypes()
         {
-            throw new NotImplementedException();
+            return new Dictionary<string, string>();
         }
 
         /// <inheritdoc />
@@ -62,6 +51,18 @@
                         validationResults = this.ValidateWorker(record);
                         break;
                     }
+
+                case WorkforceManagement.Resume:
+                    {
+                        validationResults = this.ValidateResume(record);
+                        break;
+                    }
+
+                case WorkforceManagement.JobPosting:
+                    {
+                        validationResults = this.ValidateJobPosting(record);
+                        break;
+                    }
             }
 
             return validationResults;
@@ -70,14 +71,14 @@
         /// <inheritdoc />
         public override Element GetPrototypeByTypeUId(string typeUId)
         {
-            return ElementFactory.GetPrototype(typeUId, this._syntoDal);
+            return ElementFactory.GetPrototype(typeUId, this.SyntoDal);
         }
 
         /// <inheritdoc />
         public override Element GetPrototypeByTypeName(string typeName)
         {
             // Lookup type by name from an internal dictionary
-            List<TypeItem> typeItems = this._syntoDal.GetTypeItemByAny(typeItemName: typeName);
+            List<TypeItem> typeItems = this.SyntoDal.GetTypeItemByAny(typeItemName: typeName);
 
             if (typeItems.Count > 1)
             {
@@ -89,14 +90,13 @@
                 throw new Exception("Search did not return any Type UId for string: " + typeName);
             }
 
-
-            return ElementFactory.GetPrototype(typeItems[0].UId.ToString(), this._syntoDal);
+            return ElementFactory.GetPrototype(typeItems[0].UId.ToString(), this.SyntoDal);
         }
 
         /// <inheritdoc />
         public override Element GetPrototypeByUId(Guid uid)
         {
-            Element element = this._syntoDal.GetElementByUId(uid);
+            Element element = this.SyntoDal.GetElementByUId(uid);
 
             if (element != null)
             {
@@ -131,7 +131,7 @@
                 return edgeElementElement.TargetElementTypeUId.ToString();
             }
 
-            Element edgeTargetElement = this._syntoDal.GetElementByUId(
+            Element edgeTargetElement = this.SyntoDal.GetElementByUId(
                 edgeElementElement.TargetElementUId,
                 asComposite: false);
 
@@ -139,13 +139,13 @@
         }
 
         /// <summary>
-        /// The validate worker.
+        /// Validates the given worker element.
         /// </summary>
         /// <param name="element">
-        /// The element.
+        /// The element to validate.
         /// </param>
         /// <returns>
-        /// The <see cref="ValidationResult"/>.
+        /// The validated element.
         /// </returns>
         private ValidationResult<Element> ValidateWorker(Element element)
         {
@@ -162,7 +162,7 @@
                                         EdgeElementUId = EdgeTypes.EnabledBy,
                                         EdgeCount = 0,
                                         TypeName = "Resume",
-                                        EdgeName = "Assigned To"
+                                        EdgeName = "Enabled By"
                                     }
                             };
 
@@ -172,6 +172,96 @@
             return validationResult;
         }
 
+        /// <summary>
+        /// Validates the given resume element.
+        /// </summary>
+        /// <param name="element">
+        /// The element to validate.
+        /// </param>
+        /// <returns>
+        /// The validated element.
+        /// </returns>
+        private ValidationResult<Element> ValidateResume(Element element)
+        {
+            var validationResult = new ValidationResult<Element>();
+
+            // Validate mandatory edges
+            var edges = new List<EdgeClass>
+                            {
+                                new EdgeClass
+                                    {
+                                        Id = 1,
+                                        TypeFunctionUId = null,
+                                        TypeItemUId = WorkforceManagement.Worker,
+                                        EdgeElementUId = EdgeTypes.AssignedTo,
+                                        EdgeCount = 0,
+                                        TypeName = "Worker",
+                                        EdgeName = "Assigned To"
+                                    },
+
+                                new EdgeClass
+                                    {
+                                        Id = 2,
+                                        TypeFunctionUId = null,
+                                        TypeItemUId = WorkforceManagement.JobPosting,
+                                        EdgeElementUId = EdgeTypes.AssignedTo,
+                                        EdgeCount = 0,
+                                        TypeName = "Job Posting",
+                                        EdgeName = "Assigned To"
+                                    }
+                            };
+
+            this.ValidateMandatoryEdges(element, edges, ref validationResult);
+            return validationResult;
+        }
+
+        /// <summary>
+        /// Validates the given resume element.
+        /// </summary>
+        /// <param name="element">
+        /// The element to validate.
+        /// </param>
+        /// <returns>
+        /// The validated element.
+        /// </returns>
+        private ValidationResult<Element> ValidateJobPosting(Element element)
+        {
+            var validationResult = new ValidationResult<Element>();
+
+            // Validate mandatory edges
+            var edges = new List<EdgeClass>
+                            {
+                                new EdgeClass
+                                    {
+                                        Id = 1,
+                                        TypeFunctionUId = null,
+                                        TypeItemUId = WorkforceManagement.Job,
+                                        EdgeElementUId = EdgeTypes.DependsOn,
+                                        EdgeCount = 0,
+                                        TypeName = "Job",
+                                        EdgeName = "Depends On"
+                                    }
+                            };
+
+            this.ValidateMandatoryEdges(element, edges, ref validationResult);
+            return validationResult;
+        }
+
+        /// <summary>
+        /// The edge class matches edge element element.
+        /// </summary>
+        /// <param name="edgeClass">
+        /// The edge class.
+        /// </param>
+        /// <param name="edgeElementElement">
+        /// The edge element element.
+        /// </param>
+        /// <param name="edgeElementTypeItemUId">
+        /// The edge element type item u id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         private bool EdgeClassMatchesEdgeElementElement(
             EdgeClass edgeClass,
             EdgeElementElement edgeElementElement,
@@ -179,7 +269,7 @@
         {
             if (edgeClass.TypeFunctionUId != null && edgeElementTypeItemUId != Guid.Empty)
             {
-                TypeItem typeItem = this._syntoDal.GetTypeItemByUId(edgeElementTypeItemUId);
+                TypeItem typeItem = this.SyntoDal.GetTypeItemByUId(edgeElementTypeItemUId);
 
                 if (typeItem is null)
                 {
@@ -206,6 +296,21 @@
             return false;
         }
 
+        /// <summary>
+        /// The validate mandatory edges.
+        /// </summary>
+        /// <param name="element">
+        /// The element.
+        /// </param>
+        /// <param name="mandatoryEdges">
+        /// The mandatory edges.
+        /// </param>
+        /// <param name="validationResult">
+        /// The validation result.
+        /// </param>
+        /// <param name="blockedEdges">
+        /// The blocked edges.
+        /// </param>
         private void ValidateMandatoryEdges(
             Element element,
             List<EdgeClass> mandatoryEdges,

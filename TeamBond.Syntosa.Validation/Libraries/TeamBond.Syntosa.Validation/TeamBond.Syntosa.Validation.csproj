@@ -5,13 +5,17 @@
     <Authors>Alex Somarriba</Authors>
     <Version>0.1.1</Version>
     <Company>TeamBond Inc.</Company>
-    <Description>This package contains the classes that defines services that are part of the Teambond.Engine.</Description>
-    <PackageTags>TeamBond.Services, TeamBond.Engine</PackageTags>
+    <Description>This package contains the classes that contain validation methods for syntosa objects</Description>
+    <PackageTags>TeamBond.Validation</PackageTags>
     <Copyright>Copyright 2021 TeamBond Inc. All Rights Reserved.</Copyright>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Syntosa.Core" Version="0.1.1" />
+    <PackageReference Include="Syntosa.Core" Version="0.1.3" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == 'Release'">
