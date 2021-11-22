@@ -13,6 +13,18 @@
     /// </summary>
     public class ElementFactory
     {
+        /// <summary>
+        /// Gets the element prototype of a given type.
+        /// </summary>
+        /// <param name="type">
+        /// The type to get the prototype of.
+        /// </param>
+        /// <param name="syntosaDal">
+        /// The syntosa data access layer.
+        /// </param>
+        /// <returns>
+        /// The element prototype of a given type.
+        /// </returns>
         public static Element GetPrototype(string type, SyntosaDal syntosaDal)
         {
             Element element = new Element()
@@ -97,11 +109,6 @@
                         // Get all global properties associated with the element type
                         GenerateGlobalProperties(element, syntosaDal);
 
-                        element.ElementEdges.Add(
-                            new EdgeElementElement
-                                {
-                                    TypeItemUId = new Guid(EdgeTypes.ConnectedTo)
-                                });
                         break;
                     }
 
@@ -174,7 +181,7 @@
 
                 default:
                     {
-                        throw new Exception("Unknown Elemen Type provided.");
+                        throw new Exception("Unknown Element Type provided.");
                     }
             }
 

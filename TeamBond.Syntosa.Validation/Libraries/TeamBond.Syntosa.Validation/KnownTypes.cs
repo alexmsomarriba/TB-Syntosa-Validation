@@ -81,6 +81,20 @@
     /// </summary>
     public struct GlobalPropertyTypes
     {
+        /// <summary>
+        /// The employer name global property.
+        /// </summary>
+        public const string EmployerName = "78A89356-E313-4614-8970-45EB0919CDF4";
+
+        /// <summary>
+        /// The employer address global property.
+        /// </summary>
+        public const string EmployerAddress = "429FDC74-6D7A-4D14-A01A-FD58C01751BD";
+
+        /// <summary>
+        /// The employer contact name global property.
+        /// </summary>
+        public const string EmployerContactName = "E2EB9E35-4D9D-4CB3-9960-E9B2D1152709";
     }
 
     /// <summary>

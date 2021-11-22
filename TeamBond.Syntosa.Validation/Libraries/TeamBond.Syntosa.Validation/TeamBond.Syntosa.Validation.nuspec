@@ -11,7 +11,7 @@
     <copyright>Copyright 2019</copyright>
     <tags>TeamBond.Syntosa.Validation</tags>
     <dependencies>
-	    <dependency id="Amazon.Lambda.Core" version="2.0.0" />
+	    <dependency id="Syntosa.Core" version="0.1.3" />
     </dependencies>
   </metadata>
 </package>
