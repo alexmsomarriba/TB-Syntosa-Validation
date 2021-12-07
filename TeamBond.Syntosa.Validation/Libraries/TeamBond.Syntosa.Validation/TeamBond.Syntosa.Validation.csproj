@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syntosa.Core" Version="0.1.3" />
+    <PackageReference Include="Syntosa.Core" Version="0.1.4" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == 'Release'">
