@@ -95,6 +95,21 @@
         /// The employer contact name global property.
         /// </summary>
         public const string EmployerContactName = "E2EB9E35-4D9D-4CB3-9960-E9B2D1152709";
+
+        /// <summary>
+        /// The UIds of the employees associated with this employer
+        /// </summary>
+        public const string EmployeeUIds = "38e9129d-e258-4a50-9bf3-fec9bd512be4";
+
+        /// <summary>
+        /// The UIds of the divisions associated with this employer
+        /// </summary>
+        public const string DivisionUIds = "3fa6c7ec-37a9-4642-9a9d-f238f896d8ce";
+
+        /// <summary>
+        /// The UIds of the brokers associated with this employer
+        /// </summary>
+        public const string BrokerUIds = "e7b99d21-6321-4adf-bab5-a729360b39af";
     }
 
     /// <summary>
