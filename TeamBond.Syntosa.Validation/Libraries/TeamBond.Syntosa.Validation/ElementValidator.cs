@@ -183,43 +183,6 @@
                     new Exception($"{employerAddress.Name} was missing a value"));
             }
 
-            ElementGlobalProperty employeeUIds = element.GlobalProperties.FirstOrDefault(
-                property => property.Value.TypeItemUId.ToString().Equals(
-                    GlobalPropertyTypes.EmployeeUIds,
-                    StringComparison.OrdinalIgnoreCase)).Value;
-
-            if (!string.IsNullOrWhiteSpace(employeeUIds.Attribute) && !Guid.TryParse(employeeUIds.Attribute, out _))
-            {
-                validationResult.MemberNames.Add(employeeUIds.Attribute);
-                validationResult.Exceptions.Add(
-                    new Exception($"{employeeUIds.Name} is not parseable to guid"));
-            }
-
-
-            ElementGlobalProperty divisionUIds = element.GlobalProperties.FirstOrDefault(
-                property => property.Value.TypeItemUId.ToString().Equals(
-                    GlobalPropertyTypes.DivisionUIds,
-                    StringComparison.OrdinalIgnoreCase)).Value;
-
-            if (!string.IsNullOrWhiteSpace(divisionUIds.Attribute) && !Guid.TryParse(divisionUIds.Attribute, out _))
-            {
-                validationResult.MemberNames.Add(divisionUIds.Attribute);
-                validationResult.Exceptions.Add(
-                    new Exception($"{divisionUIds.Name} is not parseable to guid"));
-            }
-
-            ElementGlobalProperty brokerUIds = element.GlobalProperties.FirstOrDefault(
-                property => property.Value.TypeItemUId.ToString().Equals(
-                    GlobalPropertyTypes.BrokerUIds,
-                    StringComparison.OrdinalIgnoreCase)).Value;
-
-            if (!string.IsNullOrWhiteSpace(brokerUIds.Attribute) && !Guid.TryParse(brokerUIds.Attribute, out _))
-            {
-                validationResult.MemberNames.Add(brokerUIds.Attribute);
-                validationResult.Exceptions.Add(
-                    new Exception($"{brokerUIds.Name} is not parseable to guid"));
-            }
-
             validationResult.Success = validationResult.Exceptions.Count == 0;
             return validationResult;
         }

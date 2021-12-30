@@ -99,17 +99,17 @@
         /// <summary>
         /// The UIds of the employees associated with this employer
         /// </summary>
-        public const string EmployeeUIds = "38e9129d-e258-4a50-9bf3-fec9bd512be4";
+        public const string EmployeeUIds = "38E9129D-E258-4A50-9BF3-FEC9BD512BE4";
 
         /// <summary>
         /// The UIds of the divisions associated with this employer
         /// </summary>
-        public const string DivisionUIds = "3fa6c7ec-37a9-4642-9a9d-f238f896d8ce";
+        public const string DivisionUIds = "3FA6C7EC-37A9-4642-9A9D-F238F896D8CE";
 
         /// <summary>
         /// The UIds of the brokers associated with this employer
         /// </summary>
-        public const string BrokerUIds = "e7b99d21-6321-4adf-bab5-a729360b39af";
+        public const string BrokerUIds = "E7B99D21-6321-4ADF-BAB5-A729360B39AF";
     }
 
     /// <summary>
@@ -120,32 +120,32 @@
         /// <summary>
         /// The TeamBond edge type constant for the Assigned To edge type.
         /// </summary>
-        public const string AssignedTo = "a9d48cf6-fd05-4047-bb21-ff327b8e3d1b";
+        public const string AssignedTo = "A9D48CF6-FD05-4047-BB21-FF327B8E3D1B";
 
         /// <summary>
         /// The TeamBond edge type constant for the Belongs To edge type.
         /// </summary>
-        public const string BelongsTo = "07bc1a0c-e659-4ec2-9110-9642461b3df2";
+        public const string BelongsTo = "07BC1A0C-E659-4EC2-9110-9642461B3DF2";
 
         /// <summary>
         /// The TeamBond edge type constant for the Connected To edge type.
         /// </summary>
-        public const string ConnectedTo = "db3a0146-bff6-494f-bb74-0d68dfa26d73";
+        public const string ConnectedTo = "DB3A0146-BFF6-494F-BB74-0D68DFA26D73";
 
         /// <summary>
         /// The TeamBond edge type constant for the Depends On edge type.
         /// </summary>
-        public const string DependsOn = "9973e243-2c0d-47ca-a01c-feebba47abd2";
+        public const string DependsOn = "9973E243-2C0D-47CA-A01C-FEEBBA47ABD2";
 
         /// <summary>
         /// The TeamBond edge type constant for the for the Enabled By edge type.
         /// </summary>
-        public const string EnabledBy = "c0e6c076-57e4-4a00-9dea-7e9628251497";
+        public const string EnabledBy = "C0E6C076-57E4-4A00-9DEA-7E9628251497";
 
         /// <summary>
         /// The TeamBond edge type constant for the for the Member Of edge type.
         /// </summary>
-        public const string MemberOf = "58f70fea-1970-41b3-a790-06b215840e6b";
+        public const string MemberOf = "58F70FEA-1970-41B3-A790-06B215840E6B";
     }
 
     /// <summary>
@@ -156,7 +156,7 @@
         /// <summary>
         /// The TeamBond record status constant for the for the Active record status.
         /// </summary>
-        public const string Active = "4586c01b-bf70-4924-9801-64f81b81f8d5";
+        public const string Active = "4586C01B-BF70-4924-9801-64F81B81F8D5";
     }
 
     /// <summary>
@@ -167,62 +167,62 @@
         /// <summary>
         /// The TeamBond workforce management type constant for the for the broker type.
         /// </summary>
-        public const string Broker = "fa6bfcde-06a7-4ea1-8eee-2ee5cc67d9a4";
+        public const string Broker = "FA6BFCDE-06A7-4EA1-8EEE-2EE5CC67D9A4";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the candidate type.
         /// </summary>
-        public const string Candidate = "d31faa1e-e515-490f-838e-e2fa5cc18e0c";
+        public const string Candidate = "D31FAA1E-E515-490F-838E-E2FA5CC18E0C";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the division type.
         /// </summary>
-        public const string Division = "21a66a6e-daf9-4f70-8055-aafe5f27eb91";
+        public const string Division = "21A66A6E-DAF9-4F70-8055-AAFE5F27EB91";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the employee type.
         /// </summary>
-        public const string Employee = "fb9d70be-e721-451d-82e7-8529400ecea1";
+        public const string Employee = "FB9D70BE-E721-451D-82E7-8529400ECEA1";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the employer type.
         /// </summary>
-        public const string Employer = "095cf019-70f0-42e8-8d89-316a9de0fcac";
+        public const string Employer = "095CF019-70F0-42E8-8D89-316A9DE0FCAC";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the job type.
         /// </summary>
-        public const string Job = "8c81d001-5ba9-4a16-8128-628425f2d3f2";
+        public const string Job = "8C81D001-5BA9-4A16-8128-628425F2D3F2";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the job posting type.
         /// </summary>
-        public const string JobPosting = "c7b4e18e-2c5d-4f64-a3df-08e39fead839";
+        public const string JobPosting = "C7B4E18E-2C5D-4F64-A3DF-08E39FEAD839";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the outside candidate type.
         /// </summary>
-        public const string OutsideCandidate = "6479d64d-b6a8-43ce-bb80-cfbac1fffc07";
+        public const string OutsideCandidate = "6479D64D-B6A8-43CE-BB80-CFBAC1FFFC07";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the resume type.
         /// </summary>
-        public const string Resume = "339c15b8-88c9-4913-9243-5b67ed6b25b4";
+        public const string Resume = "339C15B8-88C9-4913-9243-5B67ED6B25B4";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the worker type.
         /// </summary>
-        public const string Worker = "668a9537-705c-42de-aff7-1e6430dd395c";
+        public const string Worker = "668A9537-705C-42DE-AFF7-1E6430DD395C";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the portfolio type.
         /// </summary>
-        public const string Portfolio = "38ea0b8b-6410-4356-b7cd-ede99667d334";
+        public const string Portfolio = "38EA0B8B-6410-4356-B7CD-EDE99667D334";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the department type.
         /// </summary>
-        public const string Department = "868b2485-4be3-421a-8ea5-05a4bb26b300";
+        public const string Department = "868B2485-4BE3-421A-8EA5-05A4BB26B300";
 
         /// <summary>
         /// The TeamBond workforce management type constant for the for the team type.

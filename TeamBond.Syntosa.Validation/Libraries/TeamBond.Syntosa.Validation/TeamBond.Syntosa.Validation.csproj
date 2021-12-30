@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Alex Somarriba</Authors>
-    <Version>0.1.4</Version>
+    <Version>0.1.7</Version>
     <Company>TeamBond Inc.</Company>
     <Description>This package contains the classes that contain validation methods for syntosa objects</Description>
     <PackageTags>TeamBond.Validation</PackageTags>
@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syntosa.Core" Version="0.1.4" />
+    <PackageReference Include="Syntosa.Core" Version="0.1.5" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == 'Release'">

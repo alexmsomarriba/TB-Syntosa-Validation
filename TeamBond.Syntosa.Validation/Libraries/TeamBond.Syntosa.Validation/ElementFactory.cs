@@ -41,7 +41,7 @@
                                   };
 
             // Build new fully composite mock elements
-            switch (type.ToUpper())
+            switch (type.ToUpperInvariant())
             {
                 case WorkforceManagement.Candidate:
                     {
@@ -103,7 +103,7 @@
 
                 case WorkforceManagement.Employer:
                     {
-                        element.TypeItemUId = new Guid(WorkforceManagement.Department);
+                        element.TypeItemUId = new Guid(WorkforceManagement.Employer);
                         element.ModuleUId = Helper.GetModule(element.TypeItemUId);
 
                         // Get all global properties associated with the element type

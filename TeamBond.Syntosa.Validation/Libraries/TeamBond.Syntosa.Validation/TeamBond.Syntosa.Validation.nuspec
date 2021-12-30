@@ -11,7 +11,7 @@
     <copyright>Copyright 2019</copyright>
     <tags>TeamBond.Syntosa.Validation</tags>
     <dependencies>
-	    <dependency id="Syntosa.Core" version="0.1.4" />
+	    <dependency id="Syntosa.Core" version="0.1.5" />
     </dependencies>
   </metadata>
 </package>
