@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using global::Syntosa.Core.DataAccessLayer;
     using global::Syntosa.Core.ObjectModel;
     using global::Syntosa.Core.ObjectModel.CoreClasses;
     using global::Syntosa.Core.ObjectModel.CoreClasses.Edge;
@@ -30,6 +31,17 @@
         /// </param>
         public ElementValidator(string connectionString)
             : base(connectionString)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ElementValidator"/> class.
+        /// </summary>
+        /// <param name="syntosaDal">
+        /// The syntosa dal.
+        /// </param>
+        public ElementValidator(SyntosaDal syntosaDal)
+            : base(syntosaDal)
         {
         }
 
@@ -63,6 +75,7 @@
                         validationResults = this.ValidateJobPosting(record);
                         break;
                     }
+
                 case WorkforceManagement.Employer:
                     {
                         validationResults = this.ValidateEmployer(record);
@@ -76,14 +89,14 @@
         /// <inheritdoc />
         public override Element GetPrototypeByTypeUId(string typeUId)
         {
-            return ElementFactory.GetPrototype(typeUId, this.SyntoDal);
+            return ElementFactory.GetPrototype(typeUId, this.syntoDal);
         }
 
         /// <inheritdoc />
         public override Element GetPrototypeByTypeName(string typeName)
         {
             // Lookup type by name from an internal dictionary
-            List<TypeItem> typeItems = this.SyntoDal.GetTypeItemByAny(typeItemName: typeName);
+            List<TypeItem> typeItems = this.syntoDal.GetTypeItemByAny(typeItemName: typeName);
 
             if (typeItems.Count > 1)
             {
@@ -95,13 +108,13 @@
                 throw new Exception("Search did not return any Type UId for string: " + typeName);
             }
 
-            return ElementFactory.GetPrototype(typeItems[0].UId.ToString(), this.SyntoDal);
+            return ElementFactory.GetPrototype(typeItems[0].UId.ToString(), this.syntoDal);
         }
 
         /// <inheritdoc />
         public override Element GetPrototypeByUId(Guid uid)
         {
-            Element element = this.SyntoDal.GetElementByUId(uid);
+            Element element = this.syntoDal.GetElementByUId(uid);
 
             if (element != null)
             {
@@ -136,13 +149,22 @@
                 return edgeElementElement.TargetElementTypeUId.ToString();
             }
 
-            Element edgeTargetElement = this.SyntoDal.GetElementByUId(
+            Element edgeTargetElement = this.syntoDal.GetElementByUId(
                 edgeElementElement.TargetElementUId,
                 asComposite: false);
 
             return edgeTargetElement?.TypeItemUId.ToString();
         }
 
+        /// <summary>
+        /// Validates the given Employer <paramref name="element"/>
+        /// </summary>
+        /// <param name="element">
+        /// The element to validate
+        /// </param>
+        /// <returns>
+        /// The <see cref="ValidationResult{Element}"/> indicating whether or not the validation succeeded.
+        /// </returns>
         private ValidationResult<Element> ValidateEmployer(Element element)
         {
             var validationResult = new ValidationResult<Element>();
@@ -318,7 +340,7 @@
         {
             if (edgeClass.TypeFunctionUId != null && edgeElementTypeItemUId != Guid.Empty)
             {
-                TypeItem typeItem = this.SyntoDal.GetTypeItemByUId(edgeElementTypeItemUId);
+                TypeItem typeItem = this.syntoDal.GetTypeItemByUId(edgeElementTypeItemUId);
 
                 if (typeItem is null)
                 {
