@@ -211,7 +211,7 @@
                     continue;
                 }
 
-                var elementGlobalProperty = new ElementGlobalProperty()
+                var elementGlobalProperty = new ElementGlobalProperty
                                                 {
                                                     TypeItemUId = item.UId,
                                                     Name = item.Name,
