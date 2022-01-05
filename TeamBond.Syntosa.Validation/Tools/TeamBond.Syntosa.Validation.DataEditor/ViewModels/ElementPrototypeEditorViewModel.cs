@@ -44,9 +44,24 @@
         private string description;
 
         /// <summary>
+        /// The element alias.
+        /// </summary>
+        private string elementAlias;
+
+        /// <summary>
+        /// The type name.
+        /// </summary>
+        private string elementName;
+
+        /// <summary>
         /// The errors.
         /// </summary>
         private string errors;
+
+        /// <summary>
+        /// The has errors.
+        /// </summary>
+        private bool hasErrors;
 
         /// <summary>
         /// A value indicating whether this type has a parent.
@@ -54,14 +69,9 @@
         private bool hasParent;
 
         /// <summary>
-        /// The element alias.
+        /// A value indicating whether the user has selected an element to edit.
         /// </summary>
-        private string elementAlias;
-
-        /// <summary>
-        /// The has errors.
-        /// </summary>
-        private bool hasErrors;
+        private bool hasSelected;
 
         /// <summary>
         /// A value indicating whether the type is active.
@@ -84,14 +94,24 @@
         private bool isElementSelected;
 
         /// <summary>
+        /// The selected domain name.
+        /// </summary>
+        private string selectedDomainName;
+
+        /// <summary>
+        /// The selected element to update.
+        /// </summary>
+        private string selectedElementToUpdateName;
+
+        /// <summary>
         /// The module auto collect name.
         /// </summary>
         private string selectedModuleName;
 
         /// <summary>
-        /// The selected domain name.
+        /// The selected element parent name.
         /// </summary>
-        private string selectedDomainName;
+        private string selectedParentElementName;
 
         /// <summary>
         /// The parent type item name.
@@ -104,27 +124,12 @@
         private string selectedTypeRecordName;
 
         /// <summary>
-        /// The selected element parent name.
-        /// </summary>
-        private string selectedParentElementName;
-
-        /// <summary>
-        /// The selected element to update.
-        /// </summary>
-        private string selectedElementToUpdateName;
-
-        /// <summary>
         /// The sort order.
         /// </summary>
         private string sortOrder;
 
         /// <summary>
-        /// The type name.
-        /// </summary>
-        private string elementName;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ElementPrototypeEditorViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ElementPrototypeEditorViewModel" /> class.
         /// </summary>
         public ElementPrototypeEditorViewModel()
         {
@@ -135,12 +140,8 @@
 
             this.SelectElement = ReactiveCommand.Create(this.GetElementToUpdate);
             this.InsertElement = ReactiveCommand.Create(this.UpdateElement);
+            this.DeleteElement = ReactiveCommand.Create(this.RemoveElement);
         }
-
-        /// <summary>
-        /// Gets or sets the current user identifier.
-        /// </summary>
-        public string CurrentUserIdentifier { get; set; }
 
         /// <summary>
         /// Gets the all domain names.
@@ -221,15 +222,6 @@
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether is element selected.
-        /// </summary>
-        public bool IsElementSelected
-        {
-            get => this.isElementSelected;
-            set => this.RaiseAndSetIfChanged(ref this.isElementSelected, value);
-        }
-
-        /// <summary>
         /// Gets the all type function names.
         /// </summary>
         public List<string> AllTypeItemNames
@@ -256,6 +248,11 @@
         }
 
         /// <summary>
+        /// Gets or sets the current user identifier.
+        /// </summary>
+        public string CurrentUserIdentifier { get; set; }
+
+        /// <summary>
         /// Gets or sets the description.
         /// </summary>
         public string Description
@@ -271,6 +268,15 @@
         {
             get => this.elementAlias;
             set => this.RaiseAndSetIfChanged(ref this.elementAlias, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the element name.
+        /// </summary>
+        public string ElementName
+        {
+            get => this.elementName;
+            set => this.RaiseAndSetIfChanged(ref this.elementName, value);
         }
 
         /// <summary>
@@ -301,12 +307,12 @@
         }
 
         /// <summary>
-        /// Gets or sets the selected type record name.
+        /// Gets or sets a value indicating whether the user has selected a type unit to edit.
         /// </summary>
-        public string SelectedTypeRecordName
+        public bool HasSelected
         {
-            get => this.selectedTypeRecordName;
-            set => this.RaiseAndSetIfChanged(ref this.selectedTypeRecordName, value);
+            get => this.hasSelected;
+            set => this.RaiseAndSetIfChanged(ref this.hasSelected, value);
         }
 
         /// <summary>
@@ -315,9 +321,9 @@
         public ReactiveCommand<Unit, Unit> InsertElement { get; }
 
         /// <summary>
-        /// Gets the select element.
+        /// Gets the insert type.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> SelectElement { get; }
+        public ReactiveCommand<Unit, Unit> DeleteElement { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether is active.
@@ -347,6 +353,15 @@
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether is element selected.
+        /// </summary>
+        public bool IsElementSelected
+        {
+            get => this.isElementSelected;
+            set => this.RaiseAndSetIfChanged(ref this.isElementSelected, value);
+        }
+
+        /// <summary>
         /// The is user admin.
         /// </summary>
         public bool IsUserAdmin => true;
@@ -358,6 +373,15 @@
         {
             get => this.selectedDomainName;
             set => this.RaiseAndSetIfChanged(ref this.selectedDomainName, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the selected element to update name.
+        /// </summary>
+        public string SelectedElementToUpdateName
+        {
+            get => this.selectedElementToUpdateName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedElementToUpdateName, value);
         }
 
         /// <summary>
@@ -388,13 +412,18 @@
         }
 
         /// <summary>
-        /// Gets or sets the selected element to update name.
+        /// Gets or sets the selected type record name.
         /// </summary>
-        public string SelectedElementToUpdateName
+        public string SelectedTypeRecordName
         {
-            get => this.selectedElementToUpdateName;
-            set => this.RaiseAndSetIfChanged(ref this.selectedElementToUpdateName, value);
+            get => this.selectedTypeRecordName;
+            set => this.RaiseAndSetIfChanged(ref this.selectedTypeRecordName, value);
         }
+
+        /// <summary>
+        /// Gets the select element.
+        /// </summary>
+        public ReactiveCommand<Unit, Unit> SelectElement { get; }
 
         /// <summary>
         /// Gets or sets the sort order.
@@ -403,100 +432,6 @@
         {
             get => this.sortOrder;
             set => this.RaiseAndSetIfChanged(ref this.sortOrder, value);
-        }
-
-        /// <summary>
-        /// Gets or sets the element name.
-        /// </summary>
-        public string ElementName
-        {
-            get => this.elementName;
-            set => this.RaiseAndSetIfChanged(ref this.elementName, value);
-        }
-
-        /// <summary>
-        /// The get element to update.
-        /// </summary>
-        private void GetElementToUpdate()
-        {
-            Guid elementToUpdateUId = this.AllElementNamesAndUIds[this.SelectedElementToUpdateName];
-            Element elementToUpdate = this.syntosaDal.GetElementByAny(elementUId: elementToUpdateUId).FirstOrDefault();
-
-            this.ElementName = elementToUpdate.Name;
-            this.SelectedTypeItemName = elementToUpdate.TypeItemName;
-            this.SelectedTypeRecordName = elementToUpdate.RecordStatus;
-            this.Description = elementToUpdate.Description;
-            this.ElementAlias = elementToUpdate.Alias;
-            this.SelectedDomainName = elementToUpdate.DomainName;
-            this.IsActive = elementToUpdate.IsActive;
-            this.HasParent = !elementToUpdate.ParentUId.Equals(Guid.Empty);
-
-            if (this.HasParent)
-            {
-                this.SelectedParentElementName = elementToUpdate.ParentName;
-            }
-
-            this.IsElementSelected = true;
-        }
-
-        /// <summary>
-        /// The build type item.
-        /// </summary>
-        private void UpdateElement()
-        {
-            var failureMessages = new StringBuilder();
-            Guid elementToUpdateUId = this.AllElementNamesAndUIds[this.SelectedElementToUpdateName];
-            Element elementToUpdate = this.syntosaDal.GetElementByAny(elementUId: elementToUpdateUId).FirstOrDefault();
-
-            elementToUpdate.DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName];
-            elementToUpdate.Alias = this.ElementAlias;
-            elementToUpdate.IsActive = this.IsActive;
-            elementToUpdate.IsBuiltIn = this.IsBuiltIn;
-            elementToUpdate.TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName];
-            elementToUpdate.TypeUIdRecordStatus = this.AllTypeItemNamesAndUIds[this.SelectedTypeRecordName];
-            elementToUpdate.ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName];
-            elementToUpdate.ModuleRecordKey = string.Empty;
-            elementToUpdate.IsAutoCollect = this.IsAutoCollect;
-            elementToUpdate.Name = this.ElementName;
-            elementToUpdate.Description = this.Description;
-            elementToUpdate.ParentUId = Guid.Empty;
-            elementToUpdate.ModifiedBy = this.userContext.CurrentUser.Email;
-                                     
-            if (this.HasParent)
-            {
-                if (string.IsNullOrWhiteSpace(this.SelectedParentElementName))
-                {
-                    failureMessages.AppendLine("Please select a parent element");
-                }
-                else
-                {
-                    elementToUpdate.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedParentElementName];
-                }
-            }
-
-            var elementValidator = new ElementValidator();
-            ValidationResult validationResult = elementValidator.Validate(elementToUpdate);
-            if (!validationResult.IsValid || failureMessages.Length != 0)
-            {
-                foreach (ValidationFailure failure in validationResult.Errors)
-                {
-                    failureMessages.AppendLine(
-                        $"Property ({failure.PropertyName}) failed validation with error ({failure.ErrorMessage}).");
-                }
-
-                this.HasErrors = true;
-                this.Errors = failureMessages.ToString();
-                return;
-            }
-
-            this.HasErrors = false;
-            this.Errors = string.Empty;
-            this.syntosaDal.UpdateElement(elementToUpdate);
-
-            // this.userActivityService.InsertActivity(
-            //    this.userContext.CurrentUser,
-            //    "Type Item Inserted",
-            //    $"{this.userContext.CurrentUser.Email} has inserted the type item named {createdTypeItem.Name} with UId {createdTypeItem.UId}");
         }
 
         /// <summary>
@@ -569,6 +504,109 @@
             }
 
             return typeItemNamesUIds;
+        }
+
+        /// <summary>
+        /// The get element to update.
+        /// </summary>
+        private void GetElementToUpdate()
+        {
+            Guid elementToUpdateUId = this.AllElementNamesAndUIds[this.SelectedElementToUpdateName];
+            Element elementToUpdate = this.syntosaDal.GetElementByAny(elementUId: elementToUpdateUId).FirstOrDefault();
+
+            this.ElementName = elementToUpdate.Name;
+            this.SelectedTypeItemName = elementToUpdate.TypeItemName;
+            this.SelectedTypeRecordName = elementToUpdate.RecordStatus;
+            this.Description = elementToUpdate.Description;
+            this.ElementAlias = elementToUpdate.Alias;
+            this.SelectedDomainName = elementToUpdate.DomainName;
+            this.IsActive = elementToUpdate.IsActive;
+            this.HasParent = !elementToUpdate.ParentUId.Equals(Guid.Empty);
+
+            if (this.HasParent)
+            {
+                this.SelectedParentElementName = elementToUpdate.ParentName;
+            }
+
+            this.IsElementSelected = true;
+        }
+
+        private void RemoveElement()
+        {
+            this.syntosaDal.DeleteTypeUnit(this.AllElementNamesAndUIds[this.SelectedElementToUpdateName]);
+            this.HasErrors = false;
+            this.Errors = string.Empty;
+            this.Return();
+        }
+
+        /// <summary>
+        /// Return this view to its selection configuration.
+        /// </summary>
+        private void Return()
+        {
+            this.selectedElementToUpdateName = string.Empty;
+            this.HasParent = false;
+            this.HasSelected = false;
+        }
+
+        /// <summary>
+        /// The build type item.
+        /// </summary>
+        private void UpdateElement()
+        {
+            var failureMessages = new StringBuilder();
+            Guid elementToUpdateUId = this.AllElementNamesAndUIds[this.SelectedElementToUpdateName];
+            Element elementToUpdate = this.syntosaDal.GetElementByAny(elementUId: elementToUpdateUId).FirstOrDefault();
+
+            elementToUpdate.DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName];
+            elementToUpdate.Alias = this.ElementAlias;
+            elementToUpdate.IsActive = this.IsActive;
+            elementToUpdate.IsBuiltIn = this.IsBuiltIn;
+            elementToUpdate.TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName];
+            elementToUpdate.TypeUIdRecordStatus = this.AllTypeItemNamesAndUIds[this.SelectedTypeRecordName];
+            elementToUpdate.ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName];
+            elementToUpdate.ModuleRecordKey = string.Empty;
+            elementToUpdate.IsAutoCollect = this.IsAutoCollect;
+            elementToUpdate.Name = this.ElementName;
+            elementToUpdate.Description = this.Description;
+            elementToUpdate.ParentUId = Guid.Empty;
+            elementToUpdate.ModifiedBy = this.userContext.CurrentUser.Email;
+
+            if (this.HasParent)
+            {
+                if (string.IsNullOrWhiteSpace(this.SelectedParentElementName))
+                {
+                    failureMessages.AppendLine("Please select a parent element");
+                }
+                else
+                {
+                    elementToUpdate.ParentUId = this.AllTypeItemNamesAndUIds[this.SelectedParentElementName];
+                }
+            }
+
+            var elementValidator = new ElementValidator();
+            ValidationResult validationResult = elementValidator.Validate(elementToUpdate);
+            if (!validationResult.IsValid || failureMessages.Length != 0)
+            {
+                foreach (ValidationFailure failure in validationResult.Errors)
+                {
+                    failureMessages.AppendLine(
+                        $"Property ({failure.PropertyName}) failed validation with error ({failure.ErrorMessage}).");
+                }
+
+                this.HasErrors = true;
+                this.Errors = failureMessages.ToString();
+                return;
+            }
+
+            this.HasErrors = false;
+            this.Errors = string.Empty;
+            this.syntosaDal.UpdateElement(elementToUpdate);
+
+            // this.userActivityService.InsertActivity(
+            // this.userContext.CurrentUser,
+            // "Type Item Inserted",
+            // $"{this.userContext.CurrentUser.Email} has inserted the type item named {createdTypeItem.Name} with UId {createdTypeItem.UId}");
         }
     }
 }

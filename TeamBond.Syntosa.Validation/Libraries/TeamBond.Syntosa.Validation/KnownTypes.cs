@@ -1,7 +1,5 @@
 ﻿namespace TeamBond.Syntosa.Validation
 {
-    using System;
-
     /// <summary>
     /// Represents the unique identifiers for TeamBond Modules
     /// </summary>
@@ -95,21 +93,6 @@
         /// The employer contact name global property.
         /// </summary>
         public const string EmployerContactName = "E2EB9E35-4D9D-4CB3-9960-E9B2D1152709";
-
-        /// <summary>
-        /// The UIds of the employees associated with this employer
-        /// </summary>
-        public const string EmployeeUIds = "38E9129D-E258-4A50-9BF3-FEC9BD512BE4";
-
-        /// <summary>
-        /// The UIds of the divisions associated with this employer
-        /// </summary>
-        public const string DivisionUIds = "3FA6C7EC-37A9-4642-9A9D-F238F896D8CE";
-
-        /// <summary>
-        /// The UIds of the brokers associated with this employer
-        /// </summary>
-        public const string BrokerUIds = "E7B99D21-6321-4ADF-BAB5-A729360B39AF";
     }
 
     /// <summary>

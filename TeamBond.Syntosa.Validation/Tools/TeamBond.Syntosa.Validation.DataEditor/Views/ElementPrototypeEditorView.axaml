@@ -178,22 +178,32 @@
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
-      <TextBox DockPanel.Dock="Top"
-               Watermark="Sort order"
-               IsVisible="{Binding IsElementSelected}"
-               Text="{Binding SortOrder}"/>
-      <Button Command="{Binding InsertElement}"
-              DockPanel.Dock="Top"
-              IsVisible="{Binding IsElementSelected}"
-              Content="Insert the type"
-              Height="30"/>
-      <TextBlock DockPanel.Dock="Top"
+        <Button DockPanel.Dock="Top"
+                Content="Next"
+                Command="{Binding Next}"
+                IsVisible="{Binding !IsElementSelected}"
+                Height="30"/>
+        <Button DockPanel.Dock="Top"
+                Content="Update Type Unit"
+                IsVisible="{Binding IsElementSelected}"
+                Height="30"
+                Command="{Binding UpdateTypeUnit}"/>
+        <Button DockPanel.Dock="Top"
+                Content="Back"
+                Command="{Binding Back}"
+                IsVisible="{Binding IsElementSelected}"
+                Height="30"/>
+        <Button DockPanel.Dock="Top"
+                Content="Delete Type Unit"
+                Command="{Binding DeleteElement}"
+                Height="30"/>
+        <TextBlock DockPanel.Dock="Top"
+                   IsVisible="{Binding HasErrors}"
+                   Text="Please fix these errors"/>
+        <TextBox DockPanel.Dock="Top"
                  IsVisible="{Binding HasErrors}"
-                 Text="Please fix these errors"/>
-      <TextBox DockPanel.Dock="Top"
-               IsVisible="{Binding HasErrors}"
-               Text="{Binding Errors}"
-               IsReadOnly="True"/>
+                 Text="{Binding Errors}"
+                 IsReadOnly="True"/>
     </DockPanel>
   </ScrollViewer>
 </UserControl>

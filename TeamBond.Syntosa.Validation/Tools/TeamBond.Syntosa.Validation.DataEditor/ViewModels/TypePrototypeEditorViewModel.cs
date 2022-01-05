@@ -792,21 +792,10 @@
         /// </summary>
         private void RemoveTypeItem()
         {
-            if (!this.HasErrors && string.IsNullOrWhiteSpace(this.Errors))
-            {
-                this.HasErrors = true;
-                this.Errors = "To confirm deletion of this type unit press the 'Delete Type Item' Button again.";
-                return;
-            }
-
-            if (this.HasErrors && this.Errors.Equals(
-                    "To confirm deletion of this type unit press the 'Delete Type Type Item' Button again."))
-            {
-                this.syntosaDal.DeleteTypeUnit(this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName]);
-                this.HasErrors = false;
-                this.Errors = string.Empty;
-                this.Return();
-            }
+            this.syntosaDal.DeleteTypeItem(this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName]);
+            this.HasErrors = false;
+            this.Errors = string.Empty;
+            this.Return();
         }
 
         /// <summary>
