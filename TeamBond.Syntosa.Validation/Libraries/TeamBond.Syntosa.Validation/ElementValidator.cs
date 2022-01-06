@@ -81,6 +81,12 @@
                         validationResults = this.ValidateEmployer(record);
                         break;
                     }
+
+                case WorkforceManagement.Division:
+                    {
+                        validationResults = this.ValidateDivision(record);
+                        break;
+                    }
             }
 
             return validationResults;
@@ -154,6 +160,76 @@
                 asComposite: false);
 
             return edgeTargetElement?.TypeItemUId.ToString();
+        }
+
+        /// <summary>
+        /// Validates the given Division <paramref name="element"/>
+        /// </summary>
+        /// <param name="element">
+        /// The element to validate
+        /// </param>
+        /// <returns>
+        /// The <see cref="ValidationResult{Element}"/> indicating whether or not the validation succeeded.
+        /// </returns>
+        private ValidationResult<Element> ValidateDivision(Element element)
+        {
+            var validationResult = new ValidationResult<Element>();
+
+            ElementGlobalProperty divisionAcronym = element.GlobalProperties.FirstOrDefault(
+                property => property.Value.TypeItemUId.ToString().Equals(
+                    GlobalPropertyTypes.DivisionAcronym,
+                    StringComparison.OrdinalIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(divisionAcronym.Attribute))
+            {
+                validationResult.MemberNames.Add(divisionAcronym.Attribute);
+                validationResult.Exceptions.Add(
+                    new Exception($"{divisionAcronym.Name} was missing a value"));
+            }
+
+            ElementGlobalProperty divisionLeadName = element.GlobalProperties.FirstOrDefault(
+                property => property.Value.TypeItemUId.ToString().Equals(
+                    GlobalPropertyTypes.DivisionLeadName,
+                    StringComparison.OrdinalIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(divisionLeadName.Attribute))
+            {
+                validationResult.MemberNames.Add(divisionLeadName.Attribute);
+                validationResult.Exceptions.Add(
+                    new Exception($"{divisionLeadName.Name} was missing a value"));
+            }
+
+            ElementGlobalProperty divisionLeadContactEmail = element.GlobalProperties.FirstOrDefault(
+                property => property.Value.TypeItemUId.ToString().Equals(
+                    GlobalPropertyTypes.DivisionLeadContactEmail,
+                    StringComparison.OrdinalIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(divisionLeadContactEmail.Attribute))
+            {
+                validationResult.MemberNames.Add(divisionLeadContactEmail.Attribute);
+                validationResult.Exceptions.Add(
+                    new Exception($"{divisionLeadContactEmail.Name} was missing a value"));
+            }
+
+            // Validate mandatory edges
+            var edges = new List<EdgeClass>
+                            {
+                                new EdgeClass
+                                    {
+                                        Id = 1,
+                                        TypeFunctionUId = null,
+                                        TypeItemUId = WorkforceManagement.Employer,
+                                        EdgeElementUId = EdgeTypes.DependsOn,
+                                        EdgeCount = 0,
+                                        TypeName = "Employer",
+                                        EdgeName = "Depends On"
+                                    }
+                            };
+
+            this.ValidateMandatoryEdges(element, edges, ref validationResult);
+
+            validationResult.Success = validationResult.Exceptions.Count == 0;
+            return validationResult;
         }
 
         /// <summary>
