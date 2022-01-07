@@ -93,6 +93,32 @@
         /// The employer contact name global property.
         /// </summary>
         public const string EmployerContactName = "E2EB9E35-4D9D-4CB3-9960-E9B2D1152709";
+
+        /// <summary>
+        /// The division acronym global property.
+        /// </summary>
+        public const string DivisionAcronym = "B8AB0B30-DD6B-464F-B9D6-61624D4134F4";
+
+        /// <summary>
+        /// The division lead name global property.
+        /// </summary>
+        public const string DivisionLeadName = "C90AEB37-468E-4B86-AA78-99D79456130D";
+
+        /// <summary>
+        /// The division lead contact email global property.
+        /// </summary>
+        public const string DivisionLeadContactEmail = "EA474C84-07D3-45DA-B9B1-7794A2392D03";
+    }
+
+    /// <summary>
+    /// Represents the unique identifiers for the TeamBond edge label types.
+    /// </summary>
+    public struct EdgeLabelTypes
+    {
+        /// <summary>
+        /// The employer edge label type.
+        /// </summary>
+        public const string Employer = "61E61847-4CB6-42D8-89B9-9C22878B2882";
     }
 
     /// <summary>
