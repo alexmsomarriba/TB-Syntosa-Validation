@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Alex Somarriba</Authors>
-    <Version>0.1.12</Version>
+    <Version>0.1.13</Version>
     <Company>TeamBond Inc.</Company>
     <Description>This package contains the classes that contain validation methods for syntosa objects</Description>
     <PackageTags>TeamBond.Validation</PackageTags>
