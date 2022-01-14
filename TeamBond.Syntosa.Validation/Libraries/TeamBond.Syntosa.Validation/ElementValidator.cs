@@ -432,9 +432,9 @@
             }
             else
             {
-                if (string.Equals(edgeClass.TypeItemUId, edgeElementTypeItemUId.ToString()) && string.Equals(
+                if (string.Equals(edgeClass.TypeItemUId, edgeElementTypeItemUId.ToString().ToUpperInvariant()) && string.Equals(
                         edgeClass.EdgeElementUId,
-                        edgeElementElement.TypeItemUId.ToString()))
+                        edgeElementElement.TypeItemUId.ToString().ToUpperInvariant()))
                 {
                     return true;
                 }
@@ -484,7 +484,7 @@
                 {
                     validationResult.Exceptions.Add(
                         new Exception(
-                            $"Component 'element.Name' is missing or contains inactive mandatory edge for '{mandatoryEdge.TypeName}'."));
+                            $"Component '{element.Name}' is missing or contains inactive mandatory edge for '{mandatoryEdge.TypeName}'."));
                 }
 
                 if (mandatoryEdge.EdgeProperties is null)

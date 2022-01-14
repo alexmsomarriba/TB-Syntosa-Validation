@@ -761,9 +761,14 @@
         {
             var typeItems = this.syntosaDal.GetTypeItemByAny(isAssignable: true);
             var typeItemNamesUIds = new Dictionary<string, Guid>();
-            foreach (var typeFunction in typeItems)
+            foreach (var typeItem in typeItems)
             {
-                typeItemNamesUIds.Add(typeFunction.Name, typeFunction.UId);
+                if (string.Equals(typeItem.TypeFunctionName, "EdgeLabels"))
+                {
+                    typeItem.Name = typeItem.Name + "(Edge Label)";
+                }
+
+                typeItemNamesUIds.Add(typeItem.Name, typeItem.UId);
             }
 
             return typeItemNamesUIds;
