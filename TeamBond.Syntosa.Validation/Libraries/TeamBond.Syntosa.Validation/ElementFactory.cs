@@ -120,6 +120,23 @@
                         break;
                     }
 
+                case WorkforceManagement.Team:
+                    {
+                        element.TypeItemUId = new Guid(WorkforceManagement.Team);
+                        element.ModuleUId = Helper.GetModule(element.TypeItemUId);
+
+                        GenerateGlobalProperties(element, syntosaDal);
+                        
+                        element.ElementEdges.Add(
+                            new EdgeElementElement
+                                {
+                                    TypeItemUId = new Guid(EdgeTypes.BelongsTo),
+                                    LabelUId = new Guid(EdgeLabelTypes.Division),
+                                    LabelName = syntosaDal.GetTypeItemByUId(new Guid(EdgeLabelTypes.Division)).Name
+                                });
+                        break;
+                    }
+
                 case WorkforceManagement.Employer:
                     {
                         element.TypeItemUId = new Guid(WorkforceManagement.Employer);

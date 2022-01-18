@@ -286,6 +286,76 @@
         }
 
         /// <summary>
+        /// Validates the given Team <paramref name="element"/>
+        /// </summary>
+        /// <param name="element">
+        /// The element to validate
+        /// </param>
+        /// <returns>
+        /// The <see cref="ValidationResult{Element}"/> indicating whether or not the validation succeeded.
+        /// </returns>
+        private ValidationResult<Element> ValidateTeam(Element element)
+        {
+            var validationResult = new ValidationResult<Element>();
+
+            ElementGlobalProperty teamAcronym = element.GlobalProperties.FirstOrDefault(
+                property => property.Value.TypeItemUId.ToString().Equals(
+                    GlobalPropertyTypes.TeamAcronym,
+                    StringComparison.OrdinalIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(teamAcronym.Attribute))
+            {
+                validationResult.MemberNames.Add(teamAcronym.Attribute);
+                validationResult.Exceptions.Add(
+                    new Exception($"{teamAcronym.Name} was missing a value"));
+            }
+
+            ElementGlobalProperty teamLeadName = element.GlobalProperties.FirstOrDefault(
+                property => property.Value.TypeItemUId.ToString().Equals(
+                    GlobalPropertyTypes.TeamLeadName,
+                    StringComparison.OrdinalIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(teamLeadName.Attribute))
+            {
+                validationResult.MemberNames.Add(teamLeadName.Attribute);
+                validationResult.Exceptions.Add(
+                    new Exception($"{teamLeadName.Name} was missing a value"));
+            }
+
+            ElementGlobalProperty teamLeadContactEmail = element.GlobalProperties.FirstOrDefault(
+                property => property.Value.TypeItemUId.ToString().Equals(
+                    GlobalPropertyTypes.TeamLeadContactEmail,
+                    StringComparison.OrdinalIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(teamLeadContactEmail.Attribute))
+            {
+                validationResult.MemberNames.Add(teamLeadContactEmail.Attribute);
+                validationResult.Exceptions.Add(
+                    new Exception($"{teamLeadContactEmail.Name} was missing a value"));
+            }
+
+            // Validate mandatory edges
+            var edges = new List<EdgeClass>
+                            {
+                                new EdgeClass
+                                    {
+                                        Id = 1,
+                                        TypeFunctionUId = null,
+                                        TypeItemUId = WorkforceManagement.Division,
+                                        EdgeElementUId = EdgeTypes.BelongsTo,
+                                        EdgeCount = 0,
+                                        TypeName = "Division",
+                                        EdgeName = "Belongs To"
+                                    }
+                            };
+
+            this.ValidateMandatoryEdges(element, edges, ref validationResult);
+
+            validationResult.Success = validationResult.Exceptions.Count == 0;
+            return validationResult;
+        }
+
+        /// <summary>
         /// Validates the given worker element.
         /// </summary>
         /// <param name="element">
