@@ -108,6 +108,21 @@
         /// The division lead contact email global property.
         /// </summary>
         public const string DivisionLeadContactEmail = "EA474C84-07D3-45DA-B9B1-7794A2392D03";
+
+        /// <summary>
+        /// The team acronym global property.
+        /// </summary>
+        public const string TeamAcronym = "52E72F04-4D04-4E1C-A332-2D9A5F91BC01";
+
+        /// <summary>
+        /// The team lead name global property.
+        /// </summary>
+        public const string TeamLeadName = "4315445A-FC40-4196-B7AD-7EA2B670C777";
+
+        /// <summary>
+        /// The division lead contact email global property.
+        /// </summary>
+        public const string TeamLeadContactEmail = "891F60E6-DEFB-4F72-86AE-08B723324E8A";
     }
 
     /// <summary>
@@ -119,6 +134,11 @@
         /// The employer edge label type.
         /// </summary>
         public const string Employer = "61E61847-4CB6-42D8-89B9-9C22878B2882";
+
+        /// <summary>
+        /// The division edge label type.
+        /// </summary>
+        public const string Division = "33C92673-FBE4-48BD-A0E1-8F38029F2ED2";
     }
 
     /// <summary>
@@ -236,6 +256,6 @@
         /// <summary>
         /// The TeamBond workforce management type constant for the for the team type.
         /// </summary>
-        public const string Team = "c0abb9ce-d688-4ccf-90e8-35d0211829b0";
+        public const string Team = "C0ABB9CE-D688-4CCF-90E8-35D0211829B0";
     }
 }
