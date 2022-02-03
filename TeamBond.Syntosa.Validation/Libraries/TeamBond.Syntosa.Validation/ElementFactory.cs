@@ -106,7 +106,7 @@
                         element.TypeItemUId = new Guid(WorkforceManagement.Division);
                         element.ModuleUId = Helper.GetModule(element.TypeItemUId);
 
-                        // Get all global properties assocaited with the element type
+                        // Get all global properties associated with the element type
                         GenerateGlobalProperties(element, syntosaDal);
 
                         element.ElementEdges.Add(
@@ -134,6 +134,24 @@
                                     LabelUId = new Guid(EdgeLabelTypes.Division),
                                     LabelName = syntosaDal.GetTypeItemByUId(new Guid(EdgeLabelTypes.Division)).Name
                                 });
+                        break;
+                    }
+
+                case WorkforceManagement.Squad:
+                    {
+                        element.TypeItemUId = new Guid(WorkforceManagement.Squad);
+                        element.ModuleUId = Helper.GetModule(element.TypeItemUId);
+
+                        GenerateGlobalProperties(element, syntosaDal);
+
+                        element.ElementEdges.Add(
+                            new EdgeElementElement
+                                {
+                                    TypeItemUId = new Guid(EdgeTypes.BelongsTo),
+                                    LabelUId = new Guid(EdgeLabelTypes.Team),
+                                    LabelName = syntosaDal.GetTypeItemByUId(new Guid(EdgeLabelTypes.Team)).Name
+                                });
+
                         break;
                     }
 

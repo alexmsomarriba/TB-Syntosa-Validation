@@ -87,6 +87,12 @@
                         validationResults = this.ValidateDivision(record);
                         break;
                     }
+
+                case WorkforceManagement.Team:
+                    {
+                        validationResults = this.ValidateTeam(record);
+                        break;
+                    }
             }
 
             return validationResults;

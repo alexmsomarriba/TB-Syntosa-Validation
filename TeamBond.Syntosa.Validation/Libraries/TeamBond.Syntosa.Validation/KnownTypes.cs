@@ -1,5 +1,7 @@
 ﻿namespace TeamBond.Syntosa.Validation
 {
+    using System;
+
     /// <summary>
     /// Represents the unique identifiers for TeamBond Modules
     /// </summary>
@@ -123,6 +125,21 @@
         /// The division lead contact email global property.
         /// </summary>
         public const string TeamLeadContactEmail = "891F60E6-DEFB-4F72-86AE-08B723324E8A";
+
+        /// <summary>
+        /// The team acronym global property.
+        /// </summary>
+        public const string SquadAcronym = "";
+
+        /// <summary>
+        /// The team lead name global property.
+        /// </summary>
+        public const string SquadLeadName = "";
+
+        /// <summary>
+        /// The division lead contact email global property.
+        /// </summary>
+        public const string SquadLeadContactEmail = "";
     }
 
     /// <summary>
@@ -139,6 +156,11 @@
         /// The division edge label type.
         /// </summary>
         public const string Division = "33C92673-FBE4-48BD-A0E1-8F38029F2ED2";
+
+        /// <summary>
+        /// The team edge label.
+        /// </summary>
+        public const string Team = "";
     }
 
     /// <summary>
@@ -257,5 +279,10 @@
         /// The TeamBond workforce management type constant for the for the team type.
         /// </summary>
         public const string Team = "C0ABB9CE-D688-4CCF-90E8-35D0211829B0";
+
+        /// <summary>
+        /// The TeamBond workforce management type constant for the for the team type.
+        /// </summary>
+        public const string Squad = "";
     }
 }
