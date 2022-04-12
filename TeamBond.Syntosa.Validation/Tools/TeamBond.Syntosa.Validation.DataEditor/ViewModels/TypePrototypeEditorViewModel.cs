@@ -1,4 +1,6 @@
-﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
+﻿using TeamBond.Services.Audit;
+
+namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -32,12 +34,7 @@
         /// The user activity service.
         /// </summary>
         private readonly IUserActivityService userActivityService;
-
-        /// <summary>
-        /// The application context.
-        /// </summary>
-        private readonly IUserContext userContext;
-
+        
         /// <summary>
         /// The user service.
         /// </summary>
@@ -155,7 +152,6 @@
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
             this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
 
             this.isDeleteVisible = false;
@@ -704,7 +700,7 @@
                 return;
             }
 
-            updatedTypeItem.ModifiedBy = this.userContext.CurrentUser.Email;
+            updatedTypeItem.ModifiedBy = "alex@teambond.io";
             this.HasErrors = false;
             this.Errors = string.Empty;
             this.syntosaDal.UpdateTypeItem(updatedTypeItem);
@@ -820,15 +816,7 @@
 
             this.HasSelected = true;
 
-            IList<UserRole> userRoles = this.userService.GetUserRoles(this.userContext.CurrentUser);
-
-            if (userRoles.Any(
-                userRole => userRole.SystemName.Equals(
-                    SystemUserRoleNames.TeamBondSuperUsers,
-                    StringComparison.OrdinalIgnoreCase)))
-            {
-                this.IsDeleteVisible = true;
-            }
+            this.IsDeleteVisible = true;
 
             this.CurrentName = typeItemToEdit.Name;
             this.CurrentDescription = typeItemToEdit.Description;

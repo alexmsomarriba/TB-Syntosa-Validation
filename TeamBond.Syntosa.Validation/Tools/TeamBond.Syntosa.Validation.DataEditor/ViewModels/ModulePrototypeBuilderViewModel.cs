@@ -27,11 +27,6 @@
         private readonly SyntosaDal syntosaDal;
 
         /// <summary>
-        /// The user context.
-        /// </summary>
-        private readonly IUserContext userContext;
-
-        /// <summary>
         /// The module description.
         /// </summary>
         private string description;
@@ -77,7 +72,6 @@
         public ModulePrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.CreateModule = ReactiveCommand.Create(this.BuildModule);
         }
@@ -192,14 +186,14 @@
         {
             var failureMessage = new StringBuilder();
             var createdModule = new Module
-                                    {
-                                        Name = this.Name,
-                                        Description = this.Description,
-                                        IsActive = this.isActive,
-                                        IsBuiltIn = this.IsBuiltIn,
-                                        ParentUId = Guid.Empty,
-                                        ModifiedBy = this.userContext.CurrentUser.Email
-                                    };
+            {
+                Name = this.Name,
+                Description = this.Description,
+                IsActive = this.isActive,
+                IsBuiltIn = this.IsBuiltIn,
+                ParentUId = Guid.Empty,
+                ModifiedBy = "alex@teambond.io"
+            };
 
             if (this.HasParent)
             {

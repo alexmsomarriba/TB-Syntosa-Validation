@@ -1,4 +1,6 @@
-﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
+﻿using TeamBond.Services.Audit;
+
+namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -31,11 +33,6 @@
         /// The user activity service.
         /// </summary>
         private readonly IUserActivityService userActivityService;
-
-        /// <summary>
-        /// The user context.
-        /// </summary>
-        private readonly IUserContext userContext;
 
         /// <summary>
         /// The name of the selected module to edit.
@@ -104,7 +101,6 @@
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.HasSelected = false;
             this.HasParent = false;
@@ -374,7 +370,7 @@
                 return;
             }
 
-            updatedModule.ModifiedBy = this.userContext.CurrentUser.Email;
+            updatedModule.ModifiedBy = "alex@teambond.io";
             this.syntosaDal.UpdateModule(updatedModule);
             
             // this.userActivityService.InsertActivity(

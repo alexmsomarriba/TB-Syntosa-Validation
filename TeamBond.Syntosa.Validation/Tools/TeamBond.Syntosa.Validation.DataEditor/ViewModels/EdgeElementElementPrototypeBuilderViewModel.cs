@@ -1,4 +1,6 @@
-﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
+﻿using TeamBond.Services.Users;
+
+namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -27,11 +29,6 @@
         /// The syntosa dal.
         /// </summary>
         private readonly SyntosaDal syntosaDal;
-
-        /// <summary>
-        /// The user context.
-        /// </summary>
-        private readonly IUserContext userContext;
 
         /// <summary>
         /// The source element name.
@@ -64,7 +61,6 @@
         public EdgeElementElementPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.InsertEdgeElementElement = ReactiveCommand.Create(this.CreateEdgeElementElement);
         }
@@ -185,7 +181,7 @@
                                                         this.AllElementNamesAndUIds[this.SelectedTargetElementName],
                                                     TypeItemUId =
                                                         this.AllTypeItemsNamesAndUIds[this.selectedEdgeTypeName],
-                                                    ModifiedBy = this.userContext.CurrentUser.Email
+                                                    ModifiedBy = "alex@teambond.io"
                                                 };
 
             var edgeElementElementValidator = new EdgeElementElementValidator();

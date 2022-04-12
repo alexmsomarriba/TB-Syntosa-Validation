@@ -1,4 +1,6 @@
-﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
+﻿using TeamBond.Services.Audit;
+
+namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -27,11 +29,6 @@
         /// The syntosa dal.
         /// </summary>
         private readonly SyntosaDal syntosaDal;
-
-        /// <summary>
-        /// The application context.
-        /// </summary>
-        private readonly IUserContext userContext;
 
         /// <summary>
         /// The user activity service.
@@ -101,7 +98,6 @@
             this.HasSelected = false;
 
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
 
             this.InsertTypeFunction = ReactiveCommand.Create(this.UpdateTypeFunction);
@@ -369,10 +365,9 @@
                 return;
             }
 
-            if (!updatedTypeFunction.ModifiedBy.Equals(this.userContext.CurrentUser.Email))
-            {
-                updatedTypeFunction.ModifiedBy = this.userContext.CurrentUser.Email;
-            }
+            updatedTypeFunction.ModifiedBy = "alex@teambond.io";
+
+
 
             this.HasErrors = false;
             this.Errors = string.Empty;

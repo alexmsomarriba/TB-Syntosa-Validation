@@ -27,11 +27,6 @@
         private readonly SyntosaDal syntosaDal;
 
         /// <summary>
-        /// The user context.
-        /// </summary>
-        private readonly IUserContext userContext;
-
-        /// <summary>
         /// The error.
         /// </summary>
         private string error;
@@ -77,7 +72,6 @@
         public PrivatePropertyPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.InsertPrivateProperty = ReactiveCommand.Create(this.CreatePrivateProperty);
         }
@@ -218,14 +212,14 @@
         {
             var failureMessage = new StringBuilder();
             var createdPrivateProperty = new ElementPrivateProperty
-                                             {
-                                                 PrivatePropertyKeyUId =
-                                                     this.AllPrivatePropertyKeyNamesAndUIds[this.SelectedPrivatePropertyKeyName],
-                                                 IsActive = this.IsActive,
-                                                 Attribute = this.PrivateAttribute,
-                                                 SortOrder = this.SortOrder,
-                                                 ModifiedBy = this.userContext.CurrentUser.Email
-                                             };
+            {
+                PrivatePropertyKeyUId =
+                    this.AllPrivatePropertyKeyNamesAndUIds[this.SelectedPrivatePropertyKeyName],
+                IsActive = this.IsActive,
+                Attribute = this.PrivateAttribute,
+                SortOrder = this.SortOrder,
+                ModifiedBy = "alex@teambond.io"
+            };
 
             if (this.HasParent)
             {

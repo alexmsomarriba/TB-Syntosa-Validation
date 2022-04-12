@@ -28,11 +28,6 @@
         private readonly SyntosaDal syntosaDal;
 
         /// <summary>
-        /// The user context.
-        /// </summary>
-        private readonly IUserContext userContext;
-
-        /// <summary>
         /// The errors.
         /// </summary>
         private string errors;
@@ -88,7 +83,6 @@
         public GlobalPropertyPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.InsertGlobalProperty = ReactiveCommand.Create(this.BuildGlobalProperty);
         }
@@ -273,15 +267,15 @@
         {
             var failureMessage = new StringBuilder();
             var createdGlobalProperty = new ElementGlobalProperty
-                                            {
-                                                Name = this.GlobalPropertyName,
-                                                Attribute = this.GlobalAttribute,
-                                                ElementUId = this.AllElementNamesAndUIds[this.SelectedElementName],
-                                                TypeItemUId = this.AllTypeItemNamesAndUIds[this.selectedTypeItemName],
-                                                IsActive = this.IsActive,
-                                                IsAutoCollect = this.isAutoCollect,
-                                                ModifiedBy = this.userContext.CurrentUser.Email,
-                                            };
+            {
+                Name = this.GlobalPropertyName,
+                Attribute = this.GlobalAttribute,
+                ElementUId = this.AllElementNamesAndUIds[this.SelectedElementName],
+                TypeItemUId = this.AllTypeItemNamesAndUIds[this.selectedTypeItemName],
+                IsActive = this.IsActive,
+                IsAutoCollect = this.isAutoCollect,
+                ModifiedBy = "alex@teambond.io"
+            };
 
             if (this.isAutoCollect)
             {

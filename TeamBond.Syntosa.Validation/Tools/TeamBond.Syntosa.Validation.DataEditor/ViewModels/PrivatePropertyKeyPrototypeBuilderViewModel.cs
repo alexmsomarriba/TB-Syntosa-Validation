@@ -28,11 +28,6 @@
         private readonly SyntosaDal syntosaDal;
 
         /// <summary>
-        /// The user context.
-        /// </summary>
-        private readonly IUserContext userContext;
-
-        /// <summary>
         /// The errors.
         /// </summary>
         private string errors;
@@ -93,7 +88,6 @@
         public PrivatePropertyKeyPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.InsertPrivatePropertyKey = ReactiveCommand.Create(this.CreatePrivatePropertyKey);
         }
@@ -313,17 +307,17 @@
         {
             var failureMessage = new StringBuilder();
             var createdPrivatePropertyKey = new ElementPrivatePropertyKey
-                                                {
-                                                    Name = this.PrivatePropertyKeyName,
-                                                    IsActive = this.IsActive,
-                                                    ElementUId = this.AllElementNamesAndUIds[this.SelectedElementName],
-                                                    TypeKeyUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeKeyName],
-                                                    TypeValueUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeValueName],
-                                                    TypeUnitUId = this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName],
-                                                    IsAutoCollect = this.IsAutoCollect,
-                                                    SortOrder = this.SortOrder,
-                                                    ModifiedBy = this.userContext.CurrentUser.Email,
-                                                };
+            {
+                Name = this.PrivatePropertyKeyName,
+                IsActive = this.IsActive,
+                ElementUId = this.AllElementNamesAndUIds[this.SelectedElementName],
+                TypeKeyUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeKeyName],
+                TypeValueUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeValueName],
+                TypeUnitUId = this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName],
+                IsAutoCollect = this.IsAutoCollect,
+                SortOrder = this.SortOrder,
+                ModifiedBy = "alex@teambond.io"
+            };
 
             if (this.IsAutoCollect)
             {

@@ -1,4 +1,6 @@
-﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
+﻿using TeamBond.Services.Audit;
+
+namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -32,11 +34,6 @@
         /// The user activity service.
         /// </summary>
         private readonly IUserActivityService userActivityService;
-
-        /// <summary>
-        /// The application context.
-        /// </summary>
-        private readonly IUserContext userContext;
 
         /// <summary>
         /// The type function name associated.
@@ -80,7 +77,6 @@
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.InsertTypeFunction = ReactiveCommand.Create(this.BuildTypeFunction);
         }
@@ -186,13 +182,13 @@
         {
             var failureMessage = new StringBuilder();
             var createdTypeFunction = new TypeFunction
-                                          {
-                                              Name = this.TypeFunctionName,
-                                              Description = this.TypeFunctionDescription,
-                                              IsActive = this.IsActive,
-                                              IsBuiltIn = this.IsBuiltIn,
-                                              ModifiedBy = this.userContext.CurrentUser.Email
-                                          };
+            {
+                Name = this.TypeFunctionName,
+                Description = this.TypeFunctionDescription,
+                IsActive = this.IsActive,
+                IsBuiltIn = this.IsBuiltIn,
+                ModifiedBy = "alex@teambond.io"
+            };
 
             if (string.IsNullOrWhiteSpace(this.SelectedModuleName))
             {

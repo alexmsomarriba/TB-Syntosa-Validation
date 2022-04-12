@@ -27,11 +27,6 @@
         private readonly SyntosaDal syntosaDal;
 
         /// <summary>
-        /// The user context.
-        /// </summary>
-        private readonly IUserContext userContext;
-
-        /// <summary>
         /// The account information.
         /// </summary>
         private string accountInformation;
@@ -82,7 +77,6 @@
         public DomainPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.CreateDomain = ReactiveCommand.Create(this.BuildDomain);
         }
@@ -206,15 +200,15 @@
         {
             var failureMessage = new StringBuilder();
             var createdDomain = new Domain
-                                    {
-                                        Name = this.Name,
-                                        AccountInformation = this.AccountInformation,
-                                        Description = this.Description,
-                                        IsActive = this.IsActive,
-                                        IsBuiltIn = this.IsBuiltIn,
-                                        ParentUId = Guid.Empty,
-                                        ModifiedBy = this.userContext.CurrentUser.Email
-                                    };
+            {
+                Name = this.Name,
+                AccountInformation = this.AccountInformation,
+                Description = this.Description,
+                IsActive = this.IsActive,
+                IsBuiltIn = this.IsBuiltIn,
+                ParentUId = Guid.Empty,
+                ModifiedBy = "alex@teambond.io"
+            };
 
             if (string.IsNullOrWhiteSpace(this.AccountInformation))
             {

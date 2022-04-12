@@ -20,11 +20,6 @@
     public class MainWindowViewModel : ViewModelBase
     {
         /// <summary>
-        /// The application context.
-        /// </summary>
-        private readonly IUserContext userContext;
-
-        /// <summary>
         /// The user registration service.
         /// </summary>
         private readonly IUserRegistrationService userRegistrationService;
@@ -185,7 +180,6 @@
 
             this.userRegistrationService = TeamBondEngineContext.Current.Resolve<IUserRegistrationService>();
             this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
             var settingsService = TeamBondEngineContext.Current.Resolve<ISettingsService>();
             var applicationContext = TeamBondEngineContext.Current.Resolve<IApplicationContext>();
 
@@ -622,8 +616,8 @@
                     this.SuccessfulLogin = true;
                     this.HasErrors = false;
                     this.errors = string.Empty;
-                    this.userContext.CurrentUser = this.userService.GetUserByEmail(this.Username);
-                    IList<UserRole> userRoles = this.userService.GetUserRoles(this.userContext.CurrentUser);
+                    User currentUser = this.userService.GetUserByEmail(this.Username);
+                    IList<UserRole> userRoles = this.userService.GetUserRoles(currentUser);
                     if (userRoles.Any(
                         userRole => userRole.SystemName.Equals(
                             SystemUserRoleNames.TeamBondSuperUsers,

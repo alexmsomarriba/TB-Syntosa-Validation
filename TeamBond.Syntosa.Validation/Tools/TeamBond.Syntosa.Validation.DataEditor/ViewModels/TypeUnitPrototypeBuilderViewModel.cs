@@ -1,4 +1,6 @@
-﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
+﻿using TeamBond.Services.Audit;
+
+namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -32,11 +34,6 @@
         /// The user activity service.
         /// </summary>
         private readonly IUserActivityService userActivityService;
-
-        /// <summary>
-        /// The application context.
-        /// </summary>
-        private readonly IUserContext userContext;
 
         /// <summary>
         /// The type unit name associated.
@@ -90,7 +87,6 @@
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.InsertTypeUnit = ReactiveCommand.Create(this.BuildTypeUnit);
         }
@@ -245,7 +241,7 @@
                 Description = this.TypeUnitDescription,
                 IsActive = this.IsActive,
                 IsBuiltIn = this.IsBuiltIn,
-                ModifiedBy = this.userContext.CurrentUser.Email,
+                ModifiedBy = "alex@teambond.io",
                 ParentUId = Guid.Empty
             };
 

@@ -29,11 +29,6 @@
         private readonly SyntosaDal syntosaDal;
 
         /// <summary>
-        /// The user context.
-        /// </summary>
-        private readonly IUserContext userContext;
-
-        /// <summary>
         /// The errors.
         /// </summary>
         private string errors;
@@ -64,7 +59,6 @@
         public EdgeLabelPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.InsertEdgeLabel = ReactiveCommand.Create(this.CreateEdgeLabel);
         }
@@ -204,12 +198,12 @@
         {
             var failureMessage = new StringBuilder();
             var createdEdgeLabel = new EdgeElementLabel
-                                       {
-                                           ElementUId = this.AllElementNamesAndUIds[this.SelectedElementName],
-                                           LabelUId = this.AllLabelNamesAndUIds[this.SelectedLabelName],
-                                           TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName],
-                                           ModifiedBy = this.userContext.CurrentUser.Email
-                                       };
+            {
+                ElementUId = this.AllElementNamesAndUIds[this.SelectedElementName],
+                LabelUId = this.AllLabelNamesAndUIds[this.SelectedLabelName],
+                TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName],
+                ModifiedBy = "alex@teambond.io"
+            };
 
             var labelValidator = new EdgeLabelValidator();
             ValidationResult validationResult = labelValidator.Validate(createdEdgeLabel);

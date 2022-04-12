@@ -1,4 +1,6 @@
-﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
+﻿using TeamBond.Services.Audit;
+
+namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -32,11 +34,6 @@
         /// The user activity service.
         /// </summary>
         private readonly IUserActivityService userActivityService;
-
-        /// <summary>
-        /// The application context.
-        /// </summary>
-        private readonly IUserContext userContext;
 
         /// <summary>
         /// The description of the type.
@@ -120,7 +117,6 @@
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.InsertElement = ReactiveCommand.Create(this.BuildElement);
         }
@@ -386,21 +382,21 @@
         {
             var failureMessages = new StringBuilder();
             var createdElement = new Element
-                                      {
-                                          DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName],
-                                          Alias = this.ElementAlias,
-                                          IsActive = this.IsActive,
-                                          IsBuiltIn = this.IsBuiltIn,
-                                          TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName],
-                                          TypeUIdRecordStatus = this.AllTypeItemNamesAndUIds[this.SelectedTypeRecordName],
-                                          ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName],
-                                          ModuleRecordKey = string.Empty,
-                                          IsAutoCollect = this.IsAutoCollect,
-                                          Name = this.ElementName,
-                                          Description = this.Description,
-                                          ParentUId = Guid.Empty,
-                                          ModifiedBy = this.userContext.CurrentUser.Email,
-                                      };
+            {
+                DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName],
+                Alias = this.ElementAlias,
+                IsActive = this.IsActive,
+                IsBuiltIn = this.IsBuiltIn,
+                TypeItemUId = this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName],
+                TypeUIdRecordStatus = this.AllTypeItemNamesAndUIds[this.SelectedTypeRecordName],
+                ModuleUId = this.AllModuleNamesAndUIds[this.SelectedModuleName],
+                ModuleRecordKey = string.Empty,
+                IsAutoCollect = this.IsAutoCollect,
+                Name = this.ElementName,
+                Description = this.Description,
+                ParentUId = Guid.Empty,
+                ModifiedBy = "alex@teambond.io"
+            };
 
             if (this.HasParent)
             {

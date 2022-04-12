@@ -28,11 +28,6 @@
         private readonly SyntosaDal syntosaDal;
 
         /// <summary>
-        /// The user context.
-        /// </summary>
-        private readonly IUserContext userContext;
-
-        /// <summary>
         /// The is active.
         /// </summary>
         private bool isActive;
@@ -83,7 +78,6 @@
         public LabelPrototypeBuilderViewModel()
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
 
             this.InsertLabel = ReactiveCommand.Create(this.CreateLabel);
         }
@@ -207,16 +201,16 @@
         {
             var failureMessage = new StringBuilder();
             var createdLabel = new ElementLabel
-                                   {
-                                       Name = this.LabelName,
-                                       Description = this.LabelDescription,
-                                       IsActive = this.IsActive,
-                                       IsBuiltIn = this.IsBuiltIn,
-                                       IsGlobalEdit = this.IsGlobalEdit,
-                                       IsPrivate = this.IsPrivate,
-                                       DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName],
-                                       ModifiedBy = this.userContext.CurrentUser.Email
-                                   };
+            {
+                Name = this.LabelName,
+                Description = this.LabelDescription,
+                IsActive = this.IsActive,
+                IsBuiltIn = this.IsBuiltIn,
+                IsGlobalEdit = this.IsGlobalEdit,
+                IsPrivate = this.IsPrivate,
+                DomainUId = this.AllDomainNamesAndUIds[this.SelectedDomainName],
+                ModifiedBy = "alex@teambond.io"
+            };
 
             LabelValidator labelValidator = new LabelValidator();
             ValidationResult validationResult = labelValidator.Validate(createdLabel);

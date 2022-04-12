@@ -1,4 +1,6 @@
-﻿namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
+﻿using TeamBond.Services.Audit;
+
+namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -32,11 +34,6 @@
         /// The user activity service.
         /// </summary>
         private readonly IUserActivityService userActivityService;
-
-        /// <summary>
-        /// The application context.
-        /// </summary>
-        private readonly IUserContext userContext;
 
         /// <summary>
         /// The description of the type.
@@ -135,7 +132,6 @@
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
-            this.userContext = TeamBondEngineContext.Current.Resolve<IUserContext>();
             this.IsElementSelected = false;
 
             this.SelectElement = ReactiveCommand.Create(this.GetElementToUpdate);
@@ -570,7 +566,7 @@
             elementToUpdate.Name = this.ElementName;
             elementToUpdate.Description = this.Description;
             elementToUpdate.ParentUId = Guid.Empty;
-            elementToUpdate.ModifiedBy = this.userContext.CurrentUser.Email;
+            elementToUpdate.ModifiedBy = "alex@teambond.io";
 
             if (this.HasParent)
             {
