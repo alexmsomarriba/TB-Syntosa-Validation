@@ -17,7 +17,6 @@
         /// <inheritdoc />
         public void Register(ContainerBuilder builder, ITeamBondTypeLocator typeLocator, TeamBondConfig config)
         {
-            builder.RegisterType<TeamBondDataEditorUserContext>().As<IUserContext>().InstancePerLifetimeScope();
         }
     }
 }

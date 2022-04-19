@@ -8,7 +8,7 @@
     /// <summary>
     /// The user context.
     /// </summary>
-    public class TeamBondDataEditorUserContext : IUserContext
+    public class TeamBondDataEditorUserContext
     {
         /// <summary>
         /// The user service.

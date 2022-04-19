@@ -1,30 +1,29 @@
-﻿namespace TeamBond.Syntosa.Validation
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Syntosa.Core.DataAccessLayer;
+using Syntosa.Core.ObjectModel;
+using Syntosa.Core.ObjectModel.CoreClasses;
+using Syntosa.Core.ObjectModel.CoreClasses.Edge;
+using Syntosa.Core.ObjectModel.CoreClasses.Element;
+using Syntosa.Core.ObjectModel.UtilityClasses;
+
+namespace TeamBond.Syntosa.Validation
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using global::Syntosa.Core.DataAccessLayer;
-    using global::Syntosa.Core.ObjectModel;
-    using global::Syntosa.Core.ObjectModel.CoreClasses;
-    using global::Syntosa.Core.ObjectModel.CoreClasses.Edge;
-    using global::Syntosa.Core.ObjectModel.CoreClasses.Element;
-    using global::Syntosa.Core.ObjectModel.UtilityClasses;
-
     /// <summary>
-    /// Provides validation methods for SYNTOSA <see cref="Element"/> types
+    /// Provides validation methods for SYNTOSA <see cref="Element" /> types
     /// </summary>
     public class ElementValidator : SyntosaRecordValidatorBase<Element>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ElementValidator"/> class.
+        /// Initializes a new instance of the <see cref="ElementValidator" /> class.
         /// </summary>
         public ElementValidator()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ElementValidator"/> class.
+        /// Initializes a new instance of the <see cref="ElementValidator" /> class.
         /// </summary>
         /// <param name="connectionString">
         /// The connection string to the Syntosa DAL.
@@ -35,7 +34,7 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ElementValidator"/> class.
+        /// Initializes a new instance of the <see cref="ElementValidator" /> class.
         /// </summary>
         /// <param name="syntosaDal">
         /// The syntosa dal.
@@ -59,40 +58,46 @@
             switch (record.TypeItemUId.ToString().ToUpper())
             {
                 case WorkforceManagement.Worker:
-                    {
-                        validationResults = this.ValidateWorker(record);
-                        break;
-                    }
+                {
+                    validationResults = ValidateWorker(record);
+                    break;
+                }
 
                 case WorkforceManagement.Resume:
-                    {
-                        validationResults = this.ValidateResume(record);
-                        break;
-                    }
+                {
+                    validationResults = ValidateResume(record);
+                    break;
+                }
 
                 case WorkforceManagement.JobPosting:
-                    {
-                        validationResults = this.ValidateJobPosting(record);
-                        break;
-                    }
+                {
+                    validationResults = ValidateJobPosting(record);
+                    break;
+                }
 
                 case WorkforceManagement.Employer:
-                    {
-                        validationResults = this.ValidateEmployer(record);
-                        break;
-                    }
+                {
+                    validationResults = ValidateEmployer(record);
+                    break;
+                }
 
                 case WorkforceManagement.Division:
-                    {
-                        validationResults = this.ValidateDivision(record);
-                        break;
-                    }
+                {
+                    validationResults = ValidateDivision(record);
+                    break;
+                }
 
                 case WorkforceManagement.Team:
-                    {
-                        validationResults = this.ValidateTeam(record);
-                        break;
-                    }
+                {
+                    validationResults = ValidateTeam(record);
+                    break;
+                }
+
+                case WorkforceManagement.Squad:
+                {
+                    validationResults = ValidateSquad(record);
+                    break;
+                }
             }
 
             return validationResults;
@@ -101,14 +106,14 @@
         /// <inheritdoc />
         public override Element GetPrototypeByTypeUId(string typeUId)
         {
-            return ElementFactory.GetPrototype(typeUId, this.syntoDal);
+            return ElementFactory.GetPrototype(typeUId, syntoDal);
         }
 
         /// <inheritdoc />
         public override Element GetPrototypeByTypeName(string typeName)
         {
             // Lookup type by name from an internal dictionary
-            List<TypeItem> typeItems = this.syntoDal.GetTypeItemByAny(typeItemName: typeName);
+            List<TypeItem> typeItems = syntoDal.GetTypeItemByAny(typeItemName: typeName);
 
             if (typeItems.Count > 1)
             {
@@ -120,13 +125,13 @@
                 throw new Exception("Search did not return any Type UId for string: " + typeName);
             }
 
-            return ElementFactory.GetPrototype(typeItems[0].UId.ToString(), this.syntoDal);
+            return ElementFactory.GetPrototype(typeItems[0].UId.ToString(), syntoDal);
         }
 
         /// <inheritdoc />
         public override Element GetPrototypeByUId(Guid uid)
         {
-            Element element = this.syntoDal.GetElementByUId(uid);
+            Element element = syntoDal.GetElementByUId(uid);
 
             if (element != null)
             {
@@ -146,13 +151,13 @@
         }
 
         /// <summary>
-        /// Retrieves the type item unique identifier for the provided <see cref="EdgeElementElement"/>
+        /// Retrieves the type item unique identifier for the provided <see cref="EdgeElementElement" />
         /// </summary>
         /// <param name="edgeElementElement">
-        /// The <see cref="EdgeElementElement"/> used to derive the type item unique identifier
+        /// The <see cref="EdgeElementElement" /> used to derive the type item unique identifier
         /// </param>
         /// <returns>
-        /// A <see cref="string"/> value representing the edge element element type item unique identifier
+        /// A <see cref="string" /> value representing the edge element element type item unique identifier
         /// </returns>
         private string GetEdgeElementTargetElementTypeUId(EdgeElementElement edgeElementElement)
         {
@@ -161,7 +166,7 @@
                 return edgeElementElement.TargetElementTypeUId.ToString();
             }
 
-            Element edgeTargetElement = this.syntoDal.GetElementByUId(
+            Element edgeTargetElement = syntoDal.GetElementByUId(
                 edgeElementElement.TargetElementUId,
                 asComposite: false);
 
@@ -169,13 +174,13 @@
         }
 
         /// <summary>
-        /// Validates the given Division <paramref name="element"/>
+        /// Validates the given Division <paramref name="element" />
         /// </summary>
         /// <param name="element">
         /// The element to validate
         /// </param>
         /// <returns>
-        /// The <see cref="ValidationResult{Element}"/> indicating whether or not the validation succeeded.
+        /// The <see cref="ValidationResult{Element}" /> indicating whether or not the validation succeeded.
         /// </returns>
         private ValidationResult<Element> ValidateDivision(Element element)
         {
@@ -219,33 +224,33 @@
 
             // Validate mandatory edges
             var edges = new List<EdgeClass>
-                            {
-                                new EdgeClass
-                                    {
-                                        Id = 1,
-                                        TypeFunctionUId = null,
-                                        TypeItemUId = WorkforceManagement.Employer,
-                                        EdgeElementUId = EdgeTypes.DependsOn,
-                                        EdgeCount = 0,
-                                        TypeName = "Employer",
-                                        EdgeName = "Depends On"
-                                    }
-                            };
+            {
+                new EdgeClass
+                {
+                    Id = 1,
+                    TypeFunctionUId = null,
+                    TypeItemUId = WorkforceManagement.Employer,
+                    EdgeElementUId = EdgeTypes.DependsOn,
+                    EdgeCount = 0,
+                    TypeName = "Employer",
+                    EdgeName = "Depends On"
+                }
+            };
 
-            this.ValidateMandatoryEdges(element, edges, ref validationResult);
+            ValidateMandatoryEdges(element, edges, ref validationResult);
 
             validationResult.Success = validationResult.Exceptions.Count == 0;
             return validationResult;
         }
 
         /// <summary>
-        /// Validates the given Employer <paramref name="element"/>
+        /// Validates the given Employer <paramref name="element" />
         /// </summary>
         /// <param name="element">
         /// The element to validate
         /// </param>
         /// <returns>
-        /// The <see cref="ValidationResult{Element}"/> indicating whether or not the validation succeeded.
+        /// The <see cref="ValidationResult{Element}" /> indicating whether or not the validation succeeded.
         /// </returns>
         private ValidationResult<Element> ValidateEmployer(Element element)
         {
@@ -292,13 +297,13 @@
         }
 
         /// <summary>
-        /// Validates the given Team <paramref name="element"/>
+        /// Validates the given Team <paramref name="element" />
         /// </summary>
         /// <param name="element">
         /// The element to validate
         /// </param>
         /// <returns>
-        /// The <see cref="ValidationResult{Element}"/> indicating whether or not the validation succeeded.
+        /// The <see cref="ValidationResult{Element}" /> indicating whether or not the validation succeeded.
         /// </returns>
         private ValidationResult<Element> ValidateTeam(Element element)
         {
@@ -342,20 +347,90 @@
 
             // Validate mandatory edges
             var edges = new List<EdgeClass>
-                            {
-                                new EdgeClass
-                                    {
-                                        Id = 1,
-                                        TypeFunctionUId = null,
-                                        TypeItemUId = WorkforceManagement.Division,
-                                        EdgeElementUId = EdgeTypes.BelongsTo,
-                                        EdgeCount = 0,
-                                        TypeName = "Division",
-                                        EdgeName = "Belongs To"
-                                    }
-                            };
+            {
+                new EdgeClass
+                {
+                    Id = 1,
+                    TypeFunctionUId = null,
+                    TypeItemUId = WorkforceManagement.Division,
+                    EdgeElementUId = EdgeTypes.BelongsTo,
+                    EdgeCount = 0,
+                    TypeName = "Division",
+                    EdgeName = "Belongs To"
+                }
+            };
 
-            this.ValidateMandatoryEdges(element, edges, ref validationResult);
+            ValidateMandatoryEdges(element, edges, ref validationResult);
+
+            validationResult.Success = validationResult.Exceptions.Count == 0;
+            return validationResult;
+        }
+
+        /// <summary>
+        /// Validates the given squad <paramref name="element" />
+        /// </summary>
+        /// <param name="element">
+        /// The element to validate
+        /// </param>
+        /// <returns>
+        /// The <see cref="ValidationResult{Element}" /> indicating whether or not the validation succeeded.
+        /// </returns>
+        private ValidationResult<Element> ValidateSquad(Element element)
+        {
+            var validationResult = new ValidationResult<Element>();
+
+            ElementGlobalProperty squadAcronym = element.GlobalProperties.FirstOrDefault(
+                property => property.Value.TypeItemUId.ToString().Equals(
+                    GlobalPropertyTypes.SquadAcronym,
+                    StringComparison.OrdinalIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(squadAcronym.Attribute))
+            {
+                validationResult.MemberNames.Add(squadAcronym.Attribute);
+                validationResult.Exceptions.Add(
+                    new Exception($"{squadAcronym.Name} was missing a value"));
+            }
+
+            ElementGlobalProperty squadLeadName = element.GlobalProperties.FirstOrDefault(
+                property => property.Value.TypeItemUId.ToString().Equals(
+                    GlobalPropertyTypes.SquadLeadName,
+                    StringComparison.OrdinalIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(squadLeadName.Attribute))
+            {
+                validationResult.MemberNames.Add(squadLeadName.Attribute);
+                validationResult.Exceptions.Add(
+                    new Exception($"{squadLeadName.Name} was missing a value"));
+            }
+
+            ElementGlobalProperty squadLeadContactEmail = element.GlobalProperties.FirstOrDefault(
+                property => property.Value.TypeItemUId.ToString().Equals(
+                    GlobalPropertyTypes.SquadLeadContactEmail,
+                    StringComparison.OrdinalIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(squadLeadContactEmail.Attribute))
+            {
+                validationResult.MemberNames.Add(squadLeadContactEmail.Attribute);
+                validationResult.Exceptions.Add(
+                    new Exception($"{squadLeadContactEmail.Name} was missing a value"));
+            }
+
+            // Validate mandatory edges
+            var edges = new List<EdgeClass>
+            {
+                new EdgeClass
+                {
+                    Id = 1,
+                    TypeFunctionUId = null,
+                    TypeItemUId = WorkforceManagement.Team,
+                    EdgeElementUId = EdgeTypes.BelongsTo,
+                    EdgeCount = 0,
+                    TypeName = "Team",
+                    EdgeName = "Belongs To"
+                }
+            };
+
+            ValidateMandatoryEdges(element, edges, ref validationResult);
 
             validationResult.Success = validationResult.Exceptions.Count == 0;
             return validationResult;
@@ -376,20 +451,20 @@
 
             // Validate mandatory edges
             var edges = new List<EdgeClass>
-                            {
-                                new EdgeClass
-                                    {
-                                        Id = 1,
-                                        TypeFunctionUId = null,
-                                        TypeItemUId = WorkforceManagement.Resume,
-                                        EdgeElementUId = EdgeTypes.EnabledBy,
-                                        EdgeCount = 0,
-                                        TypeName = "Resume",
-                                        EdgeName = "Enabled By"
-                                    }
-                            };
+            {
+                new EdgeClass
+                {
+                    Id = 1,
+                    TypeFunctionUId = null,
+                    TypeItemUId = WorkforceManagement.Resume,
+                    EdgeElementUId = EdgeTypes.EnabledBy,
+                    EdgeCount = 0,
+                    TypeName = "Resume",
+                    EdgeName = "Enabled By"
+                }
+            };
 
-            this.ValidateMandatoryEdges(element, edges, ref validationResult);
+            ValidateMandatoryEdges(element, edges, ref validationResult);
 
             validationResult.Success = validationResult.Exceptions.Count == 0;
             return validationResult;
@@ -410,31 +485,31 @@
 
             // Validate mandatory edges
             var edges = new List<EdgeClass>
-                            {
-                                new EdgeClass
-                                    {
-                                        Id = 1,
-                                        TypeFunctionUId = null,
-                                        TypeItemUId = WorkforceManagement.Worker,
-                                        EdgeElementUId = EdgeTypes.AssignedTo,
-                                        EdgeCount = 0,
-                                        TypeName = "Worker",
-                                        EdgeName = "Assigned To"
-                                    },
+            {
+                new EdgeClass
+                {
+                    Id = 1,
+                    TypeFunctionUId = null,
+                    TypeItemUId = WorkforceManagement.Worker,
+                    EdgeElementUId = EdgeTypes.AssignedTo,
+                    EdgeCount = 0,
+                    TypeName = "Worker",
+                    EdgeName = "Assigned To"
+                },
 
-                                new EdgeClass
-                                    {
-                                        Id = 2,
-                                        TypeFunctionUId = null,
-                                        TypeItemUId = WorkforceManagement.JobPosting,
-                                        EdgeElementUId = EdgeTypes.AssignedTo,
-                                        EdgeCount = 0,
-                                        TypeName = "Job Posting",
-                                        EdgeName = "Assigned To"
-                                    }
-                            };
+                new EdgeClass
+                {
+                    Id = 2,
+                    TypeFunctionUId = null,
+                    TypeItemUId = WorkforceManagement.JobPosting,
+                    EdgeElementUId = EdgeTypes.AssignedTo,
+                    EdgeCount = 0,
+                    TypeName = "Job Posting",
+                    EdgeName = "Assigned To"
+                }
+            };
 
-            this.ValidateMandatoryEdges(element, edges, ref validationResult);
+            ValidateMandatoryEdges(element, edges, ref validationResult);
             return validationResult;
         }
 
@@ -453,20 +528,20 @@
 
             // Validate mandatory edges
             var edges = new List<EdgeClass>
-                            {
-                                new EdgeClass
-                                    {
-                                        Id = 1,
-                                        TypeFunctionUId = null,
-                                        TypeItemUId = WorkforceManagement.Job,
-                                        EdgeElementUId = EdgeTypes.DependsOn,
-                                        EdgeCount = 0,
-                                        TypeName = "Job",
-                                        EdgeName = "Depends On"
-                                    }
-                            };
+            {
+                new EdgeClass
+                {
+                    Id = 1,
+                    TypeFunctionUId = null,
+                    TypeItemUId = WorkforceManagement.Job,
+                    EdgeElementUId = EdgeTypes.DependsOn,
+                    EdgeCount = 0,
+                    TypeName = "Job",
+                    EdgeName = "Depends On"
+                }
+            };
 
-            this.ValidateMandatoryEdges(element, edges, ref validationResult);
+            ValidateMandatoryEdges(element, edges, ref validationResult);
             return validationResult;
         }
 
@@ -483,7 +558,7 @@
         /// The edge element type item u id.
         /// </param>
         /// <returns>
-        /// The <see cref="bool"/>.
+        /// The <see cref="bool" />.
         /// </returns>
         private bool EdgeClassMatchesEdgeElementElement(
             EdgeClass edgeClass,
@@ -492,7 +567,7 @@
         {
             if (edgeClass.TypeFunctionUId != null && edgeElementTypeItemUId != Guid.Empty)
             {
-                TypeItem typeItem = this.syntoDal.GetTypeItemByUId(edgeElementTypeItemUId);
+                TypeItem typeItem = syntoDal.GetTypeItemByUId(edgeElementTypeItemUId);
 
                 if (typeItem is null)
                 {
@@ -508,7 +583,8 @@
             }
             else
             {
-                if (string.Equals(edgeClass.TypeItemUId, edgeElementTypeItemUId.ToString().ToUpperInvariant()) && string.Equals(
+                if (string.Equals(edgeClass.TypeItemUId, edgeElementTypeItemUId.ToString().ToUpperInvariant()) &&
+                    string.Equals(
                         edgeClass.EdgeElementUId,
                         edgeElementElement.TypeItemUId.ToString().ToUpperInvariant()))
                 {
@@ -551,10 +627,10 @@
             {
                 List<EdgeElementElement> elementActiveMandatoryEdges = element.ElementEdges.Where(
                     edgeElement => edgeElement.TargetElementTypeUId != Guid.Empty && !edgeElement.IsDeleted
-                                   && this.EdgeClassMatchesEdgeElementElement(
-                                       mandatoryEdge,
-                                       edgeElement,
-                                       Guid.Parse(this.GetEdgeElementTargetElementTypeUId(edgeElement)))).ToList();
+                        && EdgeClassMatchesEdgeElementElement(
+                            mandatoryEdge,
+                            edgeElement,
+                            Guid.Parse(GetEdgeElementTargetElementTypeUId(edgeElement)))).ToList();
 
                 if (!elementActiveMandatoryEdges.Any())
                 {
@@ -581,10 +657,10 @@
                     List<EdgeElementElement> activeMandatoryEdgeWithMandatoryProperty = elementActiveMandatoryEdges
                         .Where(
                             edgeElement => edgeElement.TargetElementTypeUId != Guid.Empty && !edgeElement.IsDeleted
-                                           && this.EdgeClassMatchesEdgeElementElement(
-                                               mandatoryEdge,
-                                               edgeElement,
-                                               Guid.Parse(this.GetEdgeElementTargetElementTypeUId(edgeElement))))
+                                && EdgeClassMatchesEdgeElementElement(
+                                    mandatoryEdge,
+                                    edgeElement,
+                                    Guid.Parse(GetEdgeElementTargetElementTypeUId(edgeElement))))
                         .ToList();
 
                     if (!activeMandatoryEdgeWithMandatoryProperty.Any())
@@ -602,10 +678,10 @@
                 {
                     List<EdgeElementElement> elementBlockedEdges = element.ElementEdges.Where(
                         edgeElement => edgeElement.TargetElementTypeUId != Guid.Empty
-                                       && this.EdgeClassMatchesEdgeElementElement(
+                                       && EdgeClassMatchesEdgeElementElement(
                                            blockedEdge,
                                            edgeElement,
-                                           Guid.Parse(this.GetEdgeElementTargetElementTypeUId(edgeElement)))).ToList();
+                                           Guid.Parse(GetEdgeElementTargetElementTypeUId(edgeElement)))).ToList();
 
                     if (elementBlockedEdges.Count >= 1)
                     {
