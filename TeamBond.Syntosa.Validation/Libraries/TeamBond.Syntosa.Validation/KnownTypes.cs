@@ -140,6 +140,18 @@
         /// The division lead contact email global property.
         /// </summary>
         public const string SquadLeadContactEmail = "";
+
+        public const string EmployeeBirthday = "";
+
+        public const string EmployeeAccountStatus = "";
+
+        public const string EmployeeEmail = "";
+
+        public const string EmployeeAddress = "";
+
+        public const string EmployeeOfficeAddress = "";
+
+        public const string EmployeeProfileSummary = "";
     }
 
     /// <summary>
@@ -161,6 +173,8 @@
         /// The team edge label.
         /// </summary>
         public const string Team = "";
+
+        public const string Squad = "";
     }
 
     /// <summary>

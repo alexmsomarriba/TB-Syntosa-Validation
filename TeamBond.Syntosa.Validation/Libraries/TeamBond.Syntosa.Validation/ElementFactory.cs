@@ -195,7 +195,8 @@
                             new EdgeElementElement
                                 {
                                     TypeItemUId = new Guid(EdgeTypes.BelongsTo),
-                                });
+                                    LabelUId = new Guid(EdgeLabelTypes.Employer),
+                                    LabelName = syntosaDal.GetTypeItemByUId(new Guid(EdgeLabelTypes.Employer)).Name });
                         break;
                     }
 
