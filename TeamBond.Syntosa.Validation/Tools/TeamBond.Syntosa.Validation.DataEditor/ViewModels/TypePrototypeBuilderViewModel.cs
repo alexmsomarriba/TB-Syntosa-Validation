@@ -544,7 +544,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {
-            var modules = this.syntosaDal.GetModuleByAny();
+            var modules = new List<Module>(); //this.syntosaDal.GetModuleByAny();
             var moduleNamesUIds = new Dictionary<string, Guid>();
             foreach (var module in modules)
             {
@@ -562,7 +562,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeFunctionNamesAndUIds()
         {
-            var typeFunctions = this.syntosaDal.GetTypeFunctionByAny();
+            var typeFunctions = new List<TypeFunction>();//this.syntosaDal.GetTypeFunctionByAny();
             var typeFunctionNamesUIds = new Dictionary<string, Guid>();
             foreach (var typeFunction in typeFunctions)
             {
@@ -580,7 +580,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeItemNamesAndUIds()
         {
-            var typeItems = this.syntosaDal.GetTypeItemByAny(isAssignable: true);
+            var typeItems = new List<TypeItem>();//this.syntosaDal.GetTypeItemByAny(isAssignable: true);
             var typeItemNamesUIds = new Dictionary<string, Guid>();
             foreach (var typeItem in typeItems)
             {
@@ -603,7 +603,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeUnitNamesAndUIds()
         {
-            var typeUnits = this.syntosaDal.GetTypeUnitByAny();
+            var typeUnits = new List<TypeUnit>();//this.syntosaDal.GetTypeUnitByAny();
             var typeUnitNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var typeUnit in typeUnits)
             {

@@ -8,7 +8,6 @@
     using Amazon.Runtime.CredentialManagement;
 
     using Avalonia;
-    using Avalonia.Logging.Serilog;
     using Avalonia.ReactiveUI;
 
     using Microsoft.Extensions.Configuration;

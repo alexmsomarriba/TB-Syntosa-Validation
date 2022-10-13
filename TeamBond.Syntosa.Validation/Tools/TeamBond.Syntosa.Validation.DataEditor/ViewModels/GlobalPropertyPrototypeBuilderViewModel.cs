@@ -311,7 +311,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllElementNamesAndUIds()
         {
-            List<Element> elements = this.syntosaDal.GetElementByAny();
+            List<Element> elements = new List<Element>(); //this.syntosaDal.GetElementByAny();
             var elementNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var element in elements)
             {
@@ -329,7 +329,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {
-            List<Module> modules = this.syntosaDal.GetModuleByAny();
+            List<Module> modules = new List<Module>(); //this.syntosaDal.GetModuleByAny();
             var moduleNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var module in modules)
             {
@@ -347,7 +347,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeItemNamesAndUIds()
         {
-            List<TypeItem> types = this.syntosaDal.GetTypeItemByAny();
+            List<TypeItem> types = new List<TypeItem>(); //this.syntosaDal.GetTypeItemByAny();
             var typeNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var type in types)
             {

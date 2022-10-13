@@ -11,9 +11,6 @@ namespace TeamBond.Syntosa.Validation.DataEditor.Views
         public ResultDialogWindow()
         {
             this.InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         public void ShowWindow()

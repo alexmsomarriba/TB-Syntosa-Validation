@@ -60,7 +60,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </summary>
         public EdgeElementElementPrototypeBuilderViewModel()
         {
-            this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
+            //this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
 
             this.InsertEdgeElementElement = ReactiveCommand.Create(this.CreateEdgeElementElement);
         }
@@ -212,7 +212,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllElementNamesAndUIds()
         {
-            List<Element> elements = this.syntosaDal.GetElementByAny();
+            List<Element> elements = new List<Element>(); //this.syntosaDal.GetElementByAny();
             var elementNamesAndUIds = new Dictionary<string, Guid>();
 
             foreach (var element in elements)
@@ -231,7 +231,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeItemNamesAndUIds()
         {
-            List<TypeItem> typeItems = this.syntosaDal.GetTypeItemByAny();
+            List<TypeItem> typeItems = new List<TypeItem>(); //this.syntosaDal.GetTypeItemByAny();
             var typeItemNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var typeItem in typeItems)
             {

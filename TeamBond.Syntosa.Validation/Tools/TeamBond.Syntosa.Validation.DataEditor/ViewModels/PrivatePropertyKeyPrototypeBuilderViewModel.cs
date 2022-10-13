@@ -353,7 +353,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllElementNamesAndUIds()
         {
-            List<Element> elements = this.syntosaDal.GetElementByAny();
+            List<Element> elements = new List<Element>();//this.syntosaDal.GetElementByAny();
             var elementNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var element in elements)
             {
@@ -371,7 +371,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {
-            List<Module> modules = this.syntosaDal.GetModuleByAny();
+            List<Module> modules = new List<Module>();//this.syntosaDal.GetModuleByAny();
             var moduleNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var module in modules)
             {
@@ -389,7 +389,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeItemNamesAndUIds()
         {
-            List<TypeItem> typeItems = this.syntosaDal.GetTypeItemByAny();
+            List<TypeItem> typeItems = new List<TypeItem>();//this.syntosaDal.GetTypeItemByAny();
             var typeItemNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var typeItem in typeItems)
             {
@@ -407,7 +407,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeUnitNamesAndUIds()
         {
-            List<TypeUnit> typeUnits = this.syntosaDal.GetTypeUnitByAny();
+            List<TypeUnit> typeUnits = new List<TypeUnit>(); //this.syntosaDal.GetTypeUnitByAny();
             var typeUnitNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var typeUnit in typeUnits)
             {

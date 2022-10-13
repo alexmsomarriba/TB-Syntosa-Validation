@@ -116,7 +116,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
-            this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
+            //this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
 
             this.HasSelected = false;
             this.HasParent = false;
@@ -338,10 +338,10 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
                 return;
             }
 
-            var typeUnitToEdit = this.syntosaDal.GetTypeUnitByAny(
-                typeUnitName: this.SelectedTypeUnitName,
-                typeUnitUId: this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName]).FirstOrDefault();
-            this.HasSelected = true;
+            var typeUnitToEdit = new global::Syntosa.Core.ObjectModel.CoreClasses.TypeUnit();//this.syntosaDal.GetTypeUnitByAny(
+            //    typeUnitName: this.SelectedTypeUnitName,
+            //    typeUnitUId: this.AllTypeUnitNamesAndUIds[this.SelectedTypeUnitName]).FirstOrDefault();
+            //this.HasSelected = true;
 
             this.IsDeleteVisible = true;
 
@@ -495,7 +495,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {
-            var modules = this.syntosaDal.GetModuleByAny(isActive: true);
+            var modules = new List<global::Syntosa.Core.ObjectModel.CoreClasses.Module>(); //this.syntosaDal.GetModuleByAny(isActive: true);
             var moduleNamesUIds = new Dictionary<string, Guid>();
             foreach (var module in modules)
             {
@@ -513,7 +513,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeUnitNamesAndUIds()
         {
-            var typeUnits = this.syntosaDal.GetTypeUnitByAny();
+            var typeUnits = new List<global::Syntosa.Core.ObjectModel.CoreClasses.TypeUnit>(); //this.syntosaDal.GetTypeUnitByAny();
             var typeUnitNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var typeUnit in typeUnits)
             {

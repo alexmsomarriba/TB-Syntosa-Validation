@@ -178,8 +178,11 @@
             this.IsRegistering = false;
             this.IsContentVisible = false;
 
+            /*
             this.userRegistrationService = TeamBondEngineContext.Current.Resolve<IUserRegistrationService>();
             this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
+            */
+
             var settingsService = TeamBondEngineContext.Current.Resolve<ISettingsService>();
             var applicationContext = TeamBondEngineContext.Current.Resolve<IApplicationContext>();
 
@@ -188,13 +191,13 @@
                 awsPlatform = AwsPlatform.None;
             }
 
-            this.userSettings = settingsService.LoadSetting<UserSettings>(
-                applicationContext.CurrentApplication,
-                applicationContext.CurrentApplicationGroup,
-                applicationContext.CurrentEnvironment,
-                applicationContext.CurrentAwsAccountId,
-                awsPlatform,
-                applicationContext.CurrentAwsRegion);
+            //this.userSettings = settingsService.LoadSetting<UserSettings>(
+            //    applicationContext.CurrentApplication,
+            //    applicationContext.CurrentApplicationGroup,
+            //    applicationContext.CurrentEnvironment,
+            //    applicationContext.CurrentAwsAccountId,
+            //    awsPlatform,
+            //    applicationContext.CurrentAwsRegion);
 
             this.LogIn = ReactiveCommand.Create(this.LogInResult);
             this.Register = ReactiveCommand.Create(this.UserRegistration);
@@ -607,7 +610,7 @@
                 return;
             }
 
-            UserLogInResults result = this.userRegistrationService.ValidateUser(this.Username, this.Password);
+            UserLogInResults result = UserLogInResults.Successful; //this.userRegistrationService.ValidateUser(this.Username, this.Password);
 
             switch (result)
             {
@@ -616,27 +619,29 @@
                     this.SuccessfulLogin = true;
                     this.HasErrors = false;
                     this.errors = string.Empty;
-                    User currentUser = this.userService.GetUserByEmail(this.Username);
-                    IList<UserRole> userRoles = this.userService.GetUserRoles(currentUser);
-                    if (userRoles.Any(
-                        userRole => userRole.SystemName.Equals(
-                            SystemUserRoleNames.TeamBondSuperUsers,
-                            StringComparison.OrdinalIgnoreCase)))
-                    {
-                        this.IsDeleterVisible = true;
-                    }
+                    //User currentUser = this.userService.GetUserByEmail(this.Username);
+                    //IList<UserRole> userRoles = this.userService.GetUserRoles(currentUser);
+                    //if (userRoles.Any(
+                    //    userRole => userRole.SystemName.Equals(
+                    //        SystemUserRoleNames.TeamBondSuperUsers,
+                    //        StringComparison.OrdinalIgnoreCase)))
+                    //{
+                    //    this.IsDeleterVisible = true;
+                    //}
 
-                    if (userRoles.Any(
-                            userRole => userRole.SystemName.Equals(
-                                SystemUserRoleNames.TeamBondAdministrators,
-                                StringComparison.OrdinalIgnoreCase)) || userRoles.Any(
-                            userRole => userRole.SystemName.Equals(
-                                SystemUserRoleNames.TeamBondSuperUsers,
-                                StringComparison.OrdinalIgnoreCase)))
-                    {
-                        this.IsEditorVisible = true;
-                    }
+                    //if (userRoles.Any(
+                    //        userRole => userRole.SystemName.Equals(
+                    //            SystemUserRoleNames.TeamBondAdministrators,
+                    //            StringComparison.OrdinalIgnoreCase)) || userRoles.Any(
+                    //        userRole => userRole.SystemName.Equals(
+                    //            SystemUserRoleNames.TeamBondSuperUsers,
+                    //            StringComparison.OrdinalIgnoreCase)))
+                    //{
+                    //    this.IsEditorVisible = true;
+                    //}
 
+                    this.IsEditorVisible = true;
+                    this.IsDeleterVisible = true;
                     this.IsContentVisible = true;
                     return;
                 case UserLogInResults.UserDoesNotExist:

@@ -255,7 +255,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllPrivatePropertyKeyNamesAndUIds()
         {
-            List<ElementPrivatePropertyKey> privatePropertyKeys = this.syntosaDal.GetElementPrivatePropertyKeyByAny();
+            List<ElementPrivatePropertyKey> privatePropertyKeys = new List<ElementPrivatePropertyKey>();//this.syntosaDal.GetElementPrivatePropertyKeyByAny();
             var privatePropertyKeyNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var privatePropertyKey in privatePropertyKeys)
             {
@@ -273,7 +273,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllPrivatePropertyNamesAndUIds()
         {
-            List<ElementPrivateProperty> privateProperties = this.syntosaDal.GetElementPrivatePropertyByAny();
+            List<ElementPrivateProperty> privateProperties = new List<ElementPrivateProperty>();//this.syntosaDal.GetElementPrivatePropertyByAny();
             var privatePropertyNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var privateProperty in privateProperties)
             {

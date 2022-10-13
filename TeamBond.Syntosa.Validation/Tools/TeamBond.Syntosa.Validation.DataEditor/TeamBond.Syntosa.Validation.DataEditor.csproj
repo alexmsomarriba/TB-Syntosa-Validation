@@ -7,11 +7,11 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.9.12" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.9.12" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.12" />
-    <PackageReference Include="NJsonSchema" Version="10.1.24" />
-    <PackageReference Include="NJsonSchema.CodeGeneration.CSharp" Version="10.1.24" />
+    <PackageReference Include="Avalonia" Version="0.10.18" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
+    <PackageReference Include="NJsonSchema" Version="10.8.0" />
+    <PackageReference Include="NJsonSchema.CodeGeneration.CSharp" Version="10.8.0" />
     <PackageReference Include="Syntosa.Core" Version="0.1.10" />
     <PackageReference Include="TeamBond.Application.Framework" Version="0.1.57" />
   </ItemGroup>

@@ -266,7 +266,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllDomainNamesAndUIds()
         {
-            var domains = this.syntosaDal.GetDomainByAny();
+            var domains = new List<Domain>(); //this.syntosaDal.GetDomainByAny();
             var domainNamesUIds = new Dictionary<string, Guid>();
             foreach (var domain in domains)
             {

@@ -303,7 +303,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {
-            var modules = this.syntosaDal.GetModuleByAny(isActive: true);
+            var modules = new List<Module>();//this.syntosaDal.GetModuleByAny(isActive: true);
             var moduleNamesUIds = new Dictionary<string, Guid>();
             foreach (var module in modules)
             {
@@ -321,7 +321,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeUnitNamesAndUIds()
         {
-            var typeUnits = this.syntosaDal.GetTypeUnitByAny();
+            var typeUnits = new List<TypeUnit>();//this.syntosaDal.GetTypeUnitByAny();
             var typeUnitNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var typeUnit in typeUnits)
             {

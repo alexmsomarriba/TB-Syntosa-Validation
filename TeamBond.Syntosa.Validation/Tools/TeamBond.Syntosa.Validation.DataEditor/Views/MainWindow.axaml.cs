@@ -9,9 +9,6 @@ namespace TeamBond.Syntosa.Validation.DataEditor.Views
         public MainWindow()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         private void InitializeComponent()

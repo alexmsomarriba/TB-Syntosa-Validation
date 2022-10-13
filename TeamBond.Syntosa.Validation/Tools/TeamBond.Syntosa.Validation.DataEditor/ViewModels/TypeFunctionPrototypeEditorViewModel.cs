@@ -286,10 +286,10 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
             this.HasErrors = false;
             this.Errors = string.Empty;
             this.HasSelected = true;
-            var typeFunctionToEdit = this.syntosaDal.GetTypeFunctionByAny(
-                    typeFunctionName: this.SelectedTypeFunctionName,
-                    typeFunctionUId: this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName])
-                .FirstOrDefault();
+            var typeFunctionToEdit = new TypeFunction(); //this.syntosaDal.GetTypeFunctionByAny(
+                //    typeFunctionName: this.SelectedTypeFunctionName,
+                //    typeFunctionUId: this.AllTypeFunctionNamesAndUIds[this.SelectedTypeFunctionName])
+                //.FirstOrDefault();
 
             this.CurrentName = $"The current name of this type function is {typeFunctionToEdit.Name}";
             this.CurrentDescription = $"The current description of this type function is {typeFunctionToEdit.Description}";
@@ -397,7 +397,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {
-            var modules = this.syntosaDal.GetModuleByAny(isActive: true);
+            var modules = new List<Module>(); //this.syntosaDal.GetModuleByAny(isActive: true);
             var moduleNamesUIds = new Dictionary<string, Guid>();
             foreach (var module in modules)
             {
@@ -415,7 +415,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeFunctionNamesAndUIds()
         {
-            var typeFunctions = this.syntosaDal.GetTypeFunctionByAny();
+            var typeFunctions = new List<TypeFunction>();//this.syntosaDal.GetTypeFunctionByAny();
             var typeFunctionNamesUIds = new Dictionary<string, Guid>();
             foreach (var typeFunction in typeFunctions)
             {

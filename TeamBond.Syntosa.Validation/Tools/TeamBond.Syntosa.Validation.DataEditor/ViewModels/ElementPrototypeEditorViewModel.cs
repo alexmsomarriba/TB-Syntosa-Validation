@@ -1,4 +1,5 @@
-﻿using TeamBond.Services.Audit;
+﻿using Syntosa.Core.ObjectModel.CoreClasses;
+using TeamBond.Services.Audit;
 
 namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
 {
@@ -438,7 +439,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllDomainNamesAndUIds()
         {
-            var domains = this.syntosaDal.GetDomainByAny();
+            var domains = new List<global::Syntosa.Core.ObjectModel.CoreClasses.Domain>(); //this.syntosaDal.GetDomainByAny();
             var domainNamesUIds = new Dictionary<string, Guid>();
             foreach (var domain in domains)
             {
@@ -456,7 +457,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllElementNamesAndUIds()
         {
-            var elements = this.syntosaDal.GetElementByAny();
+            var elements = new List<Element>(); //this.syntosaDal.GetElementByAny();
             var elementNamesUIds = new Dictionary<string, Guid>();
             foreach (var element in elements)
             {
@@ -474,7 +475,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {
-            var modules = this.syntosaDal.GetModuleByAny();
+            var modules = new List<global::Syntosa.Core.ObjectModel.CoreClasses.Module>(); //this.syntosaDal.GetModuleByAny();
             var moduleNamesUIds = new Dictionary<string, Guid>();
             foreach (var module in modules)
             {
@@ -492,7 +493,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeItemNamesAndUIds()
         {
-            var typeItems = this.syntosaDal.GetTypeItemByAny();
+            var typeItems = new List<TypeItem>(); //this.syntosaDal.GetTypeItemByAny();
             var typeItemNamesUIds = new Dictionary<string, Guid>();
             foreach (var typeFunction in typeItems)
             {

@@ -246,7 +246,7 @@
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {
-            var modules = this.syntosaDal.GetModuleByAny();
+            var modules = new List<Module>(); //this.syntosaDal.GetModuleByAny();
             var moduleNamesUIds = new Dictionary<string, Guid>();
             foreach (var module in modules)
             {

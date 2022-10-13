@@ -152,7 +152,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         {
             this.syntosaDal = TeamBondEngineContext.Current.Resolve<SyntosaDal>();
             this.userActivityService = TeamBondEngineContext.Current.Resolve<IUserActivityService>();
-            this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
+            //this.userService = TeamBondEngineContext.Current.Resolve<IUserService>();
 
             this.isDeleteVisible = false;
             this.HasSelected = false;
@@ -511,9 +511,9 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         {
             var failureMessages = new StringBuilder();
             bool hasChanged = false;
-            TypeItem updatedTypeItem = this.syntosaDal.GetTypeItemByAny(
-                typeItemName: this.SelectedTypeItemName,
-                typeItemUId: this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName]).FirstOrDefault();
+            TypeItem updatedTypeItem = new TypeItem();//this.syntosaDal.GetTypeItemByAny(
+                //typeItemName: this.SelectedTypeItemName,
+                //typeItemUId: this.AllTypeItemNamesAndUIds[this.SelectedTypeItemName]).FirstOrDefault();
 
             if (!string.IsNullOrWhiteSpace(this.NewTypeItemName))
             {
@@ -719,7 +719,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllModuleNamesAndUIds()
         {
-            var modules = this.syntosaDal.GetModuleByAny();
+            var modules = new List<Module>(); //this.syntosaDal.GetModuleByAny();
             var moduleNamesUIds = new Dictionary<string, Guid>();
             foreach (var module in modules)
             {
@@ -737,7 +737,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeFunctionNamesAndUIds()
         {
-            var typeFunctions = this.syntosaDal.GetTypeFunctionByAny();
+            var typeFunctions = new List<TypeFunction>();//this.syntosaDal.GetTypeFunctionByAny();
             var typeFunctionNamesUIds = new Dictionary<string, Guid>();
             foreach (var typeFunction in typeFunctions)
             {
@@ -755,7 +755,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeItemNamesAndUIds()
         {
-            var typeItems = this.syntosaDal.GetTypeItemByAny(isAssignable: true);
+            var typeItems = new List<TypeItem>(); //this.syntosaDal.GetTypeItemByAny(isAssignable: true);
             var typeItemNamesUIds = new Dictionary<string, Guid>();
             foreach (var typeItem in typeItems)
             {
@@ -778,7 +778,7 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
         /// </returns>
         private Dictionary<string, Guid> GetAllTypeUnitNamesAndUIds()
         {
-            var typeUnits = this.syntosaDal.GetTypeUnitByAny();
+            var typeUnits = new List<TypeUnit>(); //this.syntosaDal.GetTypeUnitByAny();
             var typeUnitNamesAndUIds = new Dictionary<string, Guid>();
             foreach (var typeUnit in typeUnits)
             {
@@ -811,8 +811,8 @@ namespace TeamBond.Syntosa.Validation.DataEditor.ViewModels
                 return;
             }
 
-            var typeItemToEdit = this.syntosaDal.GetTypeItemByAny(typeItemName: this.SelectedTypeItemName)
-                .FirstOrDefault();
+            var typeItemToEdit = new TypeItem();//this.syntosaDal.GetTypeItemByAny(typeItemName: this.SelectedTypeItemName)
+                //.FirstOrDefault();
 
             this.HasSelected = true;
 
